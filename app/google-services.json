@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "668845136588",
+    "project_id": "superiora-30875",
+    "storage_bucket": "superiora-30875.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668845136588:android:86aeca888aa4447b278069",
+        "android_client_info": {
+          "package_name": "com.csd051.superiora"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "668845136588-bjp5eic4p6j6ha3bp23j55qh4sb6dgk6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKXpQnZJpYXyMmZ4Xe8Pwagl_uk0MsyA4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "668845136588-bjp5eic4p6j6ha3bp23j55qh4sb6dgk6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
