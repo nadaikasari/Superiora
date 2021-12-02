@@ -14,4 +14,14 @@
     <string name="login">Login</string>
     <string name="repeat_password">Repeat Password</string>
     <string name="create_account">Create Account</string>
+    <string name="google">Google</string>
+    <string name="tv_name_null">Nama tidak boleh kosong!</string>
+    <string name="tv_email_null">Email salah!</string>
+    <string name="tv_username_null">Username tidak boleh kosong!</string>
+    <string name="tv_pass_null">Password tidak boleh kosong!</string>
+    <string name="passvalidate">Password harus menyertakan 1 Huruf kapital, Symbol, Angka dan minimal 8 karakter </string>
+    <string name="tv_repeatpass_null">Tulis ulang password!</string>
+    <string name="email_matches">Isi email dengan Benar</string>
+    <string name="pass_notmatch">Password tidak sama!</string>
+
 </resources>

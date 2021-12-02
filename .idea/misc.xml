@@ -3,15 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.27291666666666664" />
-        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/drawable/ic_launcher_background.xml" value="0.27291666666666664" />
-        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/drawable/ic_superiora_logo_foreground.xml" value="0.27291666666666664" />
-        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/activity_login.xml" value="0.4" />
-        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/activity_main.xml" value="0.2427536231884058" />
-        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/activity_register.xml" value="0.264" />
-        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1453125" />
-        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1453125" />
-        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/mipmap-anydpi-v26/ic_superiora_logo.xml" value="0.1453125" />
+        <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/activity_register.xml" value="0.22" />
       </map>
     </option>
   </component>

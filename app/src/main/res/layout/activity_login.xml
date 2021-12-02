@@ -82,6 +82,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/sign_in"
         android:textAllCaps="false"
+        android:backgroundTint="@color/blue_btn"
         app:layout_constraintEnd_toEndOf="@+id/edt_password"
         app:layout_constraintStart_toStartOf="@+id/edt_password"
         app:layout_constraintTop_toBottomOf="@+id/btn_forgot_password" />
@@ -112,7 +113,6 @@
 
     <TextView
         android:id="@+id/tv_or"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -127,7 +127,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Google"
+        android:text="@string/google"
+        android:backgroundTint="@color/blue_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btn_sign_in"
         app:layout_constraintStart_toStartOf="@+id/btn_sign_in" />
