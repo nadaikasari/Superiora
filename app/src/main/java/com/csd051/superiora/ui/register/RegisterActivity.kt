@@ -1,8 +1,10 @@
-package com.csd051.superiora.register
+package com.csd051.superiora.ui.register
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.csd051.superiora.databinding.ActivityRegisterBinding
+import com.csd051.superiora.ui.login.LoginActivity
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -12,5 +14,9 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnLogin.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
     }
 }
