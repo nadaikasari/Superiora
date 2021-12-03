@@ -6,28 +6,25 @@ import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.User
 import com.csd051.superiora.databinding.ActivityRegisterBinding
 import com.csd051.superiora.ui.login.LoginActivity
-import com.google.firebase.auth.FirebaseAuth
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
     private lateinit var viewModel: RegisterViewModel
-    private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-//            RegisterViewModel::class.java
-//        )
-
-        mAuth = FirebaseAuth.getInstance()
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
+            RegisterViewModel::class.java
+        )
 
         binding.btnLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
@@ -82,7 +79,7 @@ class RegisterActivity : AppCompatActivity() {
         isNotEmpty() && !Patterns.EMAIL_ADDRESS.matcher(this).matches()
 
 
-    fun isValidPassword(password: String?): Boolean {
+    private fun isValidPassword(password: String?): Boolean {
         password?.let {
             val passwordPattern =
                 "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$"
@@ -92,26 +89,29 @@ class RegisterActivity : AppCompatActivity() {
         } ?: return false
     }
 
-    override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        mAuth.currentUser
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun register() {
-        binding.progressBar.visibility = View.VISIBLE
         val nama = binding.edtName.text.toString()
         val email = binding.edtEmail.text.toString()
         val password = binding.edtPasswordRegister.text.toString()
 
         val user = User(nama, email, password, "")
 
-        mAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener {
-            Toast.makeText(this, "sukses", Toast.LENGTH_SHORT).show()
-            binding.progressBar.visibility = View.GONE
-        }.addOnFailureListener {
-            Toast.makeText(this, "gagal", Toast.LENGTH_SHORT).show()
-            binding.progressBar.visibility = View.GONE
-        }
+        viewModel.register(user)
+
+        viewModel.isLoading.observe(this, {
+            showLoading(it)
+        })
+
+        viewModel.getMessage.observe(this, { message ->
+            showMessage(message)
+        })
     }
 }
