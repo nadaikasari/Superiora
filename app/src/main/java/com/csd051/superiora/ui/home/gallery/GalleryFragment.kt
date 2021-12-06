@@ -12,6 +12,7 @@ import com.csd051.superiora.databinding.FragmentGalleryBinding
 
 class GalleryFragment : Fragment() {
 
+    // TODO ini fragment nyampah
     private lateinit var galleryViewModel: GalleryViewModel
     private var _binding: FragmentGalleryBinding? = null
 

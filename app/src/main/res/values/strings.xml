@@ -37,4 +37,49 @@
     <string name="bookmarked">Bookmarked</string>
     <string name="settings">Settings</string>
 
+    <!-- Notification -->
+    <string name="pref_key_notify">key_notification</string>
+    <string name="pref_notify_name">Notification</string>
+    <string name="pref_notify_summary">Reminder when countdown has finished.</string>
+    <string name="notify_channel_name">Habit Reminder</string>
+    <string name="notify_content">Time Up!</string>
+
+    <!-- Night Mode Preferences -->
+    <string name="pref_dark_title">Dark mode</string>
+    <string name="pref_key_dark" translatable="false">key_dark_mode</string>
+    <string name="pref_dark_auto" translatable="false">auto</string>
+    <string name="pref_dark_on" translatable="false">on</string>
+    <string name="pref_dark_off" translatable="false">off</string>
+    <string name="dark_mode_auto">Automatic</string>
+    <string name="dark_mode_on">Dark mode</string>
+    <string name="dark_mode_off">Light mode</string>
+
+    <!-- Logout Preferences -->
+    <string name="pref_logout_title" translatable="false">Log Out</string>
+    <string name="pref_key_logout">key_logout</string>
+    <string name="pref_logout_true" translatable="false">Log Out</string>
+    <string name="pref_logout_false" translatable="false">Log In</string>
+
+
+    <string name="profile">Profile</string>
+    <string name="reminder">Reminder</string>
+    <string name="today_schedule">Today Schedule</string>
+    <string name="your_task">Your Task</string>
+    <string name="title_hint">Title</string>
+    <string name="trigger_link_hint">Trigger Link</string>
+    <string name="details_hint">Details</string>
+    <string name="due_date">Due Date</string>
+    <string name="save">Save</string>
+    <string name="dummy_details">0 of 2 · Thu, 2 Dec 2021</string>
+    <string name="next_step">Next Step</string>
+    <string name="update">Update</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="name_hint">Name</string>
+    <string name="email_hint">Email</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="change_photo">Change Photo</string>
+    <string name="display">Display</string>
+    <string name="dummy_detail">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</string>
+    <string name="edit_task">Edit Task</string>
+
 </resources>

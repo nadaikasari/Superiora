@@ -4,20 +4,37 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/drawable/ic_calendar_month.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/drawable/ic_close.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/drawable/ic_darkmode.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/drawable/ic_launcher_background.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/drawable/ic_logout.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/drawable/ic_settings.xml" value="0.1453125" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/drawable/ic_superiora_logo_foreground.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/activity_add_task.xml" value="0.264" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/activity_detail_task.xml" value="0.264" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/activity_edit_task.xml" value="0.264" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/activity_edit_user.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/activity_home.xml" value="0.264" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/activity_login.xml" value="0.4" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/activity_main.xml" value="0.2427536231884058" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/activity_register.xml" value="0.264" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/activity_settings.xml" value="0.23369565217391305" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/app_bar_home.xml" value="0.23369565217391305" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/content_home.xml" value="0.23369565217391305" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/fragment_gallery.xml" value="0.536" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/fragment_home.xml" value="0.12916666666666668" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/fragment_slideshow.xml" value="0.23369565217391305" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/nav_header_home.xml" value="0.12916666666666668" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/root_preferences.xml" value="0.23369565217391305" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/task_item.xml" value="0.4" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/task_item_simple.xml" value="0.4" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/menu/activity_main_drawer.xml" value="0.536" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/menu/home.xml" value="0.25677083333333334" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1453125" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1453125" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/mipmap-anydpi-v26/ic_superiora_logo.xml" value="0.1453125" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/xml/root_preferences.xml" value="0.4" />
       </map>
     </option>
   </component>

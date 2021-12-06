@@ -12,6 +12,7 @@ import com.csd051.superiora.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
+    // TODO ini fragment nyampah
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
 

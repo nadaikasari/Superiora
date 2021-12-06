@@ -12,6 +12,7 @@ import com.csd051.superiora.databinding.FragmentSlideshowBinding
 
 class SlideshowFragment : Fragment() {
 
+    // TODO ini fragment nyampah
     private lateinit var slideshowViewModel: SlideshowViewModel
     private var _binding: FragmentSlideshowBinding? = null
 
