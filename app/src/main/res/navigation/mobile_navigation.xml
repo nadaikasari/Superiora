@@ -7,23 +7,85 @@
 
     <fragment
         android:id="@+id/nav_today"
-        android:name="com.csd051.superiora.ui.home.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/nav_today"
-        android:name="com.csd051.superiora.ui.home.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:name="com.csd051.superiora.ui.home.today_schedule.TodayScheduleFragment"
+        android:label="@string/today_schedule"
+        tools:layout="@layout/fragment_today_schedule" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.csd051.superiora.ui.home.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
     <activity
         android:id="@+id/nav_settings"
         android:name="com.csd051.superiora.ui.setting.SettingsActivity"
         android:label="SettingsActivity" />
+
+    <fragment
+        android:id="@+id/nav_task"
+        android:name="com.csd051.superiora.ui.home.yourtask.YourTaskFragment"
+        android:label= "@string/your_task"
+        tools:layout="@layout/fragment_your_task" />
+
+    <fragment
+        android:id="@+id/nav_android"
+        android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
+        android:label="@string/android"
+        tools:layout="@layout/fragment_roadmaps" />
+
+    <fragment
+        android:id="@+id/nav_angular"
+        android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
+        android:label="@string/angular"
+        tools:layout="@layout/fragment_roadmaps" />
+
+    <fragment
+        android:id="@+id/nav_backend"
+        android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
+        android:label="@string/backend"
+        tools:layout="@layout/fragment_roadmaps" />
+
+    <fragment
+        android:id="@+id/nav_dba"
+        android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
+        android:label="@string/dba"
+        tools:layout="@layout/fragment_roadmaps" />
+
+    <fragment
+        android:id="@+id/nav_devops"
+        android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
+        android:label="@string/devops"
+        tools:layout="@layout/fragment_roadmaps" />
+
+    <fragment
+        android:id="@+id/nav_frontend"
+        android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
+        android:label="@string/frontend"
+        tools:layout="@layout/fragment_roadmaps" />
+
+    <!-- Todo Bal ganti icon go -->
+    <fragment
+        android:id="@+id/nav_go"
+        android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
+        android:label="@string/go"
+        tools:layout="@layout/fragment_roadmaps" />
+
+    <fragment
+        android:id="@+id/nav_java"
+        android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
+        android:label="@string/java"
+        tools:layout="@layout/fragment_roadmaps" />
+
+    <fragment
+        android:id="@+id/nav_python"
+        android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
+        android:label="@string/python"
+        tools:layout="@layout/fragment_roadmaps" />
+
+    <fragment
+        android:id="@+id/nav_react"
+        android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
+        android:label="@string/react"
+        tools:layout="@layout/fragment_roadmaps" />
 </navigation>

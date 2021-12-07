@@ -2,6 +2,7 @@ package com.csd051.superiora.ui.setting
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
@@ -19,6 +20,7 @@ class SettingsActivity : AppCompatActivity() {
                 .commit()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setTitle(R.string.settings)
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
@@ -42,5 +44,15 @@ class SettingsActivity : AppCompatActivity() {
             requireActivity().recreate()
             return true
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

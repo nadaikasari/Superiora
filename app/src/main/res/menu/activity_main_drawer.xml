@@ -3,32 +3,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:enabled="false"
-            android:title="@string/bookmarked" />
 
-        <item
-            android:id="@+id/nav_today"
-            android:icon="@drawable/ic_calendar_month"
-            android:title="@string/today_schedule" />
-        <item
-            android:id="@+id/nav_task"
-            android:icon="@drawable/ic_star"
-            android:title="@string/your_task" />
-<!--        <item-->
-<!--            android:id="@+id/nav_slideshow"-->
-<!--            android:icon="@drawable/ic_menu_slideshow"-->
-<!--            android:title="@string/menu_slideshow" />-->
-    </group>
-    <group android:checkableBehavior="single">
-        <item
-            android:enabled="false"
-            android:title="@string/settings" />
+    <item android:title="@string/bookmarked">
+        <menu>
+            <item
+                android:id="@+id/nav_today"
+                android:icon="@drawable/ic_calendar_month"
+                android:title="@string/today_schedule" />
+            <item
+                android:id="@+id/nav_task"
+                android:icon="@drawable/ic_star"
+                android:title="@string/your_task" />
+        </menu>
+    </item>
 
-        <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_settings"
-            android:title="@string/settings" />
-    </group>
+    <item android:title="@string/roadmaps">
+        <menu>
+            <item
+                android:id="@+id/nav_android"
+                android:icon="@drawable/ic_android"
+                android:title="@string/android" />
+            <item
+                android:id="@+id/nav_angular"
+                android:icon="@drawable/ic_angular"
+                android:title="@string/angular" />
+            <item
+                android:id="@+id/nav_backend"
+                android:icon="@drawable/ic_web"
+                android:title="@string/backend" />
+            <item
+                android:id="@+id/nav_dba"
+                android:icon="@drawable/ic_dba"
+                android:title="@string/dba" />
+            <item
+                android:id="@+id/nav_devops"
+                android:icon="@drawable/ic_devops"
+                android:title="@string/devops" />
+            <item
+                android:id="@+id/nav_frontend"
+                android:icon="@drawable/ic_web"
+                android:title="@string/frontend" />
+            <item
+                android:id="@+id/nav_go"
+                android:icon="@drawable/ic_dba"
+                android:title="@string/go" />
+            <item
+                android:id="@+id/nav_java"
+                android:icon="@drawable/ic_java"
+                android:title="@string/java" />
+            <item
+                android:id="@+id/nav_python"
+                android:icon="@drawable/ic_python"
+                android:title="@string/python" />
+            <item
+                android:id="@+id/nav_react"
+                android:icon="@drawable/ic_react"
+                android:title="@string/react" />
+        </menu>
+    </item>
+
+    <item android:title="@string/settings">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+                android:icon="@drawable/ic_settings"
+                android:title="@string/settings" />
+        </menu>
+    </item>
+
+
 </menu>

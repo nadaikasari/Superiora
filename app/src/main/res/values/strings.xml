@@ -26,7 +26,7 @@
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_title">User Superiora</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
@@ -36,13 +36,30 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="bookmarked">Bookmarked</string>
     <string name="settings">Settings</string>
+    <string name="roadmaps">Roadmaps</string>
+
+    <!-- Roadmaps -->
+    <string name="android">Android</string>
+    <string name="angular">Angular</string>
+    <string name="backend">Backend</string>
+    <string name="dba">DBA</string>
+    <string name="devops">DevOps</string>
+    <string name="frontend">Frontend</string>
+    <string name="python">Python</string>
+    <string name="java">Java</string>
+    <string name="react">React</string>
+    <string name="go">Go</string>
+
+    <!-- filter menu -->
+    <string name="all_task">All Task</string>
+    <string name="near_deadline">Near Deadline</string>
+    <string name="complete">Complete</string>
+    <string name="favorite_task">Favorite Task</string>
 
     <!-- Notification -->
     <string name="pref_key_notify">key_notification</string>
     <string name="pref_notify_name">Notification</string>
-    <string name="pref_notify_summary">Reminder when countdown has finished.</string>
-    <string name="notify_channel_name">Habit Reminder</string>
-    <string name="notify_content">Time Up!</string>
+    <string name="pref_notify_summary">Daily reminder for nearest active task.</string>
 
     <!-- Night Mode Preferences -->
     <string name="pref_dark_title">Dark mode</string>
@@ -81,5 +98,11 @@
     <string name="display">Display</string>
     <string name="dummy_detail">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</string>
     <string name="edit_task">Edit Task</string>
+
+    <string name="search">Search</string>
+
+    <string name="btnAdd">Add new task</string>
+    <string name="addTask">Add Task</string>
+    <string name="delete">Delete</string>
 
 </resources>

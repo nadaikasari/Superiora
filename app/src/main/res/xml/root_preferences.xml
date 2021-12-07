@@ -1,15 +1,16 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="@string/profile">
+    <PreferenceCategory app:title="@string/profile" />
 
-    </PreferenceCategory>
-
-    <PreferenceCategory app:title="@string/reminder">
+    <PreferenceCategory
+        android:baselineAligned="false"
+        app:title="@string/reminder">
         <SwitchPreference
+            app:icon="@drawable/ic_notification"
             app:key="@string/pref_key_notify"
             app:summary="@string/pref_notify_summary"
-            app:title="@string/pref_notify_name"
-            app:icon="@drawable/ic_notification"/>
+            app:title="@string/pref_notify_name" />
     </PreferenceCategory>
 
     <PreferenceCategory app:title="@string/display">
