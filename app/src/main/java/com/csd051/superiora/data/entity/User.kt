@@ -13,7 +13,7 @@ data class User(
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
-    var id: Int,
+    var id: String,
 
     @ColumnInfo(name = "nama")
     var nama : String,

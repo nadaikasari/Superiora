@@ -102,7 +102,7 @@ class RegisterActivity : AppCompatActivity() {
         val email = binding.edtEmail.text.toString()
         val password = binding.edtPasswordRegister.text.toString()
 
-        val user = User(nama, email, password, "")
+        val user = User("",nama, email, password, "")
 
         viewModel.register(user)
 
