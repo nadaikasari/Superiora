@@ -3,12 +3,9 @@ package com.csd051.superiora.ui.home.yourtask
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.view.View.inflate
 import androidx.fragment.app.Fragment
 import com.csd051.superiora.R
-import com.csd051.superiora.databinding.ActivityAddTaskBinding.inflate
 import com.csd051.superiora.databinding.FragmentYourTaskBinding
-import com.csd051.superiora.databinding.TaskItemSimpleBinding.inflate
 import com.csd051.superiora.ui.add.AddTaskActivity
 
 
