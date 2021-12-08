@@ -104,7 +104,6 @@
     <string name="btnAdd">Add new task</string>
     <string name="addTask">Add Task</string>
     <string name="delete">Delete</string>
-    <string name="added">Task berhasil ditambahkan</string>
-    <string name="error_message">Terjadi kesalahaan!</string>
+    <string name="empty_task">Empty Task</string>
 
 </resources>

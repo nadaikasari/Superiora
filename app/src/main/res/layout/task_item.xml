@@ -66,9 +66,11 @@
             android:id="@+id/rv_child"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_desc"
+            android:layout_marginStart="16dp"
             android:visibility="gone"
-            tools:visibility="visible"/>
+            app:layout_constraintStart_toStartOf="@+id/cb_item"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_desc"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
