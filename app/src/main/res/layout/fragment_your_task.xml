@@ -16,4 +16,8 @@
         app:srcCompat="@drawable/ic_add"
         android:contentDescription="@string/btnAdd" />
 
+    <include
+        android:id="@+id/empty_task"
+        layout="@layout/content_empty" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

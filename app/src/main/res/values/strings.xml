@@ -104,5 +104,6 @@
     <string name="btnAdd">Add new task</string>
     <string name="addTask">Add Task</string>
     <string name="delete">Delete</string>
+    <string name="empty_task">Empty Task</string>
 
 </resources>
