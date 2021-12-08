@@ -105,5 +105,6 @@
     <string name="addTask">Add Task</string>
     <string name="delete">Delete</string>
     <string name="empty_task">Empty Task</string>
+    <string name="added">Task berhasil ditambahkan!</string>
 
 </resources>

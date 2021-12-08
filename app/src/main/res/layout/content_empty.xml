@@ -27,7 +27,7 @@
         android:gravity="center"
         android:text="There is no task left !\nYou can relax for a while!"
         android:textColor="#000000"
-        android:textSize="24sp"
+        android:textSize="19sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/imageView3"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
