@@ -12,8 +12,8 @@ import kotlinx.parcelize.Parcelize
 data class User(
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "id")
-    var id: String,
+    @ColumnInfo(name = "id_firebase")
+    var id_firebase: String,
 
     @ColumnInfo(name = "nama")
     var nama : String,
@@ -24,6 +24,6 @@ data class User(
     @ColumnInfo(name = "password")
     var password : String,
 
-    @ColumnInfo(name = "photo")
-    var photo : String
+    @ColumnInfo(name = "urlPhoto")
+    var urlPhoto : String
 ) : Parcelable

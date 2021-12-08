@@ -1,14 +1,42 @@
 package com.csd051.superiora.data.entity
 
-import androidx.annotation.NonNull
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "taskuser")
+@Parcelize
 data class Task (
-    @PrimaryKey
-    @NonNull
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: String
-    )
+    var id: Int = 0,
+
+    @ColumnInfo(name = "id_parent")
+    var id_parent: Int = -1,
+
+    @ColumnInfo(name = "id_firebase")
+    var id_firebase: String? = null,
+
+    @ColumnInfo(name = "title")
+    var title: String? = null,
+
+    @ColumnInfo(name = "dueDate")
+    var dueDate: String? = null,
+
+    @ColumnInfo(name = "triggerLink")
+    var triggerLink: String? = null,
+
+    @ColumnInfo(name = "details")
+    var details: String? = null,
+
+    @ColumnInfo(name = "isDone")
+    var isDone: Boolean = false,
+
+    @ColumnInfo(name = "isFavorite")
+    var isFavorite: Boolean = false,
+
+    @ColumnInfo(name = "isFavByParent")
+    var isFavByParent: Boolean = false
+    ) : Parcelable

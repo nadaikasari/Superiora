@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:text="@string/title_hint"
-            android:textColor="@color/black"
+            style="@style/text_color"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/tv_item_desc"
             app:layout_constraintEnd_toStartOf="@+id/btn_dropdown"
@@ -53,13 +53,12 @@
 
         <Button
             android:id="@+id/btn_dropdown"
-            style="@style/Widget.AppCompat.Light.ActionButton"
+            style="@style/btn_dropdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             app:icon="@drawable/ic_drop_down"
             app:iconGravity="end"
-            app:iconTint="#000000"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

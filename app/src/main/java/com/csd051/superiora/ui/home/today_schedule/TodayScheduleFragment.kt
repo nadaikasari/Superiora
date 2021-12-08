@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.csd051.superiora.databinding.FragmentTodayScheduleBinding
+import com.csd051.superiora.viewmodel.ViewModelFactory
 
 class TodayScheduleFragment : Fragment() {
 
@@ -21,8 +22,9 @@ class TodayScheduleFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        todayScheduleViewModel =
-            ViewModelProvider(this)[TodayScheduleViewModel::class.java]
+
+        val factory = ViewModelFactory.getInstance(requireActivity())
+        todayScheduleViewModel = ViewModelProvider(this, factory)[TodayScheduleViewModel::class.java]
 
         _binding = FragmentTodayScheduleBinding.inflate(inflater, container, false)
         val root: View = binding.root

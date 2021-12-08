@@ -1,10 +1,13 @@
 package com.csd051.superiora.data.room
 
 import android.content.Context
+import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.csd051.superiora.data.entity.Task
+import com.csd051.superiora.data.entity.User
 
-// Todo Buat database
+@Database(entities = [User::class, Task::class], version = 1, exportSchema = false)
 abstract class SuperioraDatabase : RoomDatabase() {
     abstract fun superioraDao() : SuperioraDao
 

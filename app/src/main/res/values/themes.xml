@@ -22,4 +22,12 @@
     <style name="Theme.Superiora.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Superiora.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="text_color">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="btn_dropdown">
+        <item name="iconTint">@color/black</item>
+    </style>
 </resources>
