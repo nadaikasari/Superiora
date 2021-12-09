@@ -27,9 +27,9 @@ class YourTaskFragment : Fragment() {
 
         val factory = ViewModelFactory.getInstance(requireActivity())
         viewModel = ViewModelProvider(this, factory)[YourTaskViewModel::class.java]
-        val adapterTask = YourTaskAdapter()
+        val adapterTask = YourTaskAdapter(viewLifecycleOwner, viewModel)
 
-        viewModel.getAllTask().observe(viewLifecycleOwner, { listTask ->
+        viewModel.getRootTask().observe(viewLifecycleOwner, { listTask ->
             if (listTask != null) {
                 binding.progressBar3.visibility = View.GONE
                 adapterTask.setListTask(listTask)

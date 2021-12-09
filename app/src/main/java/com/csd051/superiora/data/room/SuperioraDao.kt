@@ -17,4 +17,10 @@ interface SuperioraDao {
 
     @Query("SELECT * from taskuser ORDER BY id ASC")
     fun getAllTask(): LiveData<List<Task>>
+
+    @Query("SELECT * from taskuser WHERE id_parent = -1 ORDER BY id ASC")
+    fun getRootTask(): LiveData<List<Task>>
+
+    @Query("SELECT * from taskuser WHERE id_parent = :parentId ORDER BY id ASC")
+    fun getChildTask(parentId: Int): LiveData<List<Task>>
 }

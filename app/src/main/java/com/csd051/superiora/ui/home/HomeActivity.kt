@@ -1,7 +1,9 @@
 package com.csd051.superiora.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -11,6 +13,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.csd051.superiora.R
 import com.csd051.superiora.databinding.ActivityHomeBinding
+import com.csd051.superiora.ui.login.LoginActivity
+import com.csd051.superiora.utils.DatePickerFragment
 import com.google.android.material.navigation.NavigationView
 
 class HomeActivity : AppCompatActivity() {
@@ -39,6 +43,10 @@ class HomeActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    fun actionHeaderClick(view: View) {
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

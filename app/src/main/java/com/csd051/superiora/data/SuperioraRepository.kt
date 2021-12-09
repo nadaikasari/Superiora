@@ -24,15 +24,31 @@ class SuperioraRepository(
     private lateinit var firebase: FirebaseFirestore
     private lateinit var mAuth: FirebaseAuth
 
+    fun getAllTask(): LiveData<List<Task>> = localDataSource.getAllTask()
+
+    fun getRootTask(): LiveData<List<Task>> = localDataSource.getRootTask()
+
+    fun getChildTask(parentId: Int): LiveData<List<Task>> = localDataSource.getChildById(parentId)
+
     fun insertTask(task: Task) {
         appExecutors.diskIO().execute {
             localDataSource.insertTask(task)
         }
     }
 
-    fun getAllTask(): LiveData<List<Task>> = localDataSource.getAllTask()
+    fun deleteTask(task: Task) {
+        appExecutors.diskIO().execute {
+            localDataSource.delete(task)
+        }
+    }
 
+    fun updateTask(task: Task) {
+        appExecutors.diskIO().execute {
+            localDataSource.update(task)
+        }
+    }
 
+    // ----------------------Ini Firebase------------------------
     fun register(users: User) {
         mAuth = FirebaseAuth.getInstance()
         firebase = FirebaseFirestore.getInstance()
