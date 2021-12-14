@@ -71,6 +71,7 @@ class SuperioraRepository(
 
     // ----------------------API Response------------------------
     fun getDataAPI(currentValue: Int, courseId: Int){
+        println("Ini jalan uuuuuuuuuuuuuu")
         remoteDataSource.getListData(currentValue, courseId, object : RemoteDataSource.LoadDataListCallback{
             override fun onAllDataReceived(dataListResponse: List<Task>) {
                 insertAllTask(dataListResponse)

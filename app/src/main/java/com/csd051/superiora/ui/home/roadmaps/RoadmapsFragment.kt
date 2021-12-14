@@ -34,8 +34,8 @@ class RoadmapsFragment : Fragment() {
         // TODO CourseIdnya kudu di load dlu pake EXTRA
         viewModel.getAllTask().observe(viewLifecycleOwner, { data ->
             currentSize = data.size
-            counter ++
-            if (counter == 2) {
+            counter += 3
+            if (counter == 5) {
                 viewModel.getDataFromApi(currentSize, courseId)
             }
         })
@@ -45,8 +45,8 @@ class RoadmapsFragment : Fragment() {
                 binding.progressBar3.visibility = View.GONE
                 adapterTask.setListTask(listTask)
             }else {
-                counter ++
-                if (counter == 2) {
+                counter += 2
+                if (counter == 5) {
                     viewModel.getDataFromApi(currentSize, courseId)
                 }
             }
