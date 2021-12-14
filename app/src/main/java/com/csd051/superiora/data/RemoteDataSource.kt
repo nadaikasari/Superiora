@@ -37,10 +37,10 @@ class RemoteDataSource {
                 if (response.isSuccessful) {
                     val listData = ArrayList<Task>()
                     for (data in response.body()!!) {
-                        data.id_course = courseId
+                        data.id_course = courseId + 1
                         data.id += tableLength
                         if (data.id_parent != -1) {
-                            data.id_parent += tableLength
+                            data.id_parent += tableLength + 1
                         }
                         listData.add(
                             data
