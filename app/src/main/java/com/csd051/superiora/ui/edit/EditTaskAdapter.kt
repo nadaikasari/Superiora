@@ -49,7 +49,7 @@ class EditTaskAdapter(
                     intent.putExtra(EditTaskActivity.EXTRA_DATA, task)
                     it.context.startActivity(intent)
                 }
-                btnDelete.setOnClickListener {
+                deleteTask.setOnClickListener {
                     deleteTask(task)
                 }
 
