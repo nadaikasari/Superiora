@@ -21,4 +21,8 @@
     <style name="btn_dropdown">
         <item name="iconTint">@color/white</item>
     </style>
+
+    <style name="btn_color">
+        <item name="android:backgroundTint">@color/deep_blue</item>
+    </style>
 </resources>

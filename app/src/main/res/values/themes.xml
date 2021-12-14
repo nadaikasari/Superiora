@@ -30,4 +30,8 @@
     <style name="btn_dropdown">
         <item name="iconTint">@color/black</item>
     </style>
+
+    <style name="btn_color">
+        <item name="android:backgroundTint">@color/blue_sky</item>
+    </style>
 </resources>

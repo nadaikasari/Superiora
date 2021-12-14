@@ -1,6 +1,8 @@
 package com.csd051.superiora.ui.edit
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
@@ -58,14 +60,22 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
         }
 
         binding.addChild.setOnClickListener {
-            val childTask = Task()
-            childTask.let {
-                childTask.id_firebase = ""
-                childTask.id_parent = task?.id ?: -1
-                childTask.title = binding.edtNewChildName.text.toString()
+            if(binding.edtNewChildName.text.isNotEmpty()) {
+                val childTask = Task()
+                childTask.let {
+                    childTask.id_firebase = ""
+                    childTask.id_parent = task?.id ?: -1
+                    childTask.title = binding.edtNewChildName.text.toString()
+                }
+                viewModel.insertChild(childTask)
+                binding.edtNewChildName.setText("")
             }
-            viewModel.insertChild(childTask)
-            binding.edtNewChildName.setText("")
+            else {
+                binding.edtNewChildName.error = getString(R.string.tv_child_notnull)
+                binding.edtNewChildName.requestFocus()
+
+            }
+
         }
 
         viewModel.getChildTask(task?.id ?: -2).observe(this, { tasks ->
