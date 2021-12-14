@@ -18,7 +18,7 @@ import com.csd051.superiora.utils.DatePickerFragment
 import com.google.android.material.navigation.NavigationView
 
 class HomeActivity : AppCompatActivity() {
-
+    //Test
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityHomeBinding
 
