@@ -31,7 +31,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:backgroundTint="@color/gray_soft"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 

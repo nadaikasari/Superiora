@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.data.entity.User
 
-@Database(entities = [User::class, Task::class], version = 1, exportSchema = false)
+@Database(entities = [User::class, Task::class], version = 2, exportSchema = false)
 abstract class SuperioraDatabase : RoomDatabase() {
     abstract fun superioraDao() : SuperioraDao
 

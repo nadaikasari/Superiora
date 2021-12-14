@@ -25,7 +25,8 @@ class EditTaskAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val listTask = TaskItemSimpleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val listTask =
+            TaskItemSimpleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TaskViewHolder(listTask)
     }
 

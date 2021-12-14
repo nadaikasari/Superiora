@@ -21,21 +21,24 @@
         <CheckBox
             android:id="@+id/cb_item"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/rv_child"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_item_title"
+            style="@style/text_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="8dp"
             android:text="@string/title_hint"
-            style="@style/text_color"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/tv_item_desc"
-            app:layout_constraintEnd_toStartOf="@+id/btn_dropdown"
+            app:layout_constraintEnd_toStartOf="@+id/dropdown"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/cb_item"
             app:layout_constraintTop_toTopOf="@+id/cb_item" />
@@ -44,36 +47,37 @@
             android:id="@+id/tv_item_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:text="@string/dummy_details"
             app:layout_constraintBottom_toBottomOf="@+id/cb_item"
-            app:layout_constraintEnd_toStartOf="@+id/btn_dropdown"
+            app:layout_constraintEnd_toStartOf="@+id/dropdown"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/cb_item"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_title" />
 
-        <Button
-            android:id="@+id/btn_dropdown"
-            style="@style/btn_dropdown"
+        <TextView
+            android:id="@+id/dropdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            app:icon="@drawable/ic_drop_down"
-            app:iconGravity="end"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:drawableLeftCompat="@drawable/ic_drop_down"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_child"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/cb_item"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_desc"
             tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 </androidx.cardview.widget.CardView>

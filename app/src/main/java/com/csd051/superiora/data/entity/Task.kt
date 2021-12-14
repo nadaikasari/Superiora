@@ -13,6 +13,9 @@ data class Task (
     @ColumnInfo(name = "id")
     var id: Int = 0,
 
+    @ColumnInfo(name = "id_course")
+    var id_course: Int = 0,
+
     @ColumnInfo(name = "id_parent")
     var id_parent: Int = -1,
 
@@ -37,6 +40,9 @@ data class Task (
     @ColumnInfo(name = "isFavorite")
     var isFavorite: Boolean = false,
 
-    @ColumnInfo(name = "isFavByParent")
-    var isFavByParent: Boolean = false
+    @ColumnInfo(name = "isRecomended")
+    var isRecomended: Boolean = false,
+
+    @ColumnInfo(name = "isDoneByParent")
+    var isDoneByParent: Boolean = false
     ) : Parcelable

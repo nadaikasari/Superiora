@@ -27,7 +27,7 @@ class TaskDiffCallback (private val mOldTaskList: List<Task>, private val mNewTa
                 oldEmployee.details == newEmployee.details &&
                 oldEmployee.isDone == newEmployee.isDone &&
                 oldEmployee.isFavorite == newEmployee.isFavorite &&
-                oldEmployee.isFavByParent == newEmployee.isFavByParent
+                oldEmployee.isDoneByParent == newEmployee.isDoneByParent
     }
 
 

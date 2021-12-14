@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.csd051.superiora.R
@@ -42,7 +41,7 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
 
         task?.let { task ->
             binding.addEdTitle.setText(task.title)
-            binding.addTvDueDate.setText(task.dueDate)
+            binding.addTvDueDate.text = task.dueDate
             binding.addEdTriggerlink.setText(task.triggerLink)
             binding.addEdDescription.setText(task.details)
         }
@@ -58,7 +57,7 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
             finish()
         }
 
-        binding.btnAddChild.setOnClickListener {
+        binding.addChild.setOnClickListener {
             val childTask = Task()
             childTask.let {
                 childTask.id_firebase = ""
@@ -100,7 +99,6 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
     }
 
     private fun showRecyclerView(tasks: List<Task>) {
-        //TODO 7(DONE) : Submit pagedList to adapter and update database when onCheckChange
         val adapter = EditTaskAdapter { task ->
             viewModel.deleteChild(task)
         }

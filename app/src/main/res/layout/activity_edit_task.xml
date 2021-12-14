@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".ui.edit.EditTaskActivity">
@@ -11,8 +11,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
@@ -27,10 +28,9 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
-            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gray_soft"
+            android:layout_marginTop="16dp"
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -40,29 +40,28 @@
                 tools:itemCount="3"
                 tools:listitem="@layout/task_item_simple" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_add_child"
-                    style="@style/Widget.AppCompat.Light.ActionButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    app:icon="@drawable/ic_add"
-                    app:iconGravity="end"
-                    app:iconTint="#000000" />
 
                 <EditText
                     android:id="@+id/edt_new_child_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:autofillHints="Task 1"
                     android:hint="@string/next_step"
-                    android:inputType="text"
-                    android:autofillHints="Task 1" />
-            </LinearLayout>
+                    android:inputType="text" />
+
+                <TextView
+                    android:id="@+id/add_child"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="10dp"
+                    app:drawableLeftCompat="@drawable/ic_add" />
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -72,7 +71,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:backgroundTint="@color/gray_soft"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 

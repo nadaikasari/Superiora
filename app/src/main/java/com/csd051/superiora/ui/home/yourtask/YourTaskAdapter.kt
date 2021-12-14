@@ -1,21 +1,21 @@
 package com.csd051.superiora.ui.home.yourtask
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isEmpty
+import androidx.core.view.isNotEmpty
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.TaskItemBinding
 import com.csd051.superiora.helper.TaskDiffCallback
 import com.csd051.superiora.ui.edit.EditTaskActivity
-import com.csd051.superiora.utils.ItemCallback
-import java.util.ArrayList
+import java.util.*
 
 class YourTaskAdapter(private val ctx: LifecycleOwner, private val yourTaskViewModel : YourTaskViewModel) : RecyclerView.Adapter<YourTaskAdapter.TaskViewHolder>() {
 
@@ -68,11 +68,13 @@ class YourTaskAdapter(private val ctx: LifecycleOwner, private val yourTaskViewM
                     adapter = adapterTask
                 }
 
-                btnDropdown.setOnClickListener {
+                dropdown.setOnClickListener {
                     if (rvChild.visibility == View.VISIBLE) {
                         rvChild.visibility = View.GONE
+                        dropdown.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_drop_down, 0,0,0)
                     } else {
                         rvChild.visibility = View.VISIBLE
+                        dropdown.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dropdown_up, 0,0,0)
                     }
                 }
             }
