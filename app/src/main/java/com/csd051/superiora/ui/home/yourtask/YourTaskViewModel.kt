@@ -9,7 +9,7 @@ class YourTaskViewModel(private val repository: SuperioraRepository) : ViewModel
 
     fun getAllTask() : LiveData<List<Task>> = repository.getAllTask()
 
-    fun getRootTask() : LiveData<List<Task>> = repository.getRootTask()
+    fun getRootTask(courseId: Int) : LiveData<List<Task>> = repository.getRootTask(courseId)
 
     fun getChildTask(parentId: Int) : LiveData<List<Task>> = repository.getChildTask(parentId)
 

@@ -29,7 +29,7 @@ class YourTaskFragment : Fragment() {
         viewModel = ViewModelProvider(this, factory)[YourTaskViewModel::class.java]
         val adapterTask = YourTaskAdapter(viewLifecycleOwner, viewModel)
 
-        viewModel.getRootTask().observe(viewLifecycleOwner, { listTask ->
+        viewModel.getRootTask(0).observe(viewLifecycleOwner, { listTask ->
             if (listTask != null) {
                 binding.progressBar3.visibility = View.GONE
                 adapterTask.setListTask(listTask)
@@ -58,7 +58,6 @@ class YourTaskFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_your_task, menu)
         super.onCreateOptionsMenu(menu, inflater)
-
     }
 
     override fun onDestroyView() {

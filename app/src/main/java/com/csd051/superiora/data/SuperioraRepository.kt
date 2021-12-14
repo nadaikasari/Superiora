@@ -2,6 +2,7 @@ package com.csd051.superiora.data
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagedList
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.data.entity.User
@@ -18,7 +19,8 @@ import java.util.concurrent.Executors
 
 class SuperioraRepository(
     private val localDataSource: LocalDataSource,
-    private val appExecutors: AppExecutors
+    private val appExecutors: AppExecutors,
+    private val remoteDataSource: RemoteDataSource
 ) {
 
     private lateinit var firebase: FirebaseFirestore
@@ -26,11 +28,17 @@ class SuperioraRepository(
 
     fun getAllTask(): LiveData<List<Task>> = localDataSource.getAllTask()
 
-    fun getRootTask(): LiveData<List<Task>> = localDataSource.getRootTask()
+    fun getRootTask(courseId: Int): LiveData<List<Task>> = localDataSource.getRootTask(courseId)
 
     fun getChildTask(parentId: Int): LiveData<List<Task>> = localDataSource.getChildById(parentId)
 
     fun insertTask(task: Task) {
+        appExecutors.diskIO().execute {
+            localDataSource.insertTask(task)
+        }
+    }
+
+    fun insertAllTask(task: List<Task>) {
         appExecutors.diskIO().execute {
             localDataSource.insertTask(task)
         }
@@ -61,15 +69,29 @@ class SuperioraRepository(
         df.set(userInfo)
     }
 
+    // ----------------------API Response------------------------
+    fun getDataAPI(courseId: Int){
+        // TODO Kudu Dapetin panjang data saat ini
+        val currentValue = getAllTask().value
+        println("Panjang saat ini:")
+        println(currentValue)
+        remoteDataSource.getListData(currentValue?.size ?: 0, courseId, object : RemoteDataSource.LoadDataListCallback{
+            override fun onAllDataReceived(dataListResponse: List<Task>) {
+                insertAllTask(dataListResponse)
+            }
+        })
+    }
+
     companion object {
         @Volatile
         private var instance: SuperioraRepository? = null
         fun getInstance(
             localData: LocalDataSource,
-            appExecutors: AppExecutors
+            appExecutors: AppExecutors,
+            remoteData: RemoteDataSource
         ): SuperioraRepository =
             instance ?: synchronized(this) {
-                SuperioraRepository(localData, appExecutors).apply {
+                SuperioraRepository(localData, appExecutors, remoteData).apply {
                     instance = this
                 }
             }
