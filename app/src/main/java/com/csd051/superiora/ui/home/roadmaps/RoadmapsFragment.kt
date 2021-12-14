@@ -25,29 +25,29 @@ class RoadmapsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         fragmentRoadmapsBinding = FragmentYourTaskBinding.inflate(inflater, container, false)
         val factory = ViewModelFactory.getInstance(requireActivity())
         viewModel = ViewModelProvider(this, factory)[RoadmapsViewModel::class.java]
         val adapterTask = RoadmapsAdapter(viewLifecycleOwner, viewModel)
-
+        val courseId: Int = arguments?.getInt("courseId") ?: 0
         // TODO CourseIdnya kudu di load dlu pake EXTRA
         viewModel.getAllTask().observe(viewLifecycleOwner, { data ->
             currentSize = data.size
             counter ++
             if (counter == 2) {
-                viewModel.getDataFromApi(currentSize, 1)
+                viewModel.getDataFromApi(currentSize, courseId)
             }
         })
 
-        viewModel.getRootTask(1).observe(viewLifecycleOwner, { listTask ->
+        viewModel.getRootTask(courseId).observe(viewLifecycleOwner, { listTask ->
             if (listTask.isNotEmpty()) {
                 binding.progressBar3.visibility = View.GONE
                 adapterTask.setListTask(listTask)
             }else {
                 counter ++
                 if (counter == 2) {
-                    viewModel.getDataFromApi(currentSize, 1)
+                    viewModel.getDataFromApi(currentSize, courseId)
                 }
             }
         })

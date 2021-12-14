@@ -32,60 +32,110 @@
         android:id="@+id/nav_android"
         android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
         android:label="@string/android"
-        tools:layout="@layout/fragment_roadmaps" />
+        tools:layout="@layout/fragment_roadmaps" >
+        <argument
+            android:name="courseId"
+            app:argType="integer"
+            android:defaultValue="1" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_angular"
         android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
         android:label="@string/angular"
-        tools:layout="@layout/fragment_roadmaps" />
+        tools:layout="@layout/fragment_roadmaps" >
+        <argument
+            android:name="courseId"
+            app:argType="integer"
+            android:defaultValue="2" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_backend"
         android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
         android:label="@string/backend"
-        tools:layout="@layout/fragment_roadmaps" />
+        tools:layout="@layout/fragment_roadmaps" >
+        <argument
+            android:name="courseId"
+            app:argType="integer"
+            android:defaultValue="3" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_dba"
         android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
         android:label="@string/dba"
-        tools:layout="@layout/fragment_roadmaps" />
+        tools:layout="@layout/fragment_roadmaps" >
+        <argument
+            android:name="courseId"
+            app:argType="integer"
+            android:defaultValue="4" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_devops"
         android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
         android:label="@string/devops"
-        tools:layout="@layout/fragment_roadmaps" />
+        tools:layout="@layout/fragment_roadmaps" >
+        <argument
+            android:name="courseId"
+            app:argType="integer"
+            android:defaultValue="5" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_frontend"
         android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
         android:label="@string/frontend"
-        tools:layout="@layout/fragment_roadmaps" />
+        tools:layout="@layout/fragment_roadmaps" >
+        <argument
+            android:name="courseId"
+            app:argType="integer"
+            android:defaultValue="6" />
+    </fragment>
 
     <!-- Todo Bal ganti icon go -->
     <fragment
         android:id="@+id/nav_go"
         android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
         android:label="@string/go"
-        tools:layout="@layout/fragment_roadmaps" />
+        tools:layout="@layout/fragment_roadmaps" >
+        <argument
+            android:name="courseId"
+            app:argType="integer"
+            android:defaultValue="7" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_java"
         android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
         android:label="@string/java"
-        tools:layout="@layout/fragment_roadmaps" />
+        tools:layout="@layout/fragment_roadmaps" >
+        <argument
+            android:name="courseId"
+            app:argType="integer"
+            android:defaultValue="8" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_python"
         android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
         android:label="@string/python"
-        tools:layout="@layout/fragment_roadmaps" />
+        tools:layout="@layout/fragment_roadmaps" >
+        <argument
+            android:name="courseId"
+            app:argType="integer"
+            android:defaultValue="9" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_react"
         android:name="com.csd051.superiora.ui.home.roadmaps.RoadmapsFragment"
         android:label="@string/react"
-        tools:layout="@layout/fragment_roadmaps" />
+        tools:layout="@layout/fragment_roadmaps" >
+        <argument
+            android:name="courseId"
+            app:argType="integer"
+            android:defaultValue="10" />
+    </fragment>
 </navigation>
