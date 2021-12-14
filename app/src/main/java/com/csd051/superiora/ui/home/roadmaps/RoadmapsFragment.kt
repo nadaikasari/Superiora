@@ -19,6 +19,8 @@ class RoadmapsFragment : Fragment() {
     private var fragmentRoadmapsBinding: FragmentYourTaskBinding? = null
     private val binding get() = fragmentRoadmapsBinding!!
     private lateinit var viewModel: RoadmapsViewModel
+    private var currentSize : Int = 0
+    private var counter : Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,13 +32,23 @@ class RoadmapsFragment : Fragment() {
         val adapterTask = RoadmapsAdapter(viewLifecycleOwner, viewModel)
 
         // TODO CourseIdnya kudu di load dlu pake EXTRA
+        viewModel.getAllTask().observe(viewLifecycleOwner, { data ->
+            currentSize = data.size
+            counter ++
+            if (counter == 2) {
+                viewModel.getDataFromApi(currentSize, 1)
+            }
+        })
+
         viewModel.getRootTask(1).observe(viewLifecycleOwner, { listTask ->
             if (listTask.isNotEmpty()) {
                 binding.progressBar3.visibility = View.GONE
                 adapterTask.setListTask(listTask)
             }else {
-                println("Ini Jalan")
-                viewModel.getDataFromApi(1)
+                counter ++
+                if (counter == 2) {
+                    viewModel.getDataFromApi(currentSize, 1)
+                }
             }
         })
 

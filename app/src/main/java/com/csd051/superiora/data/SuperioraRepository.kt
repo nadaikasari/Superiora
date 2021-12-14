@@ -70,12 +70,10 @@ class SuperioraRepository(
     }
 
     // ----------------------API Response------------------------
-    fun getDataAPI(courseId: Int){
-        // TODO Kudu Dapetin panjang data saat ini
-        val currentValue = getAllTask().value
-        println("Panjang saat ini:")
+    fun getDataAPI(currentValue: Int, courseId: Int){
+        println("Current Value: ")
         println(currentValue)
-        remoteDataSource.getListData(currentValue?.size ?: 0, courseId, object : RemoteDataSource.LoadDataListCallback{
+        remoteDataSource.getListData(currentValue, courseId, object : RemoteDataSource.LoadDataListCallback{
             override fun onAllDataReceived(dataListResponse: List<Task>) {
                 insertAllTask(dataListResponse)
             }

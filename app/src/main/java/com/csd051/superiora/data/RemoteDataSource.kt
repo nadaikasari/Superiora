@@ -28,7 +28,6 @@ class RemoteDataSource {
 
     fun getListData(tableLength: Int, courseId: Int, callback: LoadDataListCallback) {
 //        EspressoIdlingResource.increment()
-        println(tableLength)
         val client = ApiConfig.getApiService().getResponseList(QueryUtilApi.pathName(courseId))
         client.enqueue(object: Callback<List<Task>> {
 
@@ -37,8 +36,8 @@ class RemoteDataSource {
                 if (response.isSuccessful) {
                     val listData = ArrayList<Task>()
                     for (data in response.body()!!) {
-                        data.id_course = courseId + 1
-                        data.id += tableLength
+                        data.id_course = courseId
+                        data.id += tableLength + 1
                         if (data.id_parent != -1) {
                             data.id_parent += tableLength + 1
                         }
@@ -52,7 +51,6 @@ class RemoteDataSource {
                 }
 //                EspressoIdlingResource.decrement()
             }
-
             override fun onFailure(call: Call<List<Task>>, t: Throwable) {
                 Log.e(TAG, "onFailure: ${t.message.toString()}")
             }

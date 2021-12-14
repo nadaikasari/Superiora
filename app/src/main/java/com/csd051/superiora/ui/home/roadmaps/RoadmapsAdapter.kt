@@ -55,8 +55,9 @@ class RoadmapsAdapter(private val ctx: LifecycleOwner, private val roadmapViewMo
                 val adapterTask = RoadmapsAdapter(ctx, roadmapViewModel)
 
                 roadmapViewModel.getChildTask(task.id).observe(ctx, { listTask ->
-                    if (listTask != null) {
+                    if (listTask.isNotEmpty()) {
                         adapterTask.setListTask(listTask)
+                        dropdown.visibility = View.VISIBLE
                     }
                 })
 

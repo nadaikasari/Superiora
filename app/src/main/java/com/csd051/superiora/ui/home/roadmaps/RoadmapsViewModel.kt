@@ -7,8 +7,9 @@ import com.csd051.superiora.data.entity.Task
 
 class RoadmapsViewModel (private val repository: SuperioraRepository) : ViewModel() {
 
-    fun getDataFromApi(courseId: Int) =
-        repository.getDataAPI(courseId)
+    fun getAllTask() : LiveData<List<Task>> = repository.getAllTask()
+
+    fun getDataFromApi(currentSize: Int ,courseId: Int) = repository.getDataAPI(currentSize, courseId)
 
     fun getRootTask(courseId: Int) : LiveData<List<Task>> = repository.getRootTask(courseId)
 

@@ -57,8 +57,9 @@ class YourTaskAdapter(private val ctx: LifecycleOwner, private val yourTaskViewM
                 val adapterTask = YourTaskAdapter(ctx, yourTaskViewModel)
 
                 yourTaskViewModel.getChildTask(task.id).observe(ctx, { listTask ->
-                    if (listTask != null) {
+                    if (listTask.isNotEmpty()) {
                         adapterTask.setListTask(listTask)
+                        dropdown.visibility = View.VISIBLE
                     }
                 })
 
