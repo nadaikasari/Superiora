@@ -1,11 +1,10 @@
 package com.csd051.superiora.ui.home.yourtask
 
 import android.content.Intent
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isEmpty
-import androidx.core.view.isNotEmpty
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,7 +34,14 @@ class YourTaskAdapter(private val ctx: LifecycleOwner, private val yourTaskViewM
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        holder.bind(listTask[position])
+        val task = listTask[position]
+        holder.bind(task)
+        when {
+            task.isDone -> {
+                holder.cbComplete.isChecked = true
+                holder.tvTitle.paintFlags = holder.tvTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -45,6 +51,9 @@ class YourTaskAdapter(private val ctx: LifecycleOwner, private val yourTaskViewM
 
     inner class TaskViewHolder(private val binding: TaskItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        val tvTitle = binding.tvItemTitle
+        val cbComplete = binding.cbItem
+
         fun bind(task: Task) {
             with(binding) {
                 tvItemTitle.text = task.title
@@ -77,6 +86,13 @@ class YourTaskAdapter(private val ctx: LifecycleOwner, private val yourTaskViewM
                         rvChild.visibility = View.VISIBLE
                         dropdown.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dropdown_up, 0,0,0)
                     }
+                }
+
+                cbItem.setOnClickListener {
+                    task.let {
+                        task.isDone = !task.isDone
+                    }
+                    task.let { task -> yourTaskViewModel.updateIsComplete(task) }
                 }
             }
         }

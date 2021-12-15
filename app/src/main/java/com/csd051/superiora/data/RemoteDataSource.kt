@@ -1,9 +1,8 @@
 package com.csd051.superiora.data
 
 import android.util.Log
-import com.csd051.superiora.data.api.ApiConfig
+import com.csd051.superiora.network.ApiConfig
 import com.csd051.superiora.data.entity.Task
-import com.csd051.superiora.data.entity.TaskResponse
 import com.csd051.superiora.utils.QueryUtilApi
 import retrofit2.Call
 import retrofit2.Callback

@@ -7,11 +7,11 @@ import com.csd051.superiora.data.entity.Task
 
 class YourTaskViewModel(private val repository: SuperioraRepository) : ViewModel() {
 
-    fun getAllTask() : LiveData<List<Task>> = repository.getAllTask()
-
     fun getRootTask(courseId: Int) : LiveData<List<Task>> = repository.getRootTask(courseId)
 
     fun getChildTask(parentId: Int) : LiveData<List<Task>> = repository.getChildTask(parentId)
 
-
+    fun updateIsComplete(task: Task) {
+        repository.updateTask(task)
+    }
 }

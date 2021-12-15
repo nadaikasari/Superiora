@@ -28,6 +28,11 @@ class LocalDataSource private constructor(private val dao: SuperioraDao) {
         dao.update(task)
     }
 
+    fun deleteAllTask(id: Int) {
+        dao.deleteTask(id)
+        dao.deleteALlChildTask(id)
+    }
+
     companion object {
         private var INSTANCE: LocalDataSource? = null
 

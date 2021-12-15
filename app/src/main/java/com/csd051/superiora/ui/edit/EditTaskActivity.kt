@@ -1,11 +1,12 @@
 package com.csd051.superiora.ui.edit
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +20,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListener {
-    private lateinit var recycler: RecyclerView
     private var dueDateMillis: Long = System.currentTimeMillis()
     private var task: Task? = null
     private lateinit var viewModel : EditTaskViewModel
@@ -38,8 +38,7 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
 
         task = intent.getParcelableExtra(EXTRA_DATA)
 
-        recycler = findViewById(R.id.rv_childtask)
-        recycler.layoutManager = LinearLayoutManager(this)
+        binding.rvChildtask.layoutManager = LinearLayoutManager(this)
 
         task?.let { task ->
             binding.addEdTitle.setText(task.title)
@@ -49,14 +48,21 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
         }
 
         binding.btnSave.setOnClickListener {
-            task.let {
-                task?.title = binding.addEdTitle.text.toString()
-                task?.dueDate = binding.addTvDueDate.text.toString()
-                task?.triggerLink = binding.addEdTriggerlink.text.toString()
-                task?.details = binding.addEdDescription.text.toString()
+            if(binding.addEdTitle.text.toString().isNotEmpty()) {
+                task.let {
+                    task?.title = binding.addEdTitle.text.toString()
+                    task?.dueDate = binding.addTvDueDate.text.toString()
+                    task?.triggerLink = binding.addEdTriggerlink.text.toString()
+                    task?.details = binding.addEdDescription.text.toString()
+                }
+                task?.let { task -> viewModel.updateTask(task) }
+                Toast.makeText(this, R.string.task_updated, Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                binding.addEdTitle.error = getString(R.string.tv_field_notnull)
+                binding.addEdTitle.requestFocus()
             }
-            task?.let { it -> viewModel.updateTask(it) }
-            finish()
+
         }
 
         binding.addChild.setOnClickListener {
@@ -71,7 +77,7 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
                 binding.edtNewChildName.setText("")
             }
             else {
-                binding.edtNewChildName.error = getString(R.string.tv_child_notnull)
+                binding.edtNewChildName.error = getString(R.string.tv_field_notnull)
                 binding.edtNewChildName.requestFocus()
 
             }
@@ -98,10 +104,19 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
         dueDateMillis = calendar.timeInMillis
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_edit_task, menu)
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
                 finish()
+                return true
+            }
+            R.id.delete_task -> {
+                showDialog()
                 return true
             }
         }
@@ -114,7 +129,27 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
         }
 
         adapter.setListTask(tasks)
-        recycler.adapter = adapter
+        binding.rvChildtask.adapter = adapter
+    }
+
+    private fun showDialog() {
+        val builder = AlertDialog.Builder(this@EditTaskActivity)
+        builder.setMessage(R.string.validation_delete)
+        builder.setCancelable(true)
+        builder.setPositiveButton(
+            R.string.yes
+        ) { _, _ ->
+            task?.let { task ->
+                viewModel.deleteTask(task.id)
+            }
+            Toast.makeText(this, R.string.text_delete, Toast.LENGTH_SHORT).show()
+            finish()
+        }
+        builder.setNegativeButton(
+            R.string.no
+        ) { dialog, _ -> dialog.cancel() }
+        val alert = builder.create()
+        alert.show()
     }
 
     companion object {

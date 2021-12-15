@@ -1,4 +1,4 @@
-package com.csd051.superiora.data.api
+package com.csd051.superiora.network
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

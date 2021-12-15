@@ -1,7 +1,6 @@
-package com.csd051.superiora.data.api
+package com.csd051.superiora.network
 
 import com.csd051.superiora.data.entity.Task
-import com.csd051.superiora.data.entity.TaskResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

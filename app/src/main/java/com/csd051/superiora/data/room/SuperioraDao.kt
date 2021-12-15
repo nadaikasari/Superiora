@@ -26,4 +26,10 @@ interface SuperioraDao {
 
     @Query("SELECT * from taskuser WHERE id_parent = :parentId ORDER BY id ASC")
     fun getChildTask(parentId: Int): LiveData<List<Task>>
+
+    @Query("DELETE FROM taskuser WHERE id = :id")
+    fun deleteTask(id: Int)
+
+    @Query("DELETE FROM taskuser WHERE id_parent = :parentId")
+    fun deleteALlChildTask(parentId: Int)
 }

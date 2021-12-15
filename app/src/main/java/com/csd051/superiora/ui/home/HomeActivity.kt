@@ -14,7 +14,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.csd051.superiora.R
 import com.csd051.superiora.databinding.ActivityHomeBinding
 import com.csd051.superiora.ui.login.LoginActivity
-import com.csd051.superiora.utils.DatePickerFragment
 import com.google.android.material.navigation.NavigationView
 
 class HomeActivity : AppCompatActivity() {
@@ -53,7 +52,6 @@ class HomeActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_today_schedule, menu)
         return true
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_home)

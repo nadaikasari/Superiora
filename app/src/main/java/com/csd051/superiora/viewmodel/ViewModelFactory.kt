@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.csd051.superiora.data.SuperioraRepository
 import com.csd051.superiora.di.Injection
 import com.csd051.superiora.ui.add.AddTaskViewModel
+import com.csd051.superiora.ui.detail.DetailTaskViewModel
 import com.csd051.superiora.ui.edit.EditTaskViewModel
 import com.csd051.superiora.ui.home.roadmaps.RoadmapsViewModel
 import com.csd051.superiora.ui.home.today_schedule.TodayScheduleViewModel
@@ -42,6 +43,9 @@ class ViewModelFactory private constructor(private val repository: SuperioraRepo
             }
             modelClass.isAssignableFrom(RoadmapsViewModel::class.java) -> {
                 RoadmapsViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(DetailTaskViewModel::class.java) -> {
+                DetailTaskViewModel(repository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

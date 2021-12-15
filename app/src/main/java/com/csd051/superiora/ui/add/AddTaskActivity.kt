@@ -31,7 +31,12 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
         taskViewModel = ViewModelProvider(this, factory)[AddTaskViewModel::class.java]
 
         binding.btnSave.setOnClickListener {
-            insertTask()
+            if(binding.addEdTitle.text.toString().isNotEmpty()) {
+                insertTask()
+            } else {
+                binding.addEdTitle.error = getString(R.string.tv_field_notnull)
+                binding.addEdTitle.requestFocus()
+            }
         }
     }
 

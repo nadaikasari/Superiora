@@ -12,8 +12,8 @@ import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.TaskItemBinding
 import com.csd051.superiora.helper.TaskDiffCallback
-import com.csd051.superiora.ui.edit.EditTaskActivity
-import java.util.ArrayList
+import com.csd051.superiora.ui.detail.DetailTaskActivity
+import java.util.*
 
 class RoadmapsAdapter(private val ctx: LifecycleOwner, private val roadmapViewModel : RoadmapsViewModel) : RecyclerView.Adapter<RoadmapsAdapter.TaskViewHolder>() {
 
@@ -48,8 +48,8 @@ class RoadmapsAdapter(private val ctx: LifecycleOwner, private val roadmapViewMo
                 tvItemTitle.text = task.title
                 tvItemDesc.text = task.dueDate
                 itemContainer.setOnClickListener {
-                    val intent = Intent(it.context, EditTaskActivity::class.java)
-                    intent.putExtra(EditTaskActivity.EXTRA_DATA, task)
+                    val intent = Intent(it.context, DetailTaskActivity::class.java)
+                    intent.putExtra(DetailTaskActivity.EXTRA_DATA, task)
                     it.context.startActivity(intent)
                 }
                 val adapterTask = RoadmapsAdapter(ctx, roadmapViewModel)
@@ -80,20 +80,4 @@ class RoadmapsAdapter(private val ctx: LifecycleOwner, private val roadmapViewMo
         }
 
     }
-
-    companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Task>() {
-            override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
-                return oldItem == newItem
-            }
-        }
-    }
-
-
-
-
 }
