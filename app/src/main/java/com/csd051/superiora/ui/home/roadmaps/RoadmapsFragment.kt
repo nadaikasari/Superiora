@@ -83,7 +83,6 @@ class RoadmapsFragment : Fragment() {
             }
         }
 
-        println("Switching ${task.id} - Parent ${task.id_parent} to ${isDone.toString()}")
         task.isDone = isDone
         viewModel.updateTask(task)
     }
@@ -98,7 +97,6 @@ class RoadmapsFragment : Fragment() {
                 }
             }
         }
-        println("Switching ${task.id} - Parent ${task.id_parent} to ${isDone.toString()}")
         task.isDoneByParent = isDone
         viewModel.updateTask(task)
     }

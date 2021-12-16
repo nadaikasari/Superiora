@@ -7,8 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.csd051.superiora.R
+import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.FragmentYourTaskBinding
 import com.csd051.superiora.ui.add.AddTaskActivity
+import com.csd051.superiora.utils.AppExecutors
 import com.csd051.superiora.viewmodel.ViewModelFactory
 
 
@@ -27,7 +29,9 @@ class YourTaskFragment : Fragment() {
 
         val factory = ViewModelFactory.getInstance(requireActivity())
         viewModel = ViewModelProvider(this, factory)[YourTaskViewModel::class.java]
-        val adapterTask = YourTaskAdapter(viewLifecycleOwner, viewModel)
+        val adapterTask = YourTaskAdapter(viewLifecycleOwner, viewModel){task, isDone ->
+            doneTask(task, isDone)
+        }
 
         viewModel.getRootTask(0).observe(viewLifecycleOwner, { listTask ->
             if (listTask != null) {
@@ -58,6 +62,35 @@ class YourTaskFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_your_task, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    private fun doneTask(task: Task, isDone: Boolean) {
+        AppExecutors().diskIO().execute {
+            with(viewModel.getStaticChild(task.id)) {
+                if(this.isNotEmpty()){
+                    for(each in this) {
+                        doneByParent(each, isDone)
+                    }
+                }
+            }
+        }
+
+        task.isDone = isDone
+        viewModel.updateTask(task)
+    }
+
+    private fun doneByParent(task: Task, isDone: Boolean) {
+        AppExecutors().diskIO().execute {
+            with(viewModel.getStaticChild(task.id)) {
+                if(this.isNotEmpty()){
+                    for(each in this) {
+                        doneByParent(each, isDone)
+                    }
+                }
+            }
+        }
+        task.isDoneByParent = isDone
+        viewModel.updateTask(task)
     }
 
     override fun onDestroyView() {

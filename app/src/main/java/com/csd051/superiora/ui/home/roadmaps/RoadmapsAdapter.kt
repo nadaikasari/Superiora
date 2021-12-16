@@ -18,6 +18,8 @@ import com.csd051.superiora.ui.home.TaskTitleView
 import com.csd051.superiora.ui.home.TaskTitleView.Companion.DONE
 import com.csd051.superiora.ui.home.TaskTitleView.Companion.NORMAL
 import com.csd051.superiora.ui.home.TaskTitleView.Companion.OVERDUE
+import com.csd051.superiora.utils.DateConverter
+import java.text.SimpleDateFormat
 import java.util.*
 
 class RoadmapsAdapter(
@@ -48,16 +50,27 @@ class RoadmapsAdapter(
                 holder.cbComplete.isChecked = true
                 holder.tvTitle.state = DONE
             }
-//            task.dueDate < System.currentTimeMillis() -> {
-//                //OVERDUE
-//                holder.cbComplete.isChecked = false
-//                holder.tvTitle.state = OVERDUE
-//
-//            }
             else -> {
-                //NORMAL
-                holder.cbComplete.isChecked = false
-                holder.tvTitle.state = NORMAL
+                if (task.dueDate != null){
+                    val date : String = task.dueDate ?:""
+                    val calendar = Calendar.getInstance()
+                    calendar.timeInMillis = System.currentTimeMillis()
+                    val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                    if (DateConverter.convertStringToMillis(date) < DateConverter.convertStringToMillis(sdf.format(calendar.time))) {
+                        //OVERDUE
+                        holder.cbComplete.isChecked = false
+                        holder.tvTitle.state = OVERDUE
+
+                    } else {
+                        //NORMAL
+                        holder.cbComplete.isChecked = false
+                        holder.tvTitle.state = NORMAL
+                    }
+                }else {
+                    //NORMAL
+                    holder.cbComplete.isChecked = false
+                    holder.tvTitle.state = NORMAL
+                }
             }
         }
     }
@@ -90,6 +103,8 @@ class RoadmapsAdapter(
                     if (listTask.isNotEmpty()) {
                         adapterTask.setListTask(listTask)
                         dropdown.visibility = View.VISIBLE
+                    } else {
+                        dropdown.visibility = View.GONE
                     }
                 })
 

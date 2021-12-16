@@ -11,7 +11,8 @@ class YourTaskViewModel(private val repository: SuperioraRepository) : ViewModel
 
     fun getChildTask(parentId: Int) : LiveData<List<Task>> = repository.getChildTask(parentId)
 
-    fun updateIsComplete(task: Task) {
-        repository.updateTask(task)
-    }
+    fun getStaticChild(parentId: Int) : List<Task> = repository.getStaticChild(parentId)
+
+    fun updateTask(task: Task) = repository.updateTask(task)
+    
 }

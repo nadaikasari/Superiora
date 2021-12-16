@@ -5,6 +5,7 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,10 +14,18 @@ import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.TaskItemBinding
 import com.csd051.superiora.helper.TaskDiffCallback
+import com.csd051.superiora.ui.detail.DetailTaskActivity
 import com.csd051.superiora.ui.edit.EditTaskActivity
+import com.csd051.superiora.ui.home.TaskTitleView
+import com.csd051.superiora.ui.home.roadmaps.RoadmapsAdapter
+import com.csd051.superiora.utils.DateConverter
+import java.text.SimpleDateFormat
 import java.util.*
 
-class YourTaskAdapter(private val ctx: LifecycleOwner, private val yourTaskViewModel : YourTaskViewModel) : RecyclerView.Adapter<YourTaskAdapter.TaskViewHolder>() {
+class YourTaskAdapter(
+    private val ctx: LifecycleOwner,
+    private val yourTaskViewModel : YourTaskViewModel,
+    private val doneTask: (Task, Boolean) -> Unit) : RecyclerView.Adapter<YourTaskAdapter.TaskViewHolder>() {
 
     private val listTask = ArrayList<Task>()
 
@@ -37,9 +46,32 @@ class YourTaskAdapter(private val ctx: LifecycleOwner, private val yourTaskViewM
         val task = listTask[position]
         holder.bind(task)
         when {
-            task.isDone -> {
+            task.isDone || task.isDoneByParent -> {
                 holder.cbComplete.isChecked = true
-                holder.tvTitle.paintFlags = holder.tvTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                holder.tvTitle.state = TaskTitleView.DONE
+            }
+            else -> {
+                if (task.dueDate != null){
+                    val date : String = task.dueDate ?:""
+                    val calendar = Calendar.getInstance()
+                    calendar.timeInMillis = System.currentTimeMillis()
+                    val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
+                    if (DateConverter.convertStringToMillis(date) < DateConverter.convertStringToMillis(sdf.format(calendar.time))) {
+                        //OVERDUE
+                        holder.cbComplete.isChecked = false
+                        holder.tvTitle.state = TaskTitleView.OVERDUE
+
+                    } else {
+                        //NORMAL
+                        holder.cbComplete.isChecked = false
+                        holder.tvTitle.state = TaskTitleView.NORMAL
+                    }
+                }else {
+                    //NORMAL
+                    holder.cbComplete.isChecked = false
+                    holder.tvTitle.state = TaskTitleView.NORMAL
+                }
             }
         }
     }
@@ -51,8 +83,9 @@ class YourTaskAdapter(private val ctx: LifecycleOwner, private val yourTaskViewM
 
     inner class TaskViewHolder(private val binding: TaskItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        val tvTitle = binding.tvItemTitle
-        val cbComplete = binding.cbItem
+
+        val tvTitle: TaskTitleView = binding.tvItemTitle
+        val cbComplete: CheckBox = binding.cbItem
 
         fun bind(task: Task) {
             with(binding) {
@@ -60,15 +93,19 @@ class YourTaskAdapter(private val ctx: LifecycleOwner, private val yourTaskViewM
                 tvItemDesc.text = task.dueDate
                 itemContainer.setOnClickListener {
                     val intent = Intent(it.context, EditTaskActivity::class.java)
-                    intent.putExtra(EditTaskActivity.EXTRA_DATA, task)
+                    intent.putExtra(DetailTaskActivity.EXTRA_DATA, task)
                     it.context.startActivity(intent)
                 }
-                val adapterTask = YourTaskAdapter(ctx, yourTaskViewModel)
+                val adapterTask = YourTaskAdapter(ctx, yourTaskViewModel) { task, isDone ->
+                    doneTask(task, isDone)
+                }
 
                 yourTaskViewModel.getChildTask(task.id).observe(ctx, { listTask ->
                     if (listTask.isNotEmpty()) {
                         adapterTask.setListTask(listTask)
                         dropdown.visibility = View.VISIBLE
+                    } else {
+                        dropdown.visibility = View.GONE
                     }
                 })
 
@@ -76,6 +113,12 @@ class YourTaskAdapter(private val ctx: LifecycleOwner, private val yourTaskViewM
                     layoutManager = LinearLayoutManager(context)
                     setHasFixedSize(true)
                     adapter = adapterTask
+                }
+
+                if (rvChild.visibility == View.VISIBLE) {
+                    dropdown.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dropdown_up, 0,0,0)
+                } else {
+                    dropdown.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_drop_down, 0,0,0)
                 }
 
                 dropdown.setOnClickListener {
@@ -88,11 +131,13 @@ class YourTaskAdapter(private val ctx: LifecycleOwner, private val yourTaskViewM
                     }
                 }
 
-                cbItem.setOnClickListener {
-                    task.let {
-                        task.isDone = !task.isDone
+                cbItem.setOnClickListener{
+                    //Benerin dlu
+                    if(task.isDone) {
+                        doneTask(task, false)
+                    } else {
+                        doneTask(task, true)
                     }
-                    task.let { task -> yourTaskViewModel.updateIsComplete(task) }
                 }
             }
         }
