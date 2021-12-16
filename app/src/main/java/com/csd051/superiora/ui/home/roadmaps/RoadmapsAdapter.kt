@@ -89,7 +89,7 @@ class RoadmapsAdapter(
         fun bind(task: Task) {
             with(binding) {
                 tvItemTitle.text = task.title
-                tvItemDesc.text = task.dueDate
+//                tvItemDesc.text = task.dueDate
                 itemContainer.setOnClickListener {
                     val intent = Intent(it.context, DetailTaskActivity::class.java)
                     intent.putExtra(DetailTaskActivity.EXTRA_DATA, task)
@@ -131,7 +131,6 @@ class RoadmapsAdapter(
                 }
 
                 cbItem.setOnClickListener{
-                    //Benerin dlu
                     if(task.isDone) {
                         doneTask(task, false)
                     } else {

@@ -7,13 +7,13 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isEmpty
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.ActivityDetailTaskBinding
 import com.csd051.superiora.viewmodel.ViewModelFactory
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
@@ -34,9 +34,10 @@ class DetailTaskActivity : AppCompatActivity() {
         setTitle(R.string.detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[DetailTaskViewModel::class.java]
+
+        binding.swipeRefresh.setOnRefreshListener { getData() }
 
         getData()
 
@@ -61,6 +62,15 @@ class DetailTaskActivity : AppCompatActivity() {
                 youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
                     override fun onReady(youTubePlayer: YouTubePlayer) {
                         youTubePlayer.loadVideo(videoId, 0f)
+
+                    }
+
+                    override fun onError(
+                        youTubePlayer: YouTubePlayer,
+                        error: PlayerConstants.PlayerError
+                    ) {
+                        youTubePlayer.loadVideo(videoId, 0f)
+                        super.onError(youTubePlayer, error)
                     }
                 })
             }
@@ -68,7 +78,15 @@ class DetailTaskActivity : AppCompatActivity() {
             viewModel.getChildTask(task.id).observe(this, { tasks ->
                 showRecyclerView(tasks)
             })
+
+            binding.swipeRefresh.isRefreshing = false
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
     }
 
     private fun showRecyclerView(tasks: List<Task>) {

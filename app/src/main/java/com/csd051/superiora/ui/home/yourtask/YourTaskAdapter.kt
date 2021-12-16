@@ -1,7 +1,6 @@
 package com.csd051.superiora.ui.home.yourtask
 
 import android.content.Intent
-import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.Task
-import com.csd051.superiora.databinding.TaskItemBinding
+import com.csd051.superiora.databinding.TaskItemWithdateBinding
 import com.csd051.superiora.helper.TaskDiffCallback
 import com.csd051.superiora.ui.detail.DetailTaskActivity
 import com.csd051.superiora.ui.edit.EditTaskActivity
 import com.csd051.superiora.ui.home.TaskTitleView
-import com.csd051.superiora.ui.home.roadmaps.RoadmapsAdapter
 import com.csd051.superiora.utils.DateConverter
 import java.text.SimpleDateFormat
 import java.util.*
@@ -38,7 +36,7 @@ class YourTaskAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val listTask = TaskItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val listTask = TaskItemWithdateBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TaskViewHolder(listTask)
     }
 
@@ -81,7 +79,7 @@ class YourTaskAdapter(
     }
 
 
-    inner class TaskViewHolder(private val binding: TaskItemBinding) :
+    inner class TaskViewHolder(private val binding: TaskItemWithdateBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         val tvTitle: TaskTitleView = binding.tvItemTitle

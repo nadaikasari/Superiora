@@ -21,9 +21,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-            LoginViewModel::class.java
-        )
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[LoginViewModel::class.java]
 
         binding.btnSignUp.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))

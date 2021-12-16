@@ -88,7 +88,7 @@
     <string name="details_hint">Details</string>
     <string name="due_date">Due Date</string>
     <string name="save">Save</string>
-    <string name="dummy_details">0 of 2 · Thu, 2 Dec 2021</string>
+    <string name="dummy_details">Thu, 2 Dec 2021</string>
     <string name="next_step">Add Next Step</string>
     <string name="next_step_text">Next Step :</string>
     <string name="update">Update</string>

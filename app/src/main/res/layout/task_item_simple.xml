@@ -1,55 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cv_item_course"
     android:layout_width="match_parent"
-    android:layout_height="45dp"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="4dp"
-    app:cardMaxElevation="4dp"
-    app:cardUseCompatPadding="true">
+    android:layout_height="wrap_content"
+    android:padding="8dp">
 
-    <CheckBox
-        android:id="@+id/cb_item"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toStartOf="@+id/layout_meta">
+
+        <CheckBox
+            android:id="@+id/cb_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.csd051.superiora.ui.home.TaskTitleView
+            android:id="@+id/tv_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:maxLines="1"
+            android:text="@string/title_hint"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_meta"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_item_title"
-        style="@style/text_color"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginTop="3dp"
-        android:gravity="center_vertical"
-        android:text="@string/title_hint"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/delete_task"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/cb_item"
-        app:layout_constraintTop_toTopOf="@+id/cb_item"
-        app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/delete_task"
+            style="@style/text_color"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            app:drawableLeftCompat="@drawable/ic_close"
+            app:layout_constraintBottom_toTopOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/delete_task"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        style="@style/text_color"
-        android:layout_marginEnd="10dp"
-        app:drawableLeftCompat="@drawable/ic_close"
-        app:layout_constraintBottom_toTopOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
 
-    <View
-        android:id="@+id/view"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_item_title"
-        app:layout_constraintTop_toBottomOf="@+id/cb_item" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

@@ -40,7 +40,7 @@ class DetailTaskAdapter: RecyclerView.Adapter<DetailTaskAdapter.TaskViewHolder>(
         fun bind(task: Task) {
             with(binding) {
                 tvItemTitle.text = task.title
-                tvItemDesc.text = task.dueDate
+//                tvItemDesc.text = task.dueDate
             }
         }
     }

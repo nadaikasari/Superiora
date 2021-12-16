@@ -10,7 +10,6 @@ import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.FragmentRoadmapsBinding
 import com.csd051.superiora.utils.AppExecutors
 import com.csd051.superiora.viewmodel.ViewModelFactory
-import java.util.concurrent.Executors
 
 class RoadmapsFragment : Fragment() {
 
