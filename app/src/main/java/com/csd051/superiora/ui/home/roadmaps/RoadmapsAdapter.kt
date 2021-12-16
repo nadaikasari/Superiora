@@ -15,7 +15,10 @@ import com.csd051.superiora.helper.TaskDiffCallback
 import com.csd051.superiora.ui.detail.DetailTaskActivity
 import java.util.*
 
-class RoadmapsAdapter(private val ctx: LifecycleOwner, private val roadmapViewModel : RoadmapsViewModel) : RecyclerView.Adapter<RoadmapsAdapter.TaskViewHolder>() {
+class RoadmapsAdapter(
+    private val ctx: LifecycleOwner,
+    private val roadmapViewModel : RoadmapsViewModel,
+    private val doneTask: (Task, Boolean) -> Unit) : RecyclerView.Adapter<RoadmapsAdapter.TaskViewHolder>() {
 
     private val listTask = ArrayList<Task>()
 
@@ -47,12 +50,15 @@ class RoadmapsAdapter(private val ctx: LifecycleOwner, private val roadmapViewMo
             with(binding) {
                 tvItemTitle.text = task.title
                 tvItemDesc.text = task.dueDate
+                cbItem.isChecked = task.isDone || task.isDoneByParent
                 itemContainer.setOnClickListener {
                     val intent = Intent(it.context, DetailTaskActivity::class.java)
                     intent.putExtra(DetailTaskActivity.EXTRA_DATA, task)
                     it.context.startActivity(intent)
                 }
-                val adapterTask = RoadmapsAdapter(ctx, roadmapViewModel)
+                val adapterTask = RoadmapsAdapter(ctx, roadmapViewModel) {task, isDone ->
+                    doneTask(task, isDone)
+                }
 
                 roadmapViewModel.getChildTask(task.id).observe(ctx, { listTask ->
                     if (listTask.isNotEmpty()) {
@@ -74,6 +80,15 @@ class RoadmapsAdapter(private val ctx: LifecycleOwner, private val roadmapViewMo
                     } else {
                         rvChild.visibility = View.VISIBLE
                         dropdown.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dropdown_up, 0,0,0)
+                    }
+                }
+
+                cbItem.setOnClickListener{
+                    //Benerin dlu
+                    if(cbItem.isChecked) {
+                        doneTask(task, false)
+                    } else {
+                        doneTask(task, true)
                     }
                 }
             }

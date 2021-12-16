@@ -18,12 +18,8 @@ class EditTaskViewModel (private val repository: SuperioraRepository) : ViewMode
         repository.insertTask(task)
     }
 
-    fun deleteChild(task: Task) {
+    fun deleteTask(task: Task) {
         repository.deleteTask(task)
-    }
-
-    fun deleteTask(id: Int) {
-        repository.deleteAllTask(id)
     }
 
 }

@@ -48,12 +48,6 @@ class SuperioraRepository(
         }
     }
 
-    fun deleteAllTask(id: Int) {
-        appExecutors.diskIO().execute {
-            localDataSource.deleteAllTask(id)
-        }
-    }
-
     // ----------------------Ini Firebase------------------------
     fun register(users: User) {
         mAuth = FirebaseAuth.getInstance()
@@ -69,7 +63,6 @@ class SuperioraRepository(
 
     // ----------------------API Response------------------------
     fun getDataAPI(currentValue: Int, courseId: Int){
-        println("Ini jalan uuuuuuuuuuuuuu")
         remoteDataSource.getListData(currentValue, courseId, object : RemoteDataSource.LoadDataListCallback{
             override fun onAllDataReceived(dataListResponse: List<Task>) {
                 insertAllTask(dataListResponse)

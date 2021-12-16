@@ -125,11 +125,23 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
 
     private fun showRecyclerView(tasks: List<Task>) {
         val adapter = EditTaskAdapter { task ->
-            viewModel.deleteChild(task)
+            purgeObject(task)
         }
 
         adapter.setListTask(tasks)
         binding.rvChildtask.adapter = adapter
+    }
+
+    fun purgeObject(task: Task) {
+        viewModel.getChildTask(task.id).observe(this, { child ->
+            println(task.id)
+            if(child.isNotEmpty()){
+                for(each in child) {
+                    purgeObject(each)
+                }
+            }
+        })
+        viewModel.deleteTask(task)
     }
 
     private fun showDialog() {
@@ -140,7 +152,7 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
             R.string.yes
         ) { _, _ ->
             task?.let { task ->
-                viewModel.deleteTask(task.id)
+                purgeObject(task)
             }
             Toast.makeText(this, R.string.text_delete, Toast.LENGTH_SHORT).show()
             finish()

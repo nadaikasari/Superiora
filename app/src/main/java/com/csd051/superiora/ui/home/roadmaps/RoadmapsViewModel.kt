@@ -15,4 +15,6 @@ class RoadmapsViewModel (private val repository: SuperioraRepository) : ViewMode
 
     fun getChildTask(parentId: Int) : LiveData<List<Task>> = repository.getChildTask(parentId)
 
+    fun updateTask(task: Task) = repository.updateTask(task)
+
 }
