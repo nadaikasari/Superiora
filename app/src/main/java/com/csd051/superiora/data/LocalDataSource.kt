@@ -12,6 +12,8 @@ class LocalDataSource private constructor(private val dao: SuperioraDao) {
 
     fun getChildById(parentId: Int): LiveData<List<Task>> = dao.getChildTask(parentId)
 
+    fun getStaticChild(parentId: Int): List<Task> = dao.getStaticChildTask(parentId)
+
     fun insertTask(task: Task) {
         dao.insert(task)
     }

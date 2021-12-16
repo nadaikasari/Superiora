@@ -24,6 +24,8 @@ class SuperioraRepository(
 
     fun getChildTask(parentId: Int): LiveData<List<Task>> = localDataSource.getChildById(parentId)
 
+    fun getStaticChild(parentId: Int): List<Task> = localDataSource.getStaticChild(parentId)
+
     fun insertTask(task: Task) {
         appExecutors.diskIO().execute {
             localDataSource.insertTask(task)

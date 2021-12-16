@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.FragmentRoadmapsBinding
+import com.csd051.superiora.utils.AppExecutors
 import com.csd051.superiora.viewmodel.ViewModelFactory
+import java.util.concurrent.Executors
 
 class RoadmapsFragment : Fragment() {
 
@@ -71,27 +73,32 @@ class RoadmapsFragment : Fragment() {
     }
 
     private fun doneTask(task: Task, isDone: Boolean) {
-        viewModel.getChildTask(task.id).observe(viewLifecycleOwner, { child ->
-            println(task.id)
-            if(child.isNotEmpty()){
-                for(each in child) {
-                    doneByParent(each, isDone)
+        AppExecutors().diskIO().execute {
+            with(viewModel.getStaticChild(task.id)) {
+                if(this.isNotEmpty()){
+                    for(each in this) {
+                        doneByParent(each, isDone)
+                    }
                 }
             }
-        })
+        }
+
+        println("Switching ${task.id} - Parent ${task.id_parent} to ${isDone.toString()}")
         task.isDone = isDone
         viewModel.updateTask(task)
     }
 
     private fun doneByParent(task: Task, isDone: Boolean) {
-        viewModel.getChildTask(task.id).observe(viewLifecycleOwner, { child ->
-            println(task.id)
-            if(child.isNotEmpty()){
-                for(each in child) {
-                    doneByParent(each, isDone)
+        AppExecutors().diskIO().execute {
+            with(viewModel.getStaticChild(task.id)) {
+                if(this.isNotEmpty()){
+                    for(each in this) {
+                        doneByParent(each, isDone)
+                    }
                 }
             }
-        })
+        }
+        println("Switching ${task.id} - Parent ${task.id_parent} to ${isDone.toString()}")
         task.isDoneByParent = isDone
         viewModel.updateTask(task)
     }

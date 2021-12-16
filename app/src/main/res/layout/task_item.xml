@@ -29,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <com.csd051.superiora.ui.home.TaskTitleView
             android:id="@+id/tv_item_title"
             style="@style/text_color"
             android:layout_width="wrap_content"
