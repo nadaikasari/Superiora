@@ -4,13 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.User
 import com.csd051.superiora.databinding.ActivityRegisterBinding
 import com.csd051.superiora.ui.login.LoginActivity
+import com.csd051.superiora.viewmodel.ViewModelFactory
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -22,9 +22,8 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-            RegisterViewModel::class.java
-        )
+        val factory = ViewModelFactory.getInstance(this)
+        viewModel = ViewModelProvider(this, factory)[RegisterViewModel::class.java]
 
         binding.btnLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
@@ -93,25 +92,24 @@ class RegisterActivity : AppCompatActivity() {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-    private fun showMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
     private fun register() {
         val nama = binding.edtName.text.toString()
         val email = binding.edtEmail.text.toString()
         val password = binding.edtPasswordRegister.text.toString()
 
-        val user = User("",nama, email, password, "")
+        val user = User(
+            0,
+            nama = nama,
+            email = email,
+            password = password,
+            id_firebase = "",
+            urlPhoto = ""
+        )
 
-        viewModel.register(user)
+        viewModel.register(this, user)
 
         viewModel.isLoading.observe(this, {
             showLoading(it)
-        })
-
-        viewModel.getMessage.observe(this, { message ->
-            showMessage(message)
         })
     }
 }

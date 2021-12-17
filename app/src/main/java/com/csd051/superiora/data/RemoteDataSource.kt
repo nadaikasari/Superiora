@@ -57,7 +57,7 @@ class RemoteDataSource {
     }
 
     interface LoadDataListCallback {
-        fun onAllDataReceived(movieListResponse: List<Task>)
+        fun onAllDataReceived(dataListResponse: List<Task>)
     }
 
 }

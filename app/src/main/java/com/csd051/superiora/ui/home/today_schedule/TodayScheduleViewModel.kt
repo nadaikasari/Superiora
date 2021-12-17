@@ -1,6 +1,5 @@
 package com.csd051.superiora.ui.home.today_schedule
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

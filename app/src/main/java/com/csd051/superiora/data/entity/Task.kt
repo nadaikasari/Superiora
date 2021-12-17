@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
-@Entity(tableName = "taskuser")
+@Entity(tableName = "tasks")
 @Parcelize
 data class Task (
     @field:SerializedName("id")

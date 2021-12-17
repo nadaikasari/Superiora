@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
 import com.csd051.superiora.R
 import com.csd051.superiora.databinding.ActivityMainBinding
-import com.csd051.superiora.ui.home.HomeActivity
-import com.csd051.superiora.utils.NightMode
+import com.csd051.superiora.ui.home.home.HomeActivity
+import com.csd051.superiora.utils.DarkMode
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -33,9 +33,9 @@ class MainActivity : AppCompatActivity() {
             val darkModeValue = it.uppercase(Locale.ROOT)
             val modeSelected =
                 when(darkModeValue) {
-                    NightMode.ON.name -> NightMode.ON
-                    NightMode.OFF.name -> NightMode.OFF
-                    else -> NightMode.AUTO
+                    DarkMode.ON.name -> DarkMode.ON
+                    DarkMode.OFF.name -> DarkMode.OFF
+                    else -> DarkMode.FOLLOW_SYSTEM
                 }
             AppCompatDelegate.setDefaultNightMode(modeSelected.value)
         }

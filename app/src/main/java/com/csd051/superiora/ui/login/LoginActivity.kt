@@ -3,12 +3,12 @@ package com.csd051.superiora.ui.login
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.csd051.superiora.R
 import com.csd051.superiora.databinding.ActivityLoginBinding
 import com.csd051.superiora.ui.register.RegisterActivity
+import com.csd051.superiora.viewmodel.ViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
 
@@ -21,7 +21,8 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[LoginViewModel::class.java]
+        val factory = ViewModelFactory.getInstance(this)
+        viewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
 
         binding.btnSignUp.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
@@ -30,6 +31,13 @@ class LoginActivity : AppCompatActivity() {
         binding.btnSignIn.setOnClickListener {
             validator()
         }
+
+        viewModel.getUser().observe(this, { data->
+            if (data != null) {
+                viewModel.logout(data.email)
+            }
+        })
+
     }
 
     private fun validator() {
@@ -54,26 +62,14 @@ class LoginActivity : AppCompatActivity() {
         val email = binding.edtEmailLogin.text.toString()
         val password = binding.edtPassword.text.toString()
 
-        viewModel.login(email, password)
+        viewModel.login(this, email, password)
 
         viewModel.isLoadingLogin.observe(this, {
             showLoading(it)
         })
-
-        viewModel.getMessageLogin.observe(this, { message ->
-            showMessage(message)
-        })
-
-        binding.edtEmailLogin.text.clear()
-        binding.edtPassword.text.clear()
     }
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar2.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
-
-    private fun showMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
 }

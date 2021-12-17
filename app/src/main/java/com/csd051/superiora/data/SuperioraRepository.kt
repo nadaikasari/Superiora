@@ -1,13 +1,17 @@
 package com.csd051.superiora.data
 
+import android.content.Context
+import android.content.Intent
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.data.entity.User
+import com.csd051.superiora.ui.home.home.HomeActivity
+import com.csd051.superiora.ui.login.LoginActivity
 import com.csd051.superiora.utils.AppExecutors
-import com.csd051.superiora.utils.TasksFilterType
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
 import java.util.*
 
 class SuperioraRepository(
@@ -18,6 +22,7 @@ class SuperioraRepository(
 
     private lateinit var firebase: FirebaseFirestore
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var df : DocumentReference
 
     fun getAllTask(): LiveData<List<Task>> = localDataSource.getAllTask()
 
@@ -31,6 +36,8 @@ class SuperioraRepository(
 //        localDataSource.getTaskbySort(filter)
 
     fun getTodayTask(dateNow: String): LiveData<List<Task>> = localDataSource.getTodayTask(dateNow)
+
+    fun getUser(): LiveData<User> = localDataSource.getUser()
 
     fun insertTask(task: Task) {
         appExecutors.diskIO().execute {
@@ -56,26 +63,78 @@ class SuperioraRepository(
         }
     }
 
+    private fun insertNewUser(user: User) {
+        appExecutors.diskIO().execute {
+            localDataSource.insertNewUser(user)
+        }
+    }
+
+    fun deleteUser(email: String) {
+        appExecutors.diskIO().execute {
+            localDataSource.deleteUser(email)
+        }
+    }
+
+
     // ----------------------Ini Firebase------------------------
-    fun register(users: User) {
+    fun register(context: Context, user: User) {
         mAuth = FirebaseAuth.getInstance()
         firebase = FirebaseFirestore.getInstance()
 
-        val user = mAuth.currentUser
-        val df: DocumentReference = firebase.collection("users").document(user!!.uid)
-        val userInfo: MutableMap<String, Any> = HashMap()
-        userInfo["name"] = users.nama
-        userInfo["photo"] = ""
-        df.set(userInfo)
+        mAuth = FirebaseAuth.getInstance()
+        firebase = FirebaseFirestore.getInstance()
+        mAuth.createUserWithEmailAndPassword(user.email, user.password).addOnSuccessListener {
+            val users = mAuth.currentUser
+            val df: DocumentReference = firebase.collection("users").document(users!!.uid)
+            val userInfo: MutableMap<String, Any> = HashMap()
+            userInfo["name"] = user.nama
+            userInfo["photo"] = ""
+            df.set(userInfo)
+            Toast.makeText(context, "Register sukses, silahkan login", Toast.LENGTH_SHORT).show()
+            val intent = Intent(context, LoginActivity::class.java)
+            startActivity(context, intent, null)
+        }.addOnFailureListener {
+            Toast.makeText(
+                context,
+                "Gagal mendaftarkan akun, Silahkan coba lag",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    fun login(context: Context, email: String, password: String) {
+        mAuth = FirebaseAuth.getInstance()
+        mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener { authResult ->
+            saveUser(authResult.user!!.uid, email, password)
+            Toast.makeText(context, "Success Login", Toast.LENGTH_SHORT).show()
+            val intent = Intent(context, HomeActivity::class.java)
+            startActivity(context, intent, null)
+        }.addOnFailureListener {
+            Toast.makeText(context, "Login failed! Please try again", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun saveUser(uid: String, email: String, password: String) {
+        firebase = FirebaseFirestore.getInstance()
+        val df: DocumentReference = firebase.collection("users").document(uid)
+        df.get().addOnSuccessListener { documentSnapshot ->
+            val nama = documentSnapshot.getString("name").toString()
+            val imageUrl = documentSnapshot.getString("photo").toString()
+            val user = User(0, uid, nama, email, password, imageUrl)
+            insertNewUser(user)
+        }
     }
 
     // ----------------------API Response------------------------
-    fun getDataAPI(currentValue: Int, courseId: Int){
-        remoteDataSource.getListData(currentValue, courseId, object : RemoteDataSource.LoadDataListCallback{
-            override fun onAllDataReceived(dataListResponse: List<Task>) {
-                insertAllTask(dataListResponse)
-            }
-        })
+    fun getDataAPI(currentValue: Int, courseId: Int) {
+        remoteDataSource.getListData(
+            currentValue,
+            courseId,
+            object : RemoteDataSource.LoadDataListCallback {
+                override fun onAllDataReceived(dataListResponse: List<Task>) {
+                    insertAllTask(dataListResponse)
+                }
+            })
     }
 
     companion object {

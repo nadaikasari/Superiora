@@ -104,6 +104,7 @@
     <string name="edit_task">Edit Task</string>
     <string name="detail">Detail Task</string>
     <string name="task_updated">Task updated</string>
+    <string name="edit_profile">Edit Profile</string>
 
 
     <string name="search">Search</string>
@@ -120,5 +121,6 @@
     <string name="favorite">Favorite</string>
     <string name="share">Share</string>
     <string name="notask">There is no task left !\nYou can relax for a while!</string>
+
 
 </resources>

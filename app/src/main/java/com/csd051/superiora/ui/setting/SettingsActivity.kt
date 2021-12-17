@@ -1,13 +1,22 @@
 package com.csd051.superiora.ui.setting
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.ViewModelProvider
 import androidx.preference.ListPreference
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.csd051.superiora.R
+import com.csd051.superiora.data.SuperioraRepository
+import com.csd051.superiora.ui.home.home.HomeActivity
+import com.csd051.superiora.ui.home.home.HomeViewModel
+import com.csd051.superiora.ui.login.LoginActivity
 import com.csd051.superiora.utils.DarkMode
+import com.csd051.superiora.viewmodel.ViewModelFactory
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +46,12 @@ class SettingsActivity : AppCompatActivity() {
                 true
             }
 
+            val logout = findPreference<Preference>(getString(R.string.pref_key_logout))
+            logout?.setOnPreferenceClickListener {
+                val signOutIntent = Intent(activity, LoginActivity::class.java)
+                startActivity(signOutIntent)
+                true
+            }
         }
 
         private fun updateTheme(mode: Int): Boolean {
