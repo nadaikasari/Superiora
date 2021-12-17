@@ -67,7 +67,8 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/next_step_text"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_detail_child"

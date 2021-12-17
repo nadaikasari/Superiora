@@ -28,6 +28,8 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var viewModel: HomeViewModel
     private var isLoginUser: Boolean = false
+    private val imageDummy =
+        "https://firebasestorage.googleapis.com/v0/b/superiora-30875.appspot.com/o/icon_user%2Ficon.png?alt=media&token=e732dded-f66b-4683-954f-70f6a588f67d"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,12 +49,17 @@ class HomeActivity : AppCompatActivity() {
         viewModel.getUser().observe(this, { data ->
             if (data != null) {
                 Glide.with(this)
-                    .load(data.urlPhoto)
+                    .load(
+                        if(data.urlPhoto == "") {
+                            imageDummy
+                        } else {
+                            data.urlPhoto
+                        }
+                    )
                     .into(
                         binding.navView.getHeaderView(0)
                             .findViewById<CircleImageView>(R.id.image_user)
                     )
-
                 binding.navView.getHeaderView(0).findViewById<TextView>(R.id.name_user).text =
                     data.nama
                 binding.navView.getHeaderView(0).findViewById<TextView>(R.id.email_user).text =

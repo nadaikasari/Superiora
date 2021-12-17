@@ -59,7 +59,8 @@ class DetailTaskActivity : AppCompatActivity() {
                 lifecycle.addObserver(youTubePlayerView)
                 val videoId = task.triggerLink.toString().replace("https://youtu.be/", "")
 
-                youTubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                youTubePlayerView.addYouTubePlayerListener(object :
+                    AbstractYouTubePlayerListener() {
                     override fun onReady(youTubePlayer: YouTubePlayer) {
                         youTubePlayer.loadVideo(videoId, 0f)
 
@@ -76,7 +77,12 @@ class DetailTaskActivity : AppCompatActivity() {
             }
 
             viewModel.getChildTask(task.id).observe(this, { tasks ->
-                showRecyclerView(tasks)
+                if(tasks.isEmpty()) {
+                    binding.nextStep.visibility = View.GONE
+                } else {
+                    binding.nextStep.visibility = View.VISIBLE
+                    showRecyclerView(tasks)
+                }
             })
 
             binding.swipeRefresh.isRefreshing = false
