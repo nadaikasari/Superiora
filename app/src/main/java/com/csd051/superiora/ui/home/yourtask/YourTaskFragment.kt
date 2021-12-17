@@ -37,6 +37,8 @@ class YourTaskFragment : Fragment() {
             if (listTask != null) {
                 binding.progressBar3.visibility = View.GONE
                 adapterTask.setListTask(listTask)
+                binding.emptyTask.imageView3.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
+                binding.emptyTask.tvContentEmptyDesc.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
             }
         })
 
@@ -63,6 +65,21 @@ class YourTaskFragment : Fragment() {
         inflater.inflate(R.menu.menu_your_task, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.is_active -> {
+
+                true
+            }
+            R.id.complete -> {
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 
     private fun doneTask(task: Task, isDone: Boolean) {
         AppExecutors().diskIO().execute {

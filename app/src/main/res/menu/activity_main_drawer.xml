@@ -45,7 +45,7 @@
                 android:title="@string/frontend" />
             <item
                 android:id="@+id/nav_go"
-                android:icon="@drawable/ic_dba"
+                android:icon="@drawable/ic_golang"
                 android:title="@string/go" />
             <item
                 android:id="@+id/nav_java"

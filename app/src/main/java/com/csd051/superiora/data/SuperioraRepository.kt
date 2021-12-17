@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.data.entity.User
 import com.csd051.superiora.utils.AppExecutors
+import com.csd051.superiora.utils.TasksFilterType
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,6 +26,11 @@ class SuperioraRepository(
     fun getChildTask(parentId: Int): LiveData<List<Task>> = localDataSource.getChildById(parentId)
 
     fun getStaticChild(parentId: Int): List<Task> = localDataSource.getStaticChild(parentId)
+
+//    fun getSortTask(filter: TasksFilterType): LiveData<List<Task>> =
+//        localDataSource.getTaskbySort(filter)
+
+    fun getTodayTask(dateNow: String): LiveData<List<Task>> = localDataSource.getTodayTask(dateNow)
 
     fun insertTask(task: Task) {
         appExecutors.diskIO().execute {

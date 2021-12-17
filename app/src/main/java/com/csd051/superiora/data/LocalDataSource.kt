@@ -14,6 +14,8 @@ class LocalDataSource private constructor(private val dao: SuperioraDao) {
 
     fun getStaticChild(parentId: Int): List<Task> = dao.getStaticChildTask(parentId)
 
+    fun getTodayTask(dateNow: String): LiveData<List<Task>> = dao.getTodayTask(dateNow)
+
     fun insertTask(task: Task) {
         dao.insert(task)
     }
@@ -29,6 +31,19 @@ class LocalDataSource private constructor(private val dao: SuperioraDao) {
     fun update(task: Task) {
         dao.update(task)
     }
+
+//    fun getTaskbySort(filter: TasksFilterType) : LiveData<List<Task>> {
+//        val query = FilterUtils.getFilteredQuery(filter)
+//        dao.getTasks(query)
+
+//        val config = PagedList.Config.Builder()
+//            .setEnablePlaceholders(PLACEHOLDERS)
+//            .setInitialLoadSizeHint(PAGE_SIZE)
+//            .setPageSize(PAGE_SIZE)
+//            .build()
+//
+//        return LivePagedListBuilder(tas)
+//    }
 
     companion object {
         private var INSTANCE: LocalDataSource? = null

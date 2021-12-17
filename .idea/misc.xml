@@ -17,6 +17,8 @@
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/ic_close.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/ic_devops.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/ic_drop_down.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/ic_go_logo_black.xml" value="0.19583333333333333" />
+        <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/ic_golang.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/ic_java_icon.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1425925925925926" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/ic_logout.xml" value="0.19583333333333333" />
@@ -44,6 +46,7 @@
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/content_home.xml" value="0.15489130434782608" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/fragment_home.xml" value="0.17028985507246377" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/fragment_roadmaps.xml" value="0.1" />
+        <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/fragment_slideshow.xml" value="0.1634963768115942" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/fragment_today_schedule.xml" value="0.12047101449275362" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/fragment_your_task.xml" value="0.1" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/nav_header_home.xml" value="0.42081447963800905" />

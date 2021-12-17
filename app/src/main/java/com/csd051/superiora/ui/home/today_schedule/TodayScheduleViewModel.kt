@@ -14,4 +14,12 @@ class TodayScheduleViewModel(private val repository: SuperioraRepository) : View
     }
     val text: LiveData<String> = _text
 
+    fun getTodayTask(dateNow: String) : LiveData<List<Task>> = repository.getTodayTask(dateNow)
+
+    fun getChildTask(parentId: Int) : LiveData<List<Task>> = repository.getChildTask(parentId)
+
+    fun getStaticChild(parentId: Int) : List<Task> = repository.getStaticChild(parentId)
+
+    fun updateTask(task: Task) = repository.updateTask(task)
+
 }

@@ -29,7 +29,6 @@ class TaskTitleView : AppCompatTextView {
                 }
                 NORMAL -> {
                     paintFlags = 0
-                    setTextColor(ContextCompat.getColor(context, R.color.black))
                 }
                 OVERDUE -> {
                     paintFlags = 0

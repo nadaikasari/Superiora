@@ -54,7 +54,6 @@
         android:contentDescription="@string/btnAdd" />
 
     <include
-        android:visibility="gone"
         android:id="@+id/empty_task"
         layout="@layout/content_empty" />
 
