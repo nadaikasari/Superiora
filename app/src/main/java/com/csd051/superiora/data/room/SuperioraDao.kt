@@ -1,7 +1,9 @@
 package com.csd051.superiora.data.room
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
+import androidx.sqlite.db.SupportSQLiteQuery
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.data.entity.User
 
@@ -48,4 +50,10 @@ interface SuperioraDao {
 
     @Update
     fun updateDataUser(user: User)
+
+    @RawQuery(observedEntities = [Task::class])
+    fun getTasks(query: SupportSQLiteQuery): DataSource.Factory<Int, Task>
+
+    @Query("SELECT * from tasks WHERE id_parent = -1 AND id_course = :courseId AND isDone = 0 ORDER BY id ASC")
+    fun getActiveTask(courseId: Int): LiveData<List<Task>>
 }

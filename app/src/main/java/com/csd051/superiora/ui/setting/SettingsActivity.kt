@@ -1,22 +1,18 @@
 package com.csd051.superiora.ui.setting
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.ViewModelProvider
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
 import com.csd051.superiora.R
-import com.csd051.superiora.data.SuperioraRepository
-import com.csd051.superiora.ui.home.home.HomeActivity
-import com.csd051.superiora.ui.home.home.HomeViewModel
+import com.csd051.superiora.notification.DailyReminder
 import com.csd051.superiora.ui.login.LoginActivity
 import com.csd051.superiora.utils.DarkMode
-import com.csd051.superiora.viewmodel.ViewModelFactory
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +46,16 @@ class SettingsActivity : AppCompatActivity() {
             logout?.setOnPreferenceClickListener {
                 val signOutIntent = Intent(activity, LoginActivity::class.java)
                 startActivity(signOutIntent)
+                true
+            }
+
+            val prefNotification = findPreference<SwitchPreference>(getString(R.string.pref_key_notify))
+            prefNotification?.setOnPreferenceChangeListener { _, newValue ->
+                if(newValue.equals(true)) {
+                    DailyReminder().setDailyReminder(requireContext().applicationContext)
+                } else {
+                    DailyReminder().cancelAlarm(requireContext().applicationContext)
+                }
                 true
             }
         }

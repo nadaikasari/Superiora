@@ -12,8 +12,6 @@ import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.FragmentTodayScheduleBinding
 import com.csd051.superiora.utils.AppExecutors
 import com.csd051.superiora.viewmodel.ViewModelFactory
-import java.text.SimpleDateFormat
-import java.util.*
 
 class TodayScheduleFragment : Fragment() {
 
@@ -39,20 +37,13 @@ class TodayScheduleFragment : Fragment() {
         todayScheduleAdapter = TodayScheduleAdapter(viewLifecycleOwner, viewModel){ task, isDone ->
             doneTask(task, isDone)
         }
-
-        getDateNow()
-
+        getData()
         return root
     }
 
-    private fun getDateNow() {
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-        val currentDate = dateFormat.format(Date())
-        getData(currentDate)
-    }
 
-    private fun getData(dateNow: String) {
-        viewModel.getTodayTask(dateNow).observe(viewLifecycleOwner, { listTask ->
+    private fun getData() {
+        viewModel.getTodayTask().observe(viewLifecycleOwner, { listTask ->
             if (listTask != null) {
                 binding.progressBar3.visibility = View.GONE
                 todayScheduleAdapter.setListTask(listTask)

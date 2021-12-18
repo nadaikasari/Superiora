@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.lifecycle.LifecycleOwner
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,8 @@ import java.util.*
 class YourTaskAdapter(
     private val ctx: LifecycleOwner,
     private val yourTaskViewModel : YourTaskViewModel,
-    private val doneTask: (Task, Boolean) -> Unit) : RecyclerView.Adapter<YourTaskAdapter.TaskViewHolder>() {
+    private val doneTask: (Task, Boolean) -> Unit) : PagedListAdapter<Task ,YourTaskAdapter.TaskViewHolder>(
+    DIFF_CALLBACK) {
 
     private val listTask = ArrayList<Task>()
 

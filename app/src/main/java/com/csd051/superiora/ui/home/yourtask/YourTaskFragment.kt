@@ -11,6 +11,7 @@ import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.FragmentYourTaskBinding
 import com.csd051.superiora.ui.add.AddTaskActivity
 import com.csd051.superiora.utils.AppExecutors
+import com.csd051.superiora.utils.TasksFilterType
 import com.csd051.superiora.viewmodel.ViewModelFactory
 
 
@@ -19,6 +20,7 @@ class YourTaskFragment : Fragment() {
     private var fragmentTaskBinding: FragmentYourTaskBinding? = null
     private val binding get() = fragmentTaskBinding!!
     private lateinit var viewModel: YourTaskViewModel
+    private lateinit var adapterTask: YourTaskAdapter
 
 
     override fun onCreateView(
@@ -29,7 +31,7 @@ class YourTaskFragment : Fragment() {
 
         val factory = ViewModelFactory.getInstance(requireActivity())
         viewModel = ViewModelProvider(this, factory)[YourTaskViewModel::class.java]
-        val adapterTask = YourTaskAdapter(viewLifecycleOwner, viewModel){task, isDone ->
+        adapterTask = YourTaskAdapter(viewLifecycleOwner, viewModel){task, isDone ->
             doneTask(task, isDone)
         }
 
@@ -39,14 +41,9 @@ class YourTaskFragment : Fragment() {
                 adapterTask.setListTask(listTask)
                 binding.emptyTask.imageView3.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
                 binding.emptyTask.tvContentEmptyDesc.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
+                setRecycler()
             }
         })
-
-        with(binding.rvTask) {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = adapterTask
-        }
 
         binding.fab.setOnClickListener {
             val intent = Intent(context, AddTaskActivity::class.java)
@@ -54,6 +51,14 @@ class YourTaskFragment : Fragment() {
         }
         return binding.root
 
+    }
+
+    private fun setRecycler() {
+        with(binding.rvTask) {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = adapterTask
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,11 +73,29 @@ class YourTaskFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.allTask -> {
+                TasksFilterType.ALL_TASKS
+                true
+            }
             R.id.is_active -> {
-
+                TasksFilterType.ACTIVE_TASKS
+                viewModel.getActiveTask(0).observe(viewLifecycleOwner, { listTask ->
+                    if (listTask != null) {
+                        binding.progressBar3.visibility = View.GONE
+                        adapterTask.setListTask(listTask)
+                        binding.emptyTask.imageView3.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
+                        binding.emptyTask.tvContentEmptyDesc.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
+                        setRecycler()
+                    }
+                })
                 true
             }
             R.id.complete -> {
+                TasksFilterType.COMPLETED_TASKS
+                true
+            }
+            R.id.favorite -> {
+                TasksFilterType.FAVORITE_TASKS
                 true
             }
 

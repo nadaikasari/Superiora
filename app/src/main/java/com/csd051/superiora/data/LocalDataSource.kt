@@ -1,15 +1,22 @@
 package com.csd051.superiora.data
 
 import androidx.lifecycle.LiveData
+import androidx.paging.Config
+import androidx.paging.PagedList
+import androidx.paging.toLiveData
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.data.entity.User
 import com.csd051.superiora.data.room.SuperioraDao
+import com.csd051.superiora.utils.FilterUtils
+import com.csd051.superiora.utils.TasksFilterType
 
 class LocalDataSource private constructor(private val dao: SuperioraDao) {
 
     fun getAllTask(): LiveData<List<Task>> = dao.getAllTask()
 
     fun getRootTask(courseId: Int): LiveData<List<Task>> = dao.getRootTask(courseId)
+
+    fun getActivetask(courseId: Int): LiveData<List<Task>> = dao.getActiveTask(courseId)
 
     fun getChildById(parentId: Int): LiveData<List<Task>> = dao.getChildTask(parentId)
 
@@ -47,19 +54,11 @@ class LocalDataSource private constructor(private val dao: SuperioraDao) {
         dao.updateDataUser(user)
     }
 
+    fun getTaskSort(filter: TasksFilterType) : LiveData<PagedList<Task>> {
+        val query = FilterUtils.getFilteredQuery(filter)
 
-//    fun getTaskbySort(filter: TasksFilterType) : LiveData<List<Task>> {
-//        val query = FilterUtils.getFilteredQuery(filter)
-//        dao.getTasks(query)
-
-//        val config = PagedList.Config.Builder()
-//            .setEnablePlaceholders(PLACEHOLDERS)
-//            .setInitialLoadSizeHint(PAGE_SIZE)
-//            .setPageSize(PAGE_SIZE)
-//            .build()
-//
-//        return LivePagedListBuilder(tas)
-//    }
+        return dao.getTasks(query).toLiveData(Config(pageSize = 20))
+    }
 
     companion object {
         private var INSTANCE: LocalDataSource? = null

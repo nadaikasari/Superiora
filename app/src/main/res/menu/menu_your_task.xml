@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="@string/all_task" />
+    <item
+        android:id="@+id/allTask"
+        android:title="@string/all_task" />
     <item
         android:id="@+id/is_active"
         android:title="@string/is_active" />

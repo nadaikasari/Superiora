@@ -6,16 +6,19 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
+import androidx.paging.PagedList
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.data.entity.User
 import com.csd051.superiora.ui.home.home.HomeActivity
 import com.csd051.superiora.ui.login.LoginActivity
 import com.csd051.superiora.utils.AppExecutors
+import com.csd051.superiora.utils.TasksFilterType
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -30,9 +33,14 @@ class SuperioraRepository(
     private lateinit var storage: FirebaseStorage
     private lateinit var storageReference: StorageReference
 
+    val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    val currentDate = dateFormat.format(Date())
+
     fun getAllTask(): LiveData<List<Task>> = localDataSource.getAllTask()
 
     fun getRootTask(courseId: Int): LiveData<List<Task>> = localDataSource.getRootTask(courseId)
+
+    fun getactiveTask(courseId: Int): LiveData<List<Task>> = localDataSource.getActivetask(courseId)
 
     fun getChildTask(parentId: Int): LiveData<List<Task>> = localDataSource.getChildById(parentId)
 
@@ -41,7 +49,8 @@ class SuperioraRepository(
 //    fun getSortTask(filter: TasksFilterType): LiveData<List<Task>> =
 //        localDataSource.getTaskbySort(filter)
 
-    fun getTodayTask(dateNow: String): LiveData<List<Task>> = localDataSource.getTodayTask(dateNow)
+
+    fun getTodayTask(): LiveData<List<Task>> = localDataSource.getTodayTask(currentDate)
 
     fun getUser(): LiveData<User> = localDataSource.getUser()
 
@@ -86,6 +95,9 @@ class SuperioraRepository(
             localDataSource.updateDataUser(user)
         }
     }
+
+    fun getTaskbySort(filter: TasksFilterType) : LiveData<PagedList<Task>> = localDataSource.getTaskSort(filter)
+
 
     // ----------------------Firebase------------------------
     fun register(context: Context, user: User) {
@@ -217,6 +229,9 @@ class SuperioraRepository(
                 SuperioraRepository(localData, appExecutors, remoteData).apply {
                     instance = this
                 }
-            }
+        }
+
+        const val PAGE_SIZE = 30
+        const val PLACEHOLDERS = true
     }
 }

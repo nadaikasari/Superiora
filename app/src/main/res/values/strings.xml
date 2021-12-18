@@ -122,6 +122,7 @@
     <string name="share">Share</string>
     <string name="notask">There is no task left !\nYou can relax for a while!</string>
     <string name="register_success">You have been successfully registered.</string>
+    <string name="notification_message_format">(%1$s - %2$s) %3$s</string>
 
 
 </resources>
