@@ -31,6 +31,7 @@ class RoadmapsFragment : Fragment() {
         }
         val courseId: Int = arguments?.getInt("courseId") ?: 0
 
+        viewModel.setCourseId(courseId)
 
         viewModel.getAllTask().observe(viewLifecycleOwner, { data ->
             currentSize = data.size
@@ -40,7 +41,7 @@ class RoadmapsFragment : Fragment() {
             }
         })
 
-        viewModel.getRootTask(courseId).observe(viewLifecycleOwner, { listTask ->
+        viewModel.tasks.observe(viewLifecycleOwner, { listTask ->
             if (listTask.isNotEmpty()) {
                 binding.progressBar.visibility = View.GONE
                 adapterTask.setListTask(listTask)
@@ -69,6 +70,29 @@ class RoadmapsFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_roadmap, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.allTask -> {
+                viewModel.setFilter(0)
+                true
+            }
+            R.id.is_active -> {
+                viewModel.setFilter(1)
+                true
+            }
+            R.id.complete -> {
+                viewModel.setFilter(2)
+                true
+            }
+            R.id.favorite -> {
+                viewModel.setFilter(3)
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun doneTask(task: Task, isDone: Boolean) {

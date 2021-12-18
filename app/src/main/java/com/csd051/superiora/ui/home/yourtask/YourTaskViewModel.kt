@@ -1,32 +1,39 @@
 package com.csd051.superiora.ui.home.yourtask
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
-import androidx.paging.PagedList
+import androidx.lifecycle.*
 import com.csd051.superiora.data.SuperioraRepository
 import com.csd051.superiora.data.entity.Task
-import com.csd051.superiora.utils.TasksFilterType
+import com.csd051.superiora.utils.AppExecutors
 
 class YourTaskViewModel(private val repository: SuperioraRepository) : ViewModel() {
 
-    private val _filter = MutableLiveData<TasksFilterType>()
+    private val _filter = MutableLiveData<Int>()
+    private val courseId : Int = 0
 
-    val tasks: LiveData<PagedList<Task>> = _filter.switchMap {
-        repository.getTaskbySort(it)
+    var tasks: LiveData<List<Task>> = _filter.switchMap {
+        when (it) {
+            0 -> repository.getRootTask(courseId)
+            1 -> repository.getActiveTasks(courseId)
+            2 -> repository.getCompletedTasks(courseId)
+            3 -> repository.getFavoriteTasks(courseId)
+            else -> repository.getRootTask(courseId)
+        }
     }
 
-    fun getRootTask(courseId: Int) : LiveData<List<Task>> = repository.getRootTask(courseId)
+    fun setFilter(filter: Int) {
+        _filter.value = filter
+    }
+
+    init {
+        setFilter(0)
+    }
+
 
     fun getChildTask(parentId: Int) : LiveData<List<Task>> = repository.getChildTask(parentId)
 
     fun getStaticChild(parentId: Int) : List<Task> = repository.getStaticChild(parentId)
 
     fun updateTask(task: Task) = repository.updateTask(task)
-
-    fun getActiveTask(courseId: Int) : LiveData<List<Task>> = repository.getactiveTask(courseId)
-
 
 
 }

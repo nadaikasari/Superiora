@@ -52,7 +52,7 @@ interface SuperioraDao {
     fun updateDataUser(user: User)
 
     @RawQuery(observedEntities = [Task::class])
-    fun getTasks(query: SupportSQLiteQuery): DataSource.Factory<Int, Task>
+    fun getTasks(query: SupportSQLiteQuery): LiveData<List<Task>>
 
     @Query("SELECT * from tasks WHERE id_parent = -1 AND id_course = :courseId AND isDone = 0 ORDER BY id ASC")
     fun getActiveTask(courseId: Int): LiveData<List<Task>>

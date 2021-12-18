@@ -1,9 +1,6 @@
 package com.csd051.superiora.data
 
 import androidx.lifecycle.LiveData
-import androidx.paging.Config
-import androidx.paging.PagedList
-import androidx.paging.toLiveData
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.data.entity.User
 import com.csd051.superiora.data.room.SuperioraDao
@@ -54,10 +51,9 @@ class LocalDataSource private constructor(private val dao: SuperioraDao) {
         dao.updateDataUser(user)
     }
 
-    fun getTaskSort(filter: TasksFilterType) : LiveData<PagedList<Task>> {
-        val query = FilterUtils.getFilteredQuery(filter)
-
-        return dao.getTasks(query).toLiveData(Config(pageSize = 20))
+    fun getTaskSort(courseId:Int, filter: TasksFilterType) : LiveData<List<Task>> {
+        val query = FilterUtils.getFilteredQuery(courseId, filter)
+        return dao.getTasks(query)
     }
 
     companion object {

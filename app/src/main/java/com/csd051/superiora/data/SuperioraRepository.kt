@@ -96,7 +96,22 @@ class SuperioraRepository(
         }
     }
 
-    fun getTaskbySort(filter: TasksFilterType) : LiveData<PagedList<Task>> = localDataSource.getTaskSort(filter)
+    fun getActiveTasks(courseId: Int) : LiveData<List<Task>>{
+        val filter = TasksFilterType.ACTIVE_TASKS
+        return localDataSource.getTaskSort(courseId, filter)
+    }
+
+    fun getCompletedTasks(courseId: Int) : LiveData<List<Task>>{
+        val filter = TasksFilterType.COMPLETED_TASKS
+        return localDataSource.getTaskSort(courseId, filter)
+    }
+
+    fun getFavoriteTasks(courseId: Int) : LiveData<List<Task>>{
+        val filter = TasksFilterType.FAVORITE_TASKS
+        return localDataSource.getTaskSort(courseId, filter)
+    }
+
+
 
 
     // ----------------------Firebase------------------------

@@ -11,7 +11,6 @@ import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.FragmentYourTaskBinding
 import com.csd051.superiora.ui.add.AddTaskActivity
 import com.csd051.superiora.utils.AppExecutors
-import com.csd051.superiora.utils.TasksFilterType
 import com.csd051.superiora.viewmodel.ViewModelFactory
 
 
@@ -34,8 +33,7 @@ class YourTaskFragment : Fragment() {
         adapterTask = YourTaskAdapter(viewLifecycleOwner, viewModel){task, isDone ->
             doneTask(task, isDone)
         }
-
-        viewModel.getRootTask(0).observe(viewLifecycleOwner, { listTask ->
+        viewModel.tasks.observe(viewLifecycleOwner, { listTask ->
             if (listTask != null) {
                 binding.progressBar3.visibility = View.GONE
                 adapterTask.setListTask(listTask)
@@ -74,28 +72,19 @@ class YourTaskFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.allTask -> {
-                TasksFilterType.ALL_TASKS
+                viewModel.setFilter(0)
                 true
             }
             R.id.is_active -> {
-                TasksFilterType.ACTIVE_TASKS
-                viewModel.getActiveTask(0).observe(viewLifecycleOwner, { listTask ->
-                    if (listTask != null) {
-                        binding.progressBar3.visibility = View.GONE
-                        adapterTask.setListTask(listTask)
-                        binding.emptyTask.imageView3.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
-                        binding.emptyTask.tvContentEmptyDesc.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
-                        setRecycler()
-                    }
-                })
+                viewModel.setFilter(1)
                 true
             }
             R.id.complete -> {
-                TasksFilterType.COMPLETED_TASKS
+                viewModel.setFilter(2)
                 true
             }
             R.id.favorite -> {
-                TasksFilterType.FAVORITE_TASKS
+                viewModel.setFilter(3)
                 true
             }
 
