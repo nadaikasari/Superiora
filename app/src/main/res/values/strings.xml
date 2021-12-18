@@ -121,6 +121,7 @@
     <string name="favorite">Favorite</string>
     <string name="share">Share</string>
     <string name="notask">There is no task left !\nYou can relax for a while!</string>
+    <string name="register_success">You have been successfully registered.</string>
 
 
 </resources>

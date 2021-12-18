@@ -43,6 +43,10 @@ class LocalDataSource private constructor(private val dao: SuperioraDao) {
         dao.deleteUser(email)
     }
 
+    fun updateDataUser(user: User) {
+        dao.updateDataUser(user)
+    }
+
 
 //    fun getTaskbySort(filter: TasksFilterType) : LiveData<List<Task>> {
 //        val query = FilterUtils.getFilteredQuery(filter)

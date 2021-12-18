@@ -45,4 +45,7 @@ interface SuperioraDao {
 
     @Query("DELETE FROM user WHERE email = :email")
     fun deleteUser(email: String)
+
+    @Update
+    fun updateDataUser(user: User)
 }

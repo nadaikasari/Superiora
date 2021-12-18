@@ -2,6 +2,7 @@ package com.csd051.superiora.data
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
@@ -11,8 +12,12 @@ import com.csd051.superiora.ui.home.home.HomeActivity
 import com.csd051.superiora.ui.login.LoginActivity
 import com.csd051.superiora.utils.AppExecutors
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.*
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import java.util.*
+
 
 class SuperioraRepository(
     private val localDataSource: LocalDataSource,
@@ -22,7 +27,8 @@ class SuperioraRepository(
 
     private lateinit var firebase: FirebaseFirestore
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var df : DocumentReference
+    private lateinit var storage: FirebaseStorage
+    private lateinit var storageReference: StorageReference
 
     fun getAllTask(): LiveData<List<Task>> = localDataSource.getAllTask()
 
@@ -75,8 +81,13 @@ class SuperioraRepository(
         }
     }
 
+    private fun updateDataUser(user: User) {
+        appExecutors.diskIO().execute {
+            localDataSource.updateDataUser(user)
+        }
+    }
 
-    // ----------------------Ini Firebase------------------------
+    // ----------------------Firebase------------------------
     fun register(context: Context, user: User) {
         mAuth = FirebaseAuth.getInstance()
         firebase = FirebaseFirestore.getInstance()
@@ -90,13 +101,14 @@ class SuperioraRepository(
             userInfo["name"] = user.nama
             userInfo["photo"] = ""
             df.set(userInfo)
-            Toast.makeText(context, "Register sukses, silahkan login", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "You have been successfully registered", Toast.LENGTH_SHORT)
+                .show()
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(context, intent, null)
         }.addOnFailureListener {
             Toast.makeText(
                 context,
-                "Gagal mendaftarkan akun, Silahkan coba lag",
+                "Gagal mendaftarkan akun, Silahkan coba lagi",
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -123,6 +135,62 @@ class SuperioraRepository(
             val user = User(0, uid, nama, email, password, imageUrl)
             insertNewUser(user)
         }
+    }
+
+    fun updateUser(context: Context, user: User, filePath: Uri) {
+        storage = FirebaseStorage.getInstance()
+        firebase = FirebaseFirestore.getInstance()
+        storageReference = storage.reference
+
+        val ref = storageReference.child("images/" + UUID.randomUUID().toString())
+        ref.putFile(filePath).addOnSuccessListener {
+            ref.downloadUrl.addOnSuccessListener { urlPhoto ->
+                val data: MutableMap<String, Any> = HashMap()
+                data["name"] = user.nama
+                data["photo"] = urlPhoto.toString()
+
+                firebase.collection("users").document(user.id_firebase).update(data)
+                    .addOnSuccessListener {
+                        val newUser = User(
+                            user.id,
+                            user.id_firebase,
+                            user.nama,
+                            user.email,
+                            user.password,
+                            urlPhoto.toString()
+                        )
+                        updateDataUser(newUser)
+                        Toast.makeText(context, "Success updating data", Toast.LENGTH_SHORT).show()
+                    }.addOnFailureListener {
+                        Toast.makeText(context, "Failed updating data", Toast.LENGTH_SHORT).show()
+                    }
+            }.addOnFailureListener {
+                Toast.makeText(context, "Failed updating data", Toast.LENGTH_SHORT).show()
+            }
+
+        }
+    }
+
+    fun updateDataUserWithNoUpdateImage(context: Context, user: User) {
+        firebase = FirebaseFirestore.getInstance()
+        val data: MutableMap<String, Any> = HashMap()
+        data["name"] = user.nama
+
+        firebase.collection("users").document(user.id_firebase).update(data)
+            .addOnSuccessListener {
+                val newUser = User(
+                    user.id,
+                    user.id_firebase,
+                    user.nama,
+                    user.email,
+                    user.password,
+                    user.urlPhoto
+                )
+                updateDataUser(newUser)
+                Toast.makeText(context, "Success updating data", Toast.LENGTH_SHORT).show()
+            }.addOnFailureListener {
+                Toast.makeText(context, "Failed updating data", Toast.LENGTH_SHORT).show()
+            }
     }
 
     // ----------------------API Response------------------------
