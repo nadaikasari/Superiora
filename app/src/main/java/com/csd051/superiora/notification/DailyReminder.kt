@@ -12,7 +12,9 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.TaskStackBuilder
 import com.csd051.superiora.R
+import com.csd051.superiora.data.SuperioraRepository
 import com.csd051.superiora.data.entity.Task
+import com.csd051.superiora.di.Injection
 import com.csd051.superiora.ui.home.home.HomeActivity
 import com.csd051.superiora.utils.*
 import java.util.*
@@ -24,12 +26,12 @@ class DailyReminder: BroadcastReceiver() {
     //todo ini juga minta context tapi bingung
     override fun onReceive(context: Context, intent: Intent) {
         executeThread {
-//            val repository = SuperioraRepository(Injection.provideRepository(context))
-//            val data = repository?.getTodayTask()
-//
-//            data.let {
-//                if (it.isNotEmpty()) showNotification(context, it)
-//            }
+            val repository = Injection.provideRepository(context)
+            val data = repository.getTodayNotification()
+
+            data.let {
+                if (it.isNotEmpty()) showNotification(context, it)
+            }
         }
     }
 

@@ -39,6 +39,9 @@ interface SuperioraDao {
     @Query("SELECT * FROM tasks WHERE dueDate = :dateNow AND isDone = 0")
     fun getTodayTask(dateNow: String): LiveData<List<Task>>
 
+    @Query("SELECT * FROM tasks WHERE dueDate = :dateNow AND isDone = 0")
+    fun getNotificationTask(dateNow: String): List<Task>
+
     @Insert
     fun insertUser(user: User)
 
@@ -54,6 +57,4 @@ interface SuperioraDao {
     @RawQuery(observedEntities = [Task::class])
     fun getTasks(query: SupportSQLiteQuery): LiveData<List<Task>>
 
-    @Query("SELECT * from tasks WHERE id_parent = -1 AND id_course = :courseId AND isDone = 0 ORDER BY id ASC")
-    fun getActiveTask(courseId: Int): LiveData<List<Task>>
 }

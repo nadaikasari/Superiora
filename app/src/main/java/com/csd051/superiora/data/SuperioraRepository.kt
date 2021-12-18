@@ -40,17 +40,13 @@ class SuperioraRepository(
 
     fun getRootTask(courseId: Int): LiveData<List<Task>> = localDataSource.getRootTask(courseId)
 
-    fun getactiveTask(courseId: Int): LiveData<List<Task>> = localDataSource.getActivetask(courseId)
-
     fun getChildTask(parentId: Int): LiveData<List<Task>> = localDataSource.getChildById(parentId)
 
     fun getStaticChild(parentId: Int): List<Task> = localDataSource.getStaticChild(parentId)
 
-//    fun getSortTask(filter: TasksFilterType): LiveData<List<Task>> =
-//        localDataSource.getTaskbySort(filter)
-
-
     fun getTodayTask(): LiveData<List<Task>> = localDataSource.getTodayTask(currentDate)
+
+    fun getTodayNotification(): List<Task> = localDataSource.getNotificationTask(currentDate)
 
     fun getUser(): LiveData<User> = localDataSource.getUser()
 
