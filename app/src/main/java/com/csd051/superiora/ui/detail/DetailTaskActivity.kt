@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -113,7 +112,7 @@ class DetailTaskActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_favorite -> {
-                Toast.makeText(this, "favorite", Toast.LENGTH_SHORT).show()
+                //Todo Favorite
                 return true
             }
             R.id.action_share -> {

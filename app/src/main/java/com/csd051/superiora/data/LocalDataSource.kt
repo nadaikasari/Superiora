@@ -23,6 +23,11 @@ class LocalDataSource private constructor(private val dao: SuperioraDao) {
 
     fun getUser(): LiveData<User> = dao.getUser()
 
+    fun getTaskSort(courseId: Int, filter: TasksFilterType): LiveData<List<Task>> {
+        val query = FilterUtils.getFilteredQuery(courseId, filter)
+        return dao.getTasks(query)
+    }
+
     fun insertTask(task: Task) {
         dao.insert(task)
     }
@@ -51,11 +56,6 @@ class LocalDataSource private constructor(private val dao: SuperioraDao) {
         dao.updateDataUser(user)
     }
 
-    fun getTaskSort(courseId:Int, filter: TasksFilterType) : LiveData<List<Task>> {
-        val query = FilterUtils.getFilteredQuery(courseId, filter)
-        return dao.getTasks(query)
-    }
-
     companion object {
         private var INSTANCE: LocalDataSource? = null
 
@@ -63,6 +63,5 @@ class LocalDataSource private constructor(private val dao: SuperioraDao) {
             INSTANCE ?: LocalDataSource(dao).apply {
                 INSTANCE = this
             }
-
     }
 }

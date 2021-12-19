@@ -1,9 +1,11 @@
 package com.csd051.superiora.ui.home.yourtask
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import com.csd051.superiora.data.SuperioraRepository
 import com.csd051.superiora.data.entity.Task
-import com.csd051.superiora.utils.AppExecutors
 
 class YourTaskViewModel(private val repository: SuperioraRepository) : ViewModel() {
 

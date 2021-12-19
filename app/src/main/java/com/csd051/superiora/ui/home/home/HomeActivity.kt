@@ -65,6 +65,13 @@ class HomeActivity : AppCompatActivity() {
                 binding.navView.getHeaderView(0).findViewById<TextView>(R.id.email_user).text =
                     data.email
                 isLoginUser = true
+            } else {
+                Glide.with(this)
+                    .load(imageDummy)
+                    .into(
+                        binding.navView.getHeaderView(0)
+                            .findViewById<CircleImageView>(R.id.image_user)
+                    )
             }
         })
 

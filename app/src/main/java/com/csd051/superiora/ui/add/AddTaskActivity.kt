@@ -46,7 +46,11 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
             task.id_firebase = ""
             task.id_parent = -1
             task.title = binding.addEdTitle.text.toString()
-            task.dueDate = binding.addTvDueDate.text.toString()
+            if(binding.addTvDueDate.text.equals("Due Date")) {
+                task.dueDate = ""
+            } else {
+                task.dueDate = binding.addTvDueDate.text.toString()
+            }
             task.triggerLink = binding.addEdTriggerlink.text.toString()
             task.details = binding.addEdDescription.text.toString()
         }
