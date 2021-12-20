@@ -41,8 +41,6 @@ class DetailTaskActivity : AppCompatActivity() {
 
         binding.swipeRefresh.setOnRefreshListener { getData() }
 
-
-
         binding.rvDetailChild.layoutManager = LinearLayoutManager(this)
 
     }

@@ -8,7 +8,7 @@ import com.csd051.superiora.di.Injection
 import com.csd051.superiora.ui.add.AddTaskViewModel
 import com.csd051.superiora.ui.detail.DetailTaskViewModel
 import com.csd051.superiora.ui.edit.EditTaskViewModel
-import com.csd051.superiora.ui.user.EditUserViewModel
+import com.csd051.superiora.ui.user.EditProfileUserViewModel
 import com.csd051.superiora.ui.home.home.HomeViewModel
 import com.csd051.superiora.ui.home.roadmaps.RoadmapsViewModel
 import com.csd051.superiora.ui.home.today_schedule.TodayScheduleViewModel
@@ -59,8 +59,8 @@ class ViewModelFactory private constructor(private val repository: SuperioraRepo
             modelClass.isAssignableFrom(HomeViewModel::class.java) -> {
                 HomeViewModel(repository) as T
             }
-            modelClass.isAssignableFrom(EditUserViewModel::class.java) -> {
-                EditUserViewModel(repository) as T
+            modelClass.isAssignableFrom(EditProfileUserViewModel::class.java) -> {
+                EditProfileUserViewModel(repository) as T
             }
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
         }

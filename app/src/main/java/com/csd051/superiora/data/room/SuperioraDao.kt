@@ -38,7 +38,7 @@ interface SuperioraDao {
     @Query("SELECT * FROM tasks WHERE dueDate = :dateNow AND isDone = 0")
     fun getNotificationTask(dateNow: String): List<Task>
 
-    @Query("SELECT * from tasks WHERE title LIKE '%'+:title+'%' AND id_course = :courseId ORDER BY id ASC")
+    @Query("SELECT * from tasks WHERE id_course = :courseId AND title LIKE '%' || :title || '%' ORDER BY id ASC")
     fun getSearchTask(courseId: Int, title: String): LiveData<List<Task>>
 
     @Insert

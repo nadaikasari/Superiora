@@ -1,7 +1,10 @@
 package com.csd051.superiora.ui.home.roadmaps
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
 import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,8 +19,10 @@ class RoadmapsFragment : Fragment() {
     private var fragmentRoadmapsBinding: FragmentRoadmapsBinding? = null
     private val binding get() = fragmentRoadmapsBinding!!
     private lateinit var viewModel: RoadmapsViewModel
-    private var currentSize : Int = 0
-    private var counter : Int = 0
+    private var currentSize: Int = 0
+    private var counter: Int = 0
+    private var messageDataEmpty: String = ""
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,7 +31,7 @@ class RoadmapsFragment : Fragment() {
         fragmentRoadmapsBinding = FragmentRoadmapsBinding.inflate(inflater, container, false)
         val factory = ViewModelFactory.getInstance(requireActivity())
         viewModel = ViewModelProvider(this, factory)[RoadmapsViewModel::class.java]
-        val adapterTask = RoadmapsAdapter(viewLifecycleOwner, viewModel) {task, isDone ->
+        val adapterTask = RoadmapsAdapter(viewLifecycleOwner, viewModel) { task, isDone ->
             doneTask(task, isDone)
         }
         val courseId: Int = arguments?.getInt("courseId") ?: 0
@@ -45,12 +50,13 @@ class RoadmapsFragment : Fragment() {
             if (listTask.isNotEmpty()) {
                 binding.progressBar.visibility = View.GONE
                 adapterTask.setListTask(listTask)
-            }else {
+            } else {
                 counter += 2
                 if (counter == 5) {
                     viewModel.getDataFromApi(currentSize, courseId)
                 }
             }
+            setLayout()
         })
 
         with(binding.rvRoadmaps) {
@@ -62,6 +68,20 @@ class RoadmapsFragment : Fragment() {
         return binding.root
     }
 
+    private fun setLayout() {
+        viewModel.tasks.observe(viewLifecycleOwner, { listTask ->
+            if (messageDataEmpty == "") {
+                binding.emptyTask.tvContentEmptyDesc.text = getString(R.string.notask)
+            } else {
+                binding.emptyTask.tvContentEmptyDesc.text = messageDataEmpty
+            }
+            binding.emptyTask.imageView3.visibility =
+                if (listTask.isEmpty()) View.VISIBLE else View.GONE
+            binding.emptyTask.tvContentEmptyDesc.visibility =
+                if (listTask.isEmpty()) View.VISIBLE else View.GONE
+        })
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -69,6 +89,31 @@ class RoadmapsFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_roadmap, menu)
+        val searchManager =
+            requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = menu.findItem(R.id.search)?.actionView as SearchView
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+        searchView.queryHint = resources.getString(R.string.search_hint)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                viewModel.titleQuery = query
+                if (query.isEmpty()) {
+                    viewModel.setFilter(0)
+                } else {
+                    viewModel.setFilter(4)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
+        searchView.setOnCloseListener {
+            viewModel.setFilter(0)
+            false
+        }
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -76,18 +121,22 @@ class RoadmapsFragment : Fragment() {
         return when (item.itemId) {
             R.id.allTask -> {
                 viewModel.setFilter(0)
+                messageDataEmpty = getString(R.string.notask)
                 true
             }
             R.id.is_active -> {
                 viewModel.setFilter(1)
+                messageDataEmpty = getString(R.string.noactive_data)
                 true
             }
             R.id.complete -> {
                 viewModel.setFilter(2)
+                messageDataEmpty = getString(R.string.nocomplete_task)
                 true
             }
             R.id.favorite -> {
                 viewModel.setFilter(3)
+                messageDataEmpty = getString(R.string.no_favorite_task)
                 true
             }
 
@@ -98,8 +147,8 @@ class RoadmapsFragment : Fragment() {
     private fun doneTask(task: Task, isDone: Boolean) {
         AppExecutors().diskIO().execute {
             with(viewModel.getStaticChild(task.id)) {
-                if(this.isNotEmpty()){
-                    for(each in this) {
+                if (this.isNotEmpty()) {
+                    for (each in this) {
                         doneByParent(each, isDone)
                     }
                 }
@@ -113,8 +162,8 @@ class RoadmapsFragment : Fragment() {
     private fun doneByParent(task: Task, isDone: Boolean) {
         AppExecutors().diskIO().execute {
             with(viewModel.getStaticChild(task.id)) {
-                if(this.isNotEmpty()){
-                    for(each in this) {
+                if (this.isNotEmpty()) {
+                    for (each in this) {
                         doneByParent(each, isDone)
                     }
                 }

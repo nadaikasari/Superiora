@@ -19,11 +19,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListener {
+
+    private lateinit var viewModel : EditTaskViewModel
+    private lateinit var binding: ActivityEditTaskBinding
+
     private var dueDateMillis: Long = System.currentTimeMillis()
     private var task: Task? = null
-    private lateinit var viewModel : EditTaskViewModel
-
-    private lateinit var binding: ActivityEditTaskBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,10 +36,26 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
         val factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[EditTaskViewModel::class.java]
 
-        task = intent.getParcelableExtra(EXTRA_DATA)
-
         binding.rvChildtask.layoutManager = LinearLayoutManager(this)
 
+        getData()
+
+        binding.btnSave.setOnClickListener {
+            updateTask()
+        }
+
+        binding.addChild.setOnClickListener {
+            addChild()
+        }
+
+        viewModel.getChildTask(task?.id ?: -2).observe(this, { tasks ->
+            showRecyclerView(tasks)
+        })
+
+    }
+
+    private fun getData() {
+        task = intent.getParcelableExtra(EXTRA_DATA)
         task?.let { task ->
             binding.addEdTitle.setText(task.title)
             if(task.dueDate.equals("")) {
@@ -49,48 +66,45 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
             binding.addEdTriggerlink.setText(task.triggerLink)
             binding.addEdDescription.setText(task.details)
         }
+    }
 
-        binding.btnSave.setOnClickListener {
-            if(binding.addEdTitle.text.toString().isNotEmpty()) {
-                task.let {
-                    task?.title = binding.addEdTitle.text.toString()
+    private fun updateTask() {
+        if(binding.addEdTitle.text.toString().isNotEmpty()) {
+            task.let {
+                task?.title = binding.addEdTitle.text.toString()
+                if(binding.addTvDueDate.text.equals("Due Date")) {
+                    task?.dueDate = ""
+                } else {
                     task?.dueDate = binding.addTvDueDate.text.toString()
-                    task?.triggerLink = binding.addEdTriggerlink.text.toString()
-                    task?.details = binding.addEdDescription.text.toString()
                 }
-                task?.let { task -> viewModel.updateTask(task) }
-                Toast.makeText(this, R.string.task_updated, Toast.LENGTH_SHORT).show()
-                finish()
-            } else {
-                binding.addEdTitle.error = getString(R.string.tv_field_notnull)
-                binding.addEdTitle.requestFocus()
+                task?.triggerLink = binding.addEdTriggerlink.text.toString()
+                task?.details = binding.addEdDescription.text.toString()
             }
+            task?.let { task -> viewModel.updateTask(task) }
+            Toast.makeText(this, R.string.task_updated, Toast.LENGTH_SHORT).show()
+            finish()
+        } else {
+            binding.addEdTitle.error = getString(R.string.tv_field_notnull)
+            binding.addEdTitle.requestFocus()
+        }
+    }
+
+    private fun addChild() {
+        if(binding.edtNewChildName.text.isNotEmpty()) {
+            val childTask = Task()
+            childTask.let {
+                childTask.id_firebase = ""
+                childTask.id_parent = task?.id ?: -1
+                childTask.title = binding.edtNewChildName.text.toString()
+            }
+            viewModel.insertChild(childTask)
+            binding.edtNewChildName.setText("")
+        }
+        else {
+            binding.edtNewChildName.error = getString(R.string.tv_field_notnull)
+            binding.edtNewChildName.requestFocus()
 
         }
-
-        binding.addChild.setOnClickListener {
-            if(binding.edtNewChildName.text.isNotEmpty()) {
-                val childTask = Task()
-                childTask.let {
-                    childTask.id_firebase = ""
-                    childTask.id_parent = task?.id ?: -1
-                    childTask.title = binding.edtNewChildName.text.toString()
-                }
-                viewModel.insertChild(childTask)
-                binding.edtNewChildName.setText("")
-            }
-            else {
-                binding.edtNewChildName.error = getString(R.string.tv_field_notnull)
-                binding.edtNewChildName.requestFocus()
-
-            }
-
-        }
-
-        viewModel.getChildTask(task?.id ?: -2).observe(this, { tasks ->
-            showRecyclerView(tasks)
-        })
-
     }
 
     fun showDatePicker(view: View) {

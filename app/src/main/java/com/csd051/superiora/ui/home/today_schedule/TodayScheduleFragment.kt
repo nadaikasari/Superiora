@@ -1,13 +1,14 @@
 package com.csd051.superiora.ui.home.today_schedule
 
+import android.app.SearchManager
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.FragmentTodayScheduleBinding
 import com.csd051.superiora.utils.AppExecutors
@@ -43,14 +44,12 @@ class TodayScheduleFragment : Fragment() {
 
 
     private fun getData() {
-        viewModel.getTodayTask().observe(viewLifecycleOwner, { listTask ->
+        viewModel.tasks.observe(viewLifecycleOwner, { listTask ->
             if (listTask != null) {
                 binding.progressBar3.visibility = View.GONE
                 todayScheduleAdapter.setListTask(listTask)
                 binding.emptyTask.imageView3.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
                 binding.emptyTask.tvContentEmptyDesc.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
-
-                Log.d( "getData: ", listTask.toString())
             }
         })
 
@@ -88,6 +87,41 @@ class TodayScheduleFragment : Fragment() {
         }
         task.isDoneByParent = isDone
         viewModel.updateTask(task)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_today_schedule, menu)
+
+        val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = menu.findItem(R.id.search)?.actionView as SearchView
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+        searchView.queryHint = resources.getString(R.string.search_hint)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String): Boolean {
+                viewModel.titleQuery = query
+                if(query.isEmpty()){
+                    viewModel.setFilter(0)
+                }else{
+                    viewModel.setFilter(1)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
+        searchView.setOnCloseListener {
+            viewModel.setFilter(0)
+            false
+        }
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onDestroyView() {

@@ -15,9 +15,9 @@ import com.csd051.superiora.databinding.ActivityEditUserBinding
 import com.csd051.superiora.viewmodel.ViewModelFactory
 import java.io.IOException
 
-class EditUserActivity : AppCompatActivity() {
+class EditProfileUserActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditUserBinding
-    private lateinit var viewModel: EditUserViewModel
+    private lateinit var viewModelProfile: EditProfileUserViewModel
     private val imageDummy =
         "https://firebasestorage.googleapis.com/v0/b/superiora-30875.appspot.com/o/icon_user%2Ficon.png?alt=media&token=e732dded-f66b-4683-954f-70f6a588f67d"
     private var filePath: Uri? = null
@@ -30,9 +30,9 @@ class EditUserActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val factory = ViewModelFactory.getInstance(this)
-        viewModel = ViewModelProvider(this, factory)[EditUserViewModel::class.java]
+        viewModelProfile = ViewModelProvider(this, factory)[EditProfileUserViewModel::class.java]
 
-        viewModel.getUser().observe(this, { data ->
+        viewModelProfile.getUser().observe(this, { data ->
             if (data != null) {
                 Glide.with(this)
                     .load(
@@ -51,40 +51,48 @@ class EditUserActivity : AppCompatActivity() {
         })
 
         binding.userBtnChangeProfile.setOnClickListener {
-            val intent = Intent()
-            intent.type = "image/*"
-            intent.action = Intent.ACTION_GET_CONTENT
-            //todo Deprecated
-            startActivityForResult(
-                Intent.createChooser(
-                    intent,
-                    "Select Image from here..."
-                ),
-                PICK_IMAGE_REQUEST
-            )
+           getPhoto()
         }
 
         binding.btnUpdateProfile.setOnClickListener {
-            binding.progressBar.visibility = View.VISIBLE
-            viewModel.getUser().observe(this, { data ->
-                val user = User(
-                    data.id,
-                    data.id_firebase,
-                    binding.userEdName.text.toString(),
-                    data.email,
-                    data.password,
-                    data.urlPhoto
-                )
-                if (filePath != null) {
-                    filePath?.let { it1 ->
-                        viewModel.updateUser(this, user, it1)
-                    }
-                } else {
-                    viewModel.updateUserWithNoImage(this, user)
-                }
-            })
+            updateProfile()
         }
 
+    }
+
+    private fun getPhoto() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        //todo Deprecated
+        startActivityForResult(
+            Intent.createChooser(
+                intent,
+                "Select Image from here..."
+            ),
+            PICK_IMAGE_REQUEST
+        )
+    }
+
+    private fun updateProfile() {
+        binding.progressBar.visibility = View.VISIBLE
+        viewModelProfile.getUser().observe(this, { data ->
+            val user = User(
+                data.id,
+                data.id_firebase,
+                binding.userEdName.text.toString(),
+                data.email,
+                data.password,
+                data.urlPhoto
+            )
+            if (filePath != null) {
+                filePath?.let { it1 ->
+                    viewModelProfile.updateUser(this, user, it1)
+                }
+            } else {
+                viewModelProfile.updateUserWithNoImage(this, user)
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

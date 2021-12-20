@@ -30,11 +30,11 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         binding.btnSignUp.setOnClickListener {
-            validator()
+            validate()
         }
     }
 
-    private fun validator() {
+    private fun validate() {
         when {
             binding.edtName.text.toString().isEmpty() -> {
                 binding.edtName.error = getString(R.string.tv_name_null)

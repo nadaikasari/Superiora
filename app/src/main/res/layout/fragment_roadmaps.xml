@@ -44,7 +44,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <include
-        android:visibility="gone"
         android:id="@+id/empty_task"
         layout="@layout/content_empty" />
 

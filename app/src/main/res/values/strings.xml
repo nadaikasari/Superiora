@@ -134,7 +134,10 @@
 
     <!-- Search Query -->
     <string name="search_hint">Search Task Title</string>
-
+    <string name="value">No task left</string>
+    <string name="noactive_data">There is no active task!</string>
+    <string name="nocomplete_task">There is no complete task!</string>
+    <string name="no_favorite_task">There is no favorite task!</string>
 
 
 </resources>

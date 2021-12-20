@@ -15,7 +15,7 @@
             android:name=".ui.detail.DetailTaskActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.user.EditUserActivity"
+            android:name=".ui.user.EditProfileUserActivity"
             android:exported="false" />
         <activity
             android:name=".ui.edit.EditTaskActivity"

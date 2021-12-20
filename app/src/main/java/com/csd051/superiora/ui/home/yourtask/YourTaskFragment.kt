@@ -5,9 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,11 +19,11 @@ import com.csd051.superiora.viewmodel.ViewModelFactory
 
 class YourTaskFragment : Fragment() {
 
-    private var fragmentTaskBinding: FragmentYourTaskBinding? = null
-    private val binding get() = fragmentTaskBinding!!
     private lateinit var viewModel: YourTaskViewModel
     private lateinit var adapterTask: YourTaskAdapter
-
+    private var fragmentTaskBinding: FragmentYourTaskBinding? = null
+    private val binding get() = fragmentTaskBinding!!
+    private var messageDataEmpty: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,15 +36,8 @@ class YourTaskFragment : Fragment() {
         adapterTask = YourTaskAdapter(viewLifecycleOwner, viewModel){task, isDone ->
             doneTask(task, isDone)
         }
-        viewModel.tasks.observe(viewLifecycleOwner, { listTask ->
-            if (listTask != null) {
-                binding.progressBar3.visibility = View.GONE
-                adapterTask.setListTask(listTask)
-                binding.emptyTask.imageView3.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
-                binding.emptyTask.tvContentEmptyDesc.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
-                setRecycler()
-            }
-        })
+
+        getData()
 
         binding.fab.setOnClickListener {
             val intent = Intent(context, AddTaskActivity::class.java)
@@ -54,6 +45,25 @@ class YourTaskFragment : Fragment() {
         }
         return binding.root
 
+    }
+
+    private fun getData() {
+        viewModel.tasks.observe(viewLifecycleOwner, { listTask ->
+            when {
+                listTask != null -> {
+                    binding.progressBar3.visibility = View.GONE
+                    adapterTask.setListTask(listTask)
+                    setRecycler()
+                }
+            }
+            if(messageDataEmpty == "") {
+                binding.emptyTask.tvContentEmptyDesc.text = getString(R.string.notask)
+            } else {
+                binding.emptyTask.tvContentEmptyDesc.text = messageDataEmpty
+            }
+            binding.emptyTask.imageView3.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
+            binding.emptyTask.tvContentEmptyDesc.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
+        })
     }
 
     private fun setRecycler() {
@@ -92,6 +102,10 @@ class YourTaskFragment : Fragment() {
                 return false
             }
         })
+        searchView.setOnCloseListener {
+            viewModel.setFilter(0)
+            false
+        }
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -99,25 +113,28 @@ class YourTaskFragment : Fragment() {
         return when (item.itemId) {
             R.id.allTask -> {
                 viewModel.setFilter(0)
+                messageDataEmpty = getString(R.string.notask)
                 true
             }
             R.id.is_active -> {
                 viewModel.setFilter(1)
+                messageDataEmpty = getString(R.string.noactive_data)
                 true
             }
             R.id.complete -> {
                 viewModel.setFilter(2)
+                messageDataEmpty = getString(R.string.nocomplete_task)
                 true
             }
             R.id.favorite -> {
                 viewModel.setFilter(3)
+                messageDataEmpty = getString(R.string.no_favorite_task)
                 true
             }
 
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 
     private fun doneTask(task: Task, isDone: Boolean) {
         AppExecutors().diskIO().execute {

@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnSignIn.setOnClickListener {
-            validator()
+            validate()
         }
 
         viewModel.getUser().observe(this, { data->
@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
 
     }
 
-    private fun validator() {
+    private fun validate() {
         when {
             binding.edtEmailLogin.text.toString().isEmpty() -> {
                 binding.edtEmailLogin.error = getString(R.string.tv_email_null)

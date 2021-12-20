@@ -15,10 +15,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListener {
-    private var dueDateMillis: Long = System.currentTimeMillis()
     private lateinit var binding: ActivityAddTaskBinding
-
     private lateinit var taskViewModel: AddTaskViewModel
+
+    private var dueDateMillis: Long = System.currentTimeMillis()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,12 +31,16 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
         taskViewModel = ViewModelProvider(this, factory)[AddTaskViewModel::class.java]
 
         binding.btnSave.setOnClickListener {
-            if(binding.addEdTitle.text.toString().isNotEmpty()) {
-                insertTask()
-            } else {
-                binding.addEdTitle.error = getString(R.string.tv_field_notnull)
-                binding.addEdTitle.requestFocus()
-            }
+            validate()
+        }
+    }
+
+    private fun validate() {
+        if(binding.addEdTitle.text.toString().isNotEmpty()) {
+            insertTask()
+        } else {
+            binding.addEdTitle.error = getString(R.string.tv_field_notnull)
+            binding.addEdTitle.requestFocus()
         }
     }
 
@@ -58,7 +62,6 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
         Toast.makeText(this, getString(R.string.added), Toast.LENGTH_SHORT).show()
         finish()
     }
-
 
     fun showDatePicker(view: View) {
         val dialogFragment = DatePickerFragment()

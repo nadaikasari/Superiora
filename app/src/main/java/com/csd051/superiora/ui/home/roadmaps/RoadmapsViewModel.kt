@@ -11,6 +11,7 @@ class RoadmapsViewModel (private val repository: SuperioraRepository) : ViewMode
 
     private val _filter = MutableLiveData<Int>()
     private var courseId : Int = 0
+    var titleQuery: String = ""
 
     var tasks: LiveData<List<Task>> = _filter.switchMap {
         when (it) {
@@ -18,6 +19,7 @@ class RoadmapsViewModel (private val repository: SuperioraRepository) : ViewMode
             1 -> repository.getActiveTasks(courseId)
             2 -> repository.getCompletedTasks(courseId)
             3 -> repository.getFavoriteTasks(courseId)
+            4 -> repository.getFilteredTask(courseId, titleQuery)
             else -> repository.getRootTask(courseId)
         }
     }
