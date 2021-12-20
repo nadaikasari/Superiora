@@ -49,7 +49,7 @@ class TodayScheduleFragment : Fragment() {
                 binding.progressBar3.visibility = View.GONE
                 todayScheduleAdapter.setListTask(listTask)
             }
-            binding.emptyTask.tvContentEmptyDesc.text = messageDataEmpty
+            setLayout()
             binding.emptyTask.imageView3.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
             binding.emptyTask.tvContentEmptyDesc.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
         })
@@ -58,6 +58,14 @@ class TodayScheduleFragment : Fragment() {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
             adapter = todayScheduleAdapter
+        }
+    }
+
+    private fun setLayout(){
+        if (messageDataEmpty == "") {
+            binding.emptyTask.tvContentEmptyDesc.text = getString(R.string.notask)
+        } else {
+            binding.emptyTask.tvContentEmptyDesc.text = messageDataEmpty
         }
     }
 
