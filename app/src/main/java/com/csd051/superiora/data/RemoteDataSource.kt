@@ -11,20 +11,6 @@ import java.util.ArrayList
 
 class RemoteDataSource {
 
-
-    companion object {
-
-        private const val TAG = "RemoteDataSource"
-
-        @Volatile
-        private var instance: RemoteDataSource? = null
-
-        fun getInstance(): RemoteDataSource =
-            instance ?: synchronized(this) {
-                instance ?: RemoteDataSource().apply { instance = this }
-            }
-    }
-
     fun getListData(tableLength: Int, courseId: Int, callback: LoadDataListCallback) {
 //        EspressoIdlingResource.increment()
         val client = ApiConfig.getApiService().getResponseList(QueryUtilApi.pathName(courseId))
@@ -58,6 +44,17 @@ class RemoteDataSource {
 
     interface LoadDataListCallback {
         fun onAllDataReceived(dataListResponse: List<Task>)
+    }
+
+    companion object {
+        private const val TAG = "RemoteDataSource"
+
+        @Volatile
+        private var instance: RemoteDataSource? = null
+        fun getInstance(): RemoteDataSource =
+            instance ?: synchronized(this) {
+                instance ?: RemoteDataSource().apply { instance = this }
+            }
     }
 
 }

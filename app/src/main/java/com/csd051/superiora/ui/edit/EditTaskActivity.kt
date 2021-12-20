@@ -41,7 +41,11 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
 
         task?.let { task ->
             binding.addEdTitle.setText(task.title)
-            binding.addTvDueDate.text = task.dueDate
+            if(task.dueDate.equals("")) {
+                binding.addTvDueDate.text = getString(R.string.due_date)
+            } else {
+                binding.addTvDueDate.text = task.dueDate
+            }
             binding.addEdTriggerlink.setText(task.triggerLink)
             binding.addEdDescription.setText(task.details)
         }
@@ -131,7 +135,7 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
         binding.rvChildtask.adapter = adapter
     }
 
-    fun purgeObject(task: Task) {
+    private fun purgeObject(task: Task) {
         viewModel.getChildTask(task.id).observe(this, { child ->
             println(task.id)
             if(child.isNotEmpty()){

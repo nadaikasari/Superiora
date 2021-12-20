@@ -15,9 +15,6 @@ object FilterUtils {
             TasksFilterType.FAVORITE_TASKS -> {
                 simpleQuery.append("WHERE isFavorite = 1 AND id_parent = -1 AND id_course = $courseId ORDER BY id ASC")
             }
-            else -> {
-                simpleQuery.append("WHERE id_parent = -1 AND id_course = $courseId ORDER BY id ASC")
-            }
         }
         return SimpleSQLiteQuery(simpleQuery.toString())
     }

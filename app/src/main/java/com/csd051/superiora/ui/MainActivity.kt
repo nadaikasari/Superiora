@@ -30,9 +30,8 @@ class MainActivity : AppCompatActivity() {
         val darkMode = PreferenceManager.getDefaultSharedPreferences(this).getString(resources.getString(
             R.string.pref_key_dark), null)
         darkMode?.let {
-            val darkModeValue = it.uppercase(Locale.ROOT)
             val modeSelected =
-                when(darkModeValue) {
+                when(it.uppercase(Locale.ROOT)) {
                     DarkMode.ON.name -> DarkMode.ON
                     DarkMode.OFF.name -> DarkMode.OFF
                     else -> DarkMode.FOLLOW_SYSTEM

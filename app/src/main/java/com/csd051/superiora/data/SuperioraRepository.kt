@@ -6,7 +6,7 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
-import androidx.paging.PagedList
+import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.data.entity.User
 import com.csd051.superiora.ui.home.home.HomeActivity
@@ -33,8 +33,8 @@ class SuperioraRepository(
     private lateinit var storage: FirebaseStorage
     private lateinit var storageReference: StorageReference
 
-    val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-    val currentDate = dateFormat.format(Date())
+    private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    private val currentDate: String = dateFormat.format(Date())
 
     fun getAllTask(): LiveData<List<Task>> = localDataSource.getAllTask()
 
@@ -92,20 +92,21 @@ class SuperioraRepository(
         }
     }
 
-    fun getActiveTasks(courseId: Int) : LiveData<List<Task>>{
+    fun getActiveTasks(courseId: Int): LiveData<List<Task>> {
         val filter = TasksFilterType.ACTIVE_TASKS
         return localDataSource.getTaskSort(courseId, filter)
     }
 
-    fun getCompletedTasks(courseId: Int) : LiveData<List<Task>>{
+    fun getCompletedTasks(courseId: Int): LiveData<List<Task>> {
         val filter = TasksFilterType.COMPLETED_TASKS
         return localDataSource.getTaskSort(courseId, filter)
     }
 
-    fun getFavoriteTasks(courseId: Int) : LiveData<List<Task>>{
+    fun getFavoriteTasks(courseId: Int): LiveData<List<Task>> {
         val filter = TasksFilterType.FAVORITE_TASKS
         return localDataSource.getTaskSort(courseId, filter)
     }
+
 
     fun getFilteredTask(courseId: Int, title: String) : LiveData<List<Task>>{
         return localDataSource.getFilteredTask(courseId, title)
@@ -126,14 +127,18 @@ class SuperioraRepository(
             userInfo["name"] = user.nama
             userInfo["photo"] = ""
             df.set(userInfo)
-            Toast.makeText(context, "You have been successfully registered", Toast.LENGTH_SHORT)
+            Toast.makeText(
+                context,
+                context.getString(R.string.register_success),
+                Toast.LENGTH_SHORT
+            )
                 .show()
             val intent = Intent(context, LoginActivity::class.java)
             startActivity(context, intent, null)
         }.addOnFailureListener {
             Toast.makeText(
                 context,
-                "Gagal mendaftarkan akun, Silahkan coba lagi",
+                context.getString(R.string.register_failed),
                 Toast.LENGTH_SHORT
             ).show()
         }
@@ -143,11 +148,13 @@ class SuperioraRepository(
         mAuth = FirebaseAuth.getInstance()
         mAuth.signInWithEmailAndPassword(email, password).addOnSuccessListener { authResult ->
             saveUser(authResult.user!!.uid, email, password)
-            Toast.makeText(context, "Success Login", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.login_success), Toast.LENGTH_SHORT)
+                .show()
             val intent = Intent(context, HomeActivity::class.java)
             startActivity(context, intent, null)
         }.addOnFailureListener {
-            Toast.makeText(context, "Login failed! Please try again", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.login_failed), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 
@@ -155,9 +162,9 @@ class SuperioraRepository(
         firebase = FirebaseFirestore.getInstance()
         val df: DocumentReference = firebase.collection("users").document(uid)
         df.get().addOnSuccessListener { documentSnapshot ->
-            val nama = documentSnapshot.getString("name").toString()
+            val name = documentSnapshot.getString("name").toString()
             val imageUrl = documentSnapshot.getString("photo").toString()
-            val user = User(0, uid, nama, email, password, imageUrl)
+            val user = User(0, uid, name, email, password, imageUrl)
             insertNewUser(user)
         }
     }
@@ -185,12 +192,24 @@ class SuperioraRepository(
                             urlPhoto.toString()
                         )
                         updateDataUser(newUser)
-                        Toast.makeText(context, "Success updating data", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.edit_profile_success),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }.addOnFailureListener {
-                        Toast.makeText(context, "Failed updating data", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.edit_profile_failed),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
             }.addOnFailureListener {
-                Toast.makeText(context, "Failed updating data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.edit_profile_failed),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
         }
@@ -212,9 +231,17 @@ class SuperioraRepository(
                     user.urlPhoto
                 )
                 updateDataUser(newUser)
-                Toast.makeText(context, "Success updating data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.edit_profile_success),
+                    Toast.LENGTH_SHORT
+                ).show()
             }.addOnFailureListener {
-                Toast.makeText(context, "Failed updating data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(R.string.edit_profile_failed),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
     }
 

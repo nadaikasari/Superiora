@@ -105,6 +105,12 @@
     <string name="detail">Detail Task</string>
     <string name="task_updated">Task updated</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="register_failed">Register failed! Please Try Again</string>
+    <string name="regiter_success">You have been successfully registered</string>
+    <string name="login_success">Success Login</string>
+    <string name="login_failed">Login failed! Please try again</string>
+    <string name="edit_profile_success">Success updating data</string>
+    <string name="edit_profile_failed">Failed updating data</string>
 
 
     <string name="search">Search</string>
