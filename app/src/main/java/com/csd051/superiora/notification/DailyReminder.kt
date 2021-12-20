@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.TaskStackBuilder
 import com.csd051.superiora.R
-import com.csd051.superiora.data.SuperioraRepository
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.di.Injection
 import com.csd051.superiora.ui.home.home.HomeActivity
@@ -42,8 +41,8 @@ class DailyReminder: BroadcastReceiver() {
         }
         val calendar: Calendar = Calendar.getInstance().apply {
             timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, 8)
-            set(Calendar.MINUTE, 0)
+            set(Calendar.HOUR_OF_DAY, 15)
+            set(Calendar.MINUTE, 7)
             set(Calendar.SECOND, 0)
         }
         alarmManager.setInexactRepeating(
@@ -52,7 +51,7 @@ class DailyReminder: BroadcastReceiver() {
             AlarmManager.INTERVAL_DAY,
             alarmIntent
         )
-        Toast.makeText(context, "Notifikasi Pengingat dinyalakan", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.alarm_on), Toast.LENGTH_SHORT).show()
     }
 
     fun cancelAlarm(context: Context) {
@@ -61,7 +60,7 @@ class DailyReminder: BroadcastReceiver() {
             PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0)
         }
         alarmManager.cancel(alarmIntent)
-        Toast.makeText(context, "Notifikasi Pengingat dimatikan", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, context.getString(R.string.alarm_off), Toast.LENGTH_SHORT).show()
     }
 
     private fun showNotification(context: Context, content: List<Task>) {

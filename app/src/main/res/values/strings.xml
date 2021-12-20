@@ -111,6 +111,8 @@
     <string name="login_failed">Login failed! Please try again</string>
     <string name="edit_profile_success">Success updating data</string>
     <string name="edit_profile_failed">Failed updating data</string>
+    <string name="alarm_on">Notifikasi Pengingat dinyalakan</string>
+    <string name="alarm_off">Notifikasi Pengingat dimatikan</string>
 
 
     <string name="search">Search</string>

@@ -66,38 +66,23 @@ class EditUserActivity : AppCompatActivity() {
 
         binding.btnUpdateProfile.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
-
-            if (filePath != null) {
-                viewModel.getUser().observe(this, { data ->
-                    val user = User(
-                        data.id,
-                        data.id_firebase,
-                        binding.userEdName.text.toString(),
-                        data.email,
-                        data.password,
-                        filePath.toString()
-                    )
+            viewModel.getUser().observe(this, { data ->
+                val user = User(
+                    data.id,
+                    data.id_firebase,
+                    binding.userEdName.text.toString(),
+                    data.email,
+                    data.password,
+                    data.urlPhoto
+                )
+                if (filePath != null) {
                     filePath?.let { it1 ->
-                        viewModel.updateUser(
-                            this,
-                            user,
-                            it1
-                        )
+                        viewModel.updateUser(this, user, it1)
                     }
-                })
-            } else {
-                viewModel.getUser().observe(this, { data ->
-                    val user = User(
-                        data.id,
-                        data.id_firebase,
-                        binding.userEdName.text.toString(),
-                        data.email,
-                        data.password,
-                        data.urlPhoto
-                    )
+                } else {
                     viewModel.updateUserWithNoImage(this, user)
-                })
-            }
+                }
+            })
         }
 
     }

@@ -211,7 +211,6 @@ class SuperioraRepository(
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
         }
     }
 

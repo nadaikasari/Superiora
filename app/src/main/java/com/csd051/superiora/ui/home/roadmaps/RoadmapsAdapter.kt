@@ -139,6 +139,5 @@ class RoadmapsAdapter(
                 }
             }
         }
-
     }
 }

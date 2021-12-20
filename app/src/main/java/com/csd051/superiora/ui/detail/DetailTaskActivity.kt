@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.csd051.superiora.R
@@ -26,6 +27,7 @@ class DetailTaskActivity : AppCompatActivity() {
     private lateinit var youTubePlayerView: YouTubePlayerView
     private lateinit var viewModel: DetailTaskViewModel
     private lateinit var adapter: DetailTaskAdapter
+    private var menu: Menu? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +41,7 @@ class DetailTaskActivity : AppCompatActivity() {
 
         binding.swipeRefresh.setOnRefreshListener { getData() }
 
-        getData()
+
 
         binding.rvDetailChild.layoutManager = LinearLayoutManager(this)
 
@@ -51,7 +53,8 @@ class DetailTaskActivity : AppCompatActivity() {
         task?.let { task ->
             binding.detailTvTitle.text = task.title
             binding.detailText.text = task.details
-
+            val state = task.isFavorite
+            setFavoriteState(state)
             if (task.triggerLink.toString().isEmpty()) {
                 binding.detailVideoPlayer.visibility = View.GONE
             } else {
@@ -63,9 +66,7 @@ class DetailTaskActivity : AppCompatActivity() {
                     AbstractYouTubePlayerListener() {
                     override fun onReady(youTubePlayer: YouTubePlayer) {
                         youTubePlayer.loadVideo(videoId, 0f)
-
                     }
-
                     override fun onError(
                         youTubePlayer: YouTubePlayer,
                         error: PlayerConstants.PlayerError
@@ -103,6 +104,8 @@ class DetailTaskActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_detail_task, menu)
+        this.menu = menu
+        getData()
         return true
     }
 
@@ -122,10 +125,10 @@ class DetailTaskActivity : AppCompatActivity() {
                 viewModel.updateTask(task)
                 if (task?.isFavorite == true) {
                     Toast.makeText(this, "You have favorited this task!", Toast.LENGTH_SHORT).show()
-                    item.icon = getDrawable(R.drawable.ic_star)
+                    item.icon = ContextCompat.getDrawable(this, R.drawable.ic_star)
                 } else {
                     Toast.makeText(this, "You have unfavorited this task!", Toast.LENGTH_SHORT).show()
-                    item.icon = getDrawable(R.drawable.ic_star_border)
+                    item.icon = ContextCompat.getDrawable(this, R.drawable.ic_star_border)
                 }
 
                 return true
@@ -146,6 +149,16 @@ class DetailTaskActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setFavoriteState(state: Boolean) {
+        if (menu == null) return
+        val menuItem = menu?.findItem(R.id.action_favorite)
+        if (state) {
+            menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_star)
+        } else {
+            menuItem?.icon = ContextCompat.getDrawable(this, R.drawable.ic_star_border)
+        }
     }
 
     companion object {
