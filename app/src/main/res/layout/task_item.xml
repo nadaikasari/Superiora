@@ -9,6 +9,7 @@
     android:padding="8dp">
 
     <RelativeLayout
+        android:id="@+id/rl_task"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -26,14 +27,28 @@
 
 
             <com.csd051.superiora.ui.home.TaskTitleView
+                android:id="@+id/tv_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/star"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textColor="#FF0000"
+                android:textSize="18sp"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
+            <com.csd051.superiora.ui.home.TaskTitleView
                 android:id="@+id/tv_item_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:maxLines="1"
                 android:text="@string/title_hint"
-                android:textSize="18sp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="18sp" />
+
 
         </LinearLayout>
 

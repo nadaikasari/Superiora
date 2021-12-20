@@ -31,7 +31,7 @@ class RoadmapsFragment : Fragment() {
         fragmentRoadmapsBinding = FragmentRoadmapsBinding.inflate(inflater, container, false)
         val factory = ViewModelFactory.getInstance(requireActivity())
         viewModel = ViewModelProvider(this, factory)[RoadmapsViewModel::class.java]
-        val adapterTask = RoadmapsAdapter(viewLifecycleOwner, viewModel) { task, isDone ->
+        val adapterTask = RoadmapsAdapter(resources,viewLifecycleOwner, viewModel) { task, isDone ->
             doneTask(task, isDone)
         }
         val courseId: Int = arguments?.getInt("courseId") ?: 0

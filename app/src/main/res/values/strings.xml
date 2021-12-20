@@ -139,6 +139,7 @@
     <string name="nocomplete_task">There is no complete task!</string>
     <string name="no_favorite_task">There is no favorite task!</string>
     <string name="noresult_search">There is no result</string>
+    <string name="star">*</string>
 
 
 </resources>

@@ -20,11 +20,11 @@ import java.util.*
 
 class DailyReminder: BroadcastReceiver() {
 
-    private lateinit var alarmIntent: PendingIntent
-
     //todo ini juga minta context tapi bingung
     override fun onReceive(context: Context, intent: Intent) {
         executeThread {
+
+            println("Get Signal su!")
             val repository = Injection.provideRepository(context)
             val data = repository.getTodayNotification()
 
@@ -35,32 +35,25 @@ class DailyReminder: BroadcastReceiver() {
     }
 
     fun setDailyReminder(context: Context) {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = System.currentTimeMillis() + 10000
+//        calendar.set(Calendar.HOUR_OF_DAY, 6)
+//        calendar.set(Calendar.MINUTE, 0)
+//        calendar.set(Calendar.SECOND, 0)
+        val intent = Intent(context, DailyReminder::class.java)
+
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmIntent = Intent(context, DailyReminder::class.java).let { intent ->
-            PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0)
-        }
-        val calendar: Calendar = Calendar.getInstance().apply {
-            timeInMillis = System.currentTimeMillis()
-            set(Calendar.HOUR_OF_DAY, 15)
-            set(Calendar.MINUTE, 7)
-            set(Calendar.SECOND, 0)
-        }
-        alarmManager.setInexactRepeating(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis,
-            AlarmManager.INTERVAL_DAY,
-            alarmIntent
-        )
-        Toast.makeText(context, context.getString(R.string.alarm_on), Toast.LENGTH_SHORT).show()
+        val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0)
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis , AlarmManager.INTERVAL_DAY, pendingIntent)
     }
 
     fun cancelAlarm(context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmIntent = Intent(context, DailyReminder::class.java).let { intent ->
-            PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0)
-        }
-        alarmManager.cancel(alarmIntent)
-        Toast.makeText(context, context.getString(R.string.alarm_off), Toast.LENGTH_SHORT).show()
+        val intent = Intent(context, DailyReminder::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0)
+        pendingIntent.cancel()
+
+        alarmManager.cancel(pendingIntent)
     }
 
     private fun showNotification(context: Context, content: List<Task>) {

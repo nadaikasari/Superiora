@@ -3,13 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/drawable/ic_star.xml" value="0.2109375" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/drawable/ic_star_border.xml" value="0.2109375" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/activity_home.xml" value="0.12916666666666668" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/activity_register.xml" value="0.14719202898550723" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/app_bar_home.xml" value="0.264" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/fragment_roadmaps.xml" value="0.12916666666666668" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/fragment_today_schedule.xml" value="0.12916666666666668" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/fragment_your_task.xml" value="0.12916666666666668" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/nav_header_home.xml" value="0.14130434782608695" />
-        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/task_item.xml" value="0.4991922455573506" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/layout/task_item.xml" value="0.44662921348314605" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/menu/activity_main_drawer.xml" value="0.12916666666666668" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/menu/menu_detail_task.xml" value="0.12916666666666668" />
         <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/menu/menu_roadmap.xml" value="0.12916666666666668" />
-        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/menu/menu_your_task.xml" value="0.12916666666666668" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/menu/menu_today_schedule.xml" value="0.4" />
+        <entry key="..\:/Users/Iqbal Zain/AndroidStudioProjects/Superiora/app/src/main/res/menu/menu_your_task.xml" value="0.264" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1425925925925926" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/ic_android.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/ic_angular.xml" value="0.19583333333333333" />
@@ -30,7 +39,6 @@
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/ic_python.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/ic_react_icon.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/ic_star.xml" value="0.19583333333333333" />
-        <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/ic_star_border.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/ic_superiora_logo_foreground.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/ic_web.xml" value="0.19583333333333333" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/drawable/side_nav_bar.xml" value="0.19583333333333333" />
@@ -47,7 +55,6 @@
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/app_bar_home.xml" value="0.17481884057971014" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/content_empty.xml" value="0.22" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/content_home.xml" value="0.15489130434782608" />
-        <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/empty_text_warning.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/fragment_home.xml" value="0.17028985507246377" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/fragment_roadmaps.xml" value="0.1" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/layout/fragment_slideshow.xml" value="0.1634963768115942" />
@@ -63,7 +70,6 @@
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/menu/menu_detail_task.xml" value="0.1796875" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/menu/menu_edit_task.xml" value="0.1796875" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/menu/menu_roadmap.xml" value="0.1796875" />
-        <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/menu/menu_today_schedule.xml" value="0.1796875" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/menu/menu_your_task.xml" value="0.1796875" />
         <entry key="..\:/Users/Nada Ika Sari/Documents/ProjectAndroid/Superiora/app/src/main/res/xml/root_preferences.xml" value="0.3333333333333333" />
       </map>

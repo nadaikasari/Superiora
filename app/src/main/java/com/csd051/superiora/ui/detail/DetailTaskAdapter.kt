@@ -1,6 +1,7 @@
 package com.csd051.superiora.ui.detail
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -40,7 +41,7 @@ class DetailTaskAdapter: RecyclerView.Adapter<DetailTaskAdapter.TaskViewHolder>(
         fun bind(task: Task) {
             with(binding) {
                 tvItemTitle.text = task.title
-//                tvItemDesc.text = task.dueDate
+                cbItem.visibility = View.GONE
             }
         }
     }

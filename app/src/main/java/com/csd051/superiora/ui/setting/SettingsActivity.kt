@@ -52,9 +52,9 @@ class SettingsActivity : AppCompatActivity() {
             val prefNotification = findPreference<SwitchPreference>(getString(R.string.pref_key_notify))
             prefNotification?.setOnPreferenceChangeListener { _, newValue ->
                 if(newValue.equals(true)) {
-                    DailyReminder().setDailyReminder(requireContext().applicationContext)
+                    DailyReminder().setDailyReminder(requireContext())
                 } else {
-                    DailyReminder().cancelAlarm(requireContext().applicationContext)
+                    DailyReminder().cancelAlarm(requireContext())
                 }
                 true
             }
