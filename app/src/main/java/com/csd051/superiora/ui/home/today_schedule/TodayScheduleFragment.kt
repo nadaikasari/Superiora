@@ -19,7 +19,7 @@ class TodayScheduleFragment : Fragment() {
     private lateinit var viewModel: TodayScheduleViewModel
     private lateinit var todayScheduleAdapter: TodayScheduleAdapter
     private var _binding: FragmentTodayScheduleBinding? = null
-
+    private var messageDataEmpty: String = ""
 
     private val binding get() = _binding!!
 
@@ -48,9 +48,10 @@ class TodayScheduleFragment : Fragment() {
             if (listTask != null) {
                 binding.progressBar3.visibility = View.GONE
                 todayScheduleAdapter.setListTask(listTask)
-                binding.emptyTask.imageView3.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
-                binding.emptyTask.tvContentEmptyDesc.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
             }
+            binding.emptyTask.tvContentEmptyDesc.text = messageDataEmpty
+            binding.emptyTask.imageView3.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
+            binding.emptyTask.tvContentEmptyDesc.visibility = if (listTask.isEmpty()) View.VISIBLE else View.GONE
         })
 
         with(binding.rvTodayTask) {
@@ -109,6 +110,7 @@ class TodayScheduleFragment : Fragment() {
                     viewModel.setFilter(0)
                 }else{
                     viewModel.setFilter(1)
+                    messageDataEmpty = getString(R.string.noresult_search)
                 }
                 return true
             }

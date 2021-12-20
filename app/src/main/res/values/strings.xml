@@ -138,6 +138,7 @@
     <string name="noactive_data">There is no active task!</string>
     <string name="nocomplete_task">There is no complete task!</string>
     <string name="no_favorite_task">There is no favorite task!</string>
+    <string name="noresult_search">There is no result</string>
 
 
 </resources>

@@ -94,6 +94,7 @@ class YourTaskFragment : Fragment() {
                     viewModel.setFilter(0)
                 }else{
                     viewModel.setFilter(4)
+                    messageDataEmpty = getString(R.string.noresult_search)
                 }
                 return true
             }
