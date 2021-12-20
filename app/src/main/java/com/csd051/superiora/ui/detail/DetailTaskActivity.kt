@@ -113,7 +113,21 @@ class DetailTaskActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_favorite -> {
-                Toast.makeText(this, "favorite", Toast.LENGTH_SHORT).show()
+                (task?.isFavorite).let {
+                    task?.isFavorite = it != true
+                    if (task?.isFavorite == null) {
+                        task?.isFavorite = true
+                    }
+                }
+                viewModel.updateTask(task)
+                if (task?.isFavorite == true) {
+                    Toast.makeText(this, "You have favorited this task!", Toast.LENGTH_SHORT).show()
+                    item.icon = getDrawable(R.drawable.ic_star)
+                } else {
+                    Toast.makeText(this, "You have unfavorited this task!", Toast.LENGTH_SHORT).show()
+                    item.icon = getDrawable(R.drawable.ic_star_border)
+                }
+
                 return true
             }
             R.id.action_share -> {

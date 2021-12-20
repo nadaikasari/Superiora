@@ -1,8 +1,13 @@
 package com.csd051.superiora.ui.home.yourtask
 
+import android.app.SearchManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -66,6 +71,27 @@ class YourTaskFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_your_task, menu)
+
+        val searchManager = requireActivity().getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = menu.findItem(R.id.search)?.actionView as SearchView
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(requireActivity().componentName))
+        searchView.queryHint = resources.getString(R.string.search_hint)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String): Boolean {
+                viewModel.titleQuery = query
+                if(query.isEmpty()){
+                    viewModel.setFilter(0)
+                }else{
+                    viewModel.setFilter(4)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
         super.onCreateOptionsMenu(menu, inflater)
     }
 

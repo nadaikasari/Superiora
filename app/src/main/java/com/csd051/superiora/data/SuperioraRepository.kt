@@ -107,7 +107,9 @@ class SuperioraRepository(
         return localDataSource.getTaskSort(courseId, filter)
     }
 
-
+    fun getFilteredTask(courseId: Int, title: String) : LiveData<List<Task>>{
+        return localDataSource.getFilteredTask(courseId, title)
+    }
 
 
     // ----------------------Firebase------------------------

@@ -56,6 +56,10 @@ class LocalDataSource private constructor(private val dao: SuperioraDao) {
         return dao.getTasks(query)
     }
 
+    fun getFilteredTask(courseId:Int, title: String) : LiveData<List<Task>> {
+        return dao.getSearchTask(courseId, title)
+    }
+
     companion object {
         private var INSTANCE: LocalDataSource? = null
 

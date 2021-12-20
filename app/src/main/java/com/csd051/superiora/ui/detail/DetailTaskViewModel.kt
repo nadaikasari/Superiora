@@ -9,4 +9,8 @@ class DetailTaskViewModel (private val repository: SuperioraRepository) : ViewMo
 
     fun getChildTask(parentId: Int): LiveData<List<Task>> =
         repository.getChildTask(parentId)
+
+    fun updateTask(task: Task?) {
+        task?.let { repository.updateTask(it) }
+    }
 }

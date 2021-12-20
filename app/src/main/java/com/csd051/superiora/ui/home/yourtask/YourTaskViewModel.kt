@@ -9,6 +9,7 @@ class YourTaskViewModel(private val repository: SuperioraRepository) : ViewModel
 
     private val _filter = MutableLiveData<Int>()
     private val courseId : Int = 0
+    var titleQuery: String = ""
 
     var tasks: LiveData<List<Task>> = _filter.switchMap {
         when (it) {
@@ -16,6 +17,7 @@ class YourTaskViewModel(private val repository: SuperioraRepository) : ViewModel
             1 -> repository.getActiveTasks(courseId)
             2 -> repository.getCompletedTasks(courseId)
             3 -> repository.getFavoriteTasks(courseId)
+            4 -> repository.getFilteredTask(courseId, titleQuery)
             else -> repository.getRootTask(courseId)
         }
     }
@@ -34,6 +36,5 @@ class YourTaskViewModel(private val repository: SuperioraRepository) : ViewModel
     fun getStaticChild(parentId: Int) : List<Task> = repository.getStaticChild(parentId)
 
     fun updateTask(task: Task) = repository.updateTask(task)
-
 
 }
