@@ -7,9 +7,16 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
+import androidx.work.Data
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.csd051.superiora.R
-import com.csd051.superiora.notification.DailyReminder
+import com.csd051.superiora.notification.NotificationWorker
 import com.csd051.superiora.utils.DarkMode
+import com.csd051.superiora.utils.NOTIFICATION_CHANNEL_ID
+import com.csd051.superiora.utils.NOTIFICATION_CHANNEL_NAME
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +33,9 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
+        private lateinit var workManager : WorkManager
+
+        private lateinit var periodicWorkRequest : PeriodicWorkRequest
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
@@ -41,12 +51,33 @@ class SettingsActivity : AppCompatActivity() {
 
 
             val prefNotification = findPreference<SwitchPreference>(getString(R.string.pref_key_notify))
-            prefNotification?.setOnPreferenceChangeListener { _, newValue ->
-                if(newValue.equals(true)) {
-                    DailyReminder().setDailyReminder(requireContext())
-                } else {
-                    DailyReminder().cancelAlarm(requireContext())
+            prefNotification?.setOnPreferenceChangeListener { preference, newValue ->
+                val channelName = NOTIFICATION_CHANNEL_NAME
+                //TODO 13 : Schedule and cancel daily reminder using WorkManager with data channelName
+
+                workManager = WorkManager.getInstance(requireActivity())
+                val calendar = Calendar.getInstance()
+                calendar.set(Calendar.HOUR_OF_DAY, 6)
+                calendar.set(Calendar.MINUTE, 0)
+                calendar.set(Calendar.SECOND, 0)
+                var time = calendar.timeInMillis - System.currentTimeMillis()
+                if (calendar.timeInMillis < System.currentTimeMillis()) {
+                    time += 86400000 // Adding 1 day interval if the time was exceeded
                 }
+                val data = Data.Builder()
+                    .putString(NOTIFICATION_CHANNEL_ID, channelName)
+                    .build()
+                periodicWorkRequest = PeriodicWorkRequest.Builder(NotificationWorker::class.java, 1, TimeUnit.DAYS)
+                    .setInitialDelay(time, TimeUnit.MILLISECONDS)
+                    .setInputData(data)
+                    .build()
+                val newVal = newValue as Boolean
+                if (newVal) {
+                    workManager.enqueue(periodicWorkRequest)
+                } else {
+                    workManager.cancelWorkById(periodicWorkRequest.id)
+                }
+
                 true
             }
         }
