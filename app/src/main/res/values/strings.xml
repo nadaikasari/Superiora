@@ -62,7 +62,7 @@
     <!-- Notification -->
     <string name="pref_key_notify">key_notification</string>
     <string name="pref_notify_name">Notification</string>
-    <string name="pref_notify_summary">Daily reminder for nearest active task.</string>
+    <string name="pref_notify_summary">Daily reminder for today active task.</string>
 
     <!-- Night Mode Preferences -->
     <string name="pref_dark_title">Dark mode</string>

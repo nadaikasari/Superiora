@@ -1,17 +1,14 @@
 package com.csd051.superiora.ui.setting
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.ListPreference
-import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.csd051.superiora.R
 import com.csd051.superiora.notification.DailyReminder
-import com.csd051.superiora.ui.login.LoginActivity
 import com.csd051.superiora.utils.DarkMode
 
 class SettingsActivity : AppCompatActivity() {
@@ -42,12 +39,6 @@ class SettingsActivity : AppCompatActivity() {
                 true
             }
 
-            val logout = findPreference<Preference>(getString(R.string.pref_key_logout))
-            logout?.setOnPreferenceClickListener {
-                val signOutIntent = Intent(activity, LoginActivity::class.java)
-                startActivity(signOutIntent)
-                true
-            }
 
             val prefNotification = findPreference<SwitchPreference>(getString(R.string.pref_key_notify))
             prefNotification?.setOnPreferenceChangeListener { _, newValue ->

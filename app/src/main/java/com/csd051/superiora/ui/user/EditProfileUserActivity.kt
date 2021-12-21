@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.User
 import com.csd051.superiora.databinding.ActivityEditUserBinding
+import com.csd051.superiora.ui.login.LoginActivity
 import com.csd051.superiora.viewmodel.ViewModelFactory
 import java.io.IOException
 
@@ -58,6 +59,9 @@ class EditProfileUserActivity : AppCompatActivity() {
             updateProfile()
         }
 
+        binding.logout.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
+        }
     }
 
     private fun getPhoto() {
