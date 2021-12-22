@@ -38,7 +38,7 @@ class RoadmapsViewModel (private val repository: SuperioraRepository) : ViewMode
 
     fun getAllTask() : LiveData<List<Task>> = repository.getAllTask()
 
-    fun getDataFromApi(currentSize: Int ,courseId: Int) = repository.getDataAPI(currentSize, courseId)
+    fun getDataFromApi(currentSize: Int ,courseId: Int) = repository.getDataTask(currentSize, courseId)
 
     fun getChildTask(parentId: Int) : LiveData<List<Task>> = repository.getChildTask(parentId)
 

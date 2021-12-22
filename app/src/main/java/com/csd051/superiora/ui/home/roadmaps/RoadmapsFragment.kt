@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +14,7 @@ import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.FragmentRoadmapsBinding
 import com.csd051.superiora.utils.AppExecutors
 import com.csd051.superiora.viewmodel.ViewModelFactory
+import com.csd051.superiora.vo.Status
 
 class RoadmapsFragment : Fragment() {
 
@@ -22,6 +24,7 @@ class RoadmapsFragment : Fragment() {
     private var currentSize: Int = 0
     private var counter: Int = 0
     private var messageDataEmpty: String = ""
+    private lateinit var adapterTask : RoadmapsAdapter
 
 
     override fun onCreateView(
@@ -31,7 +34,7 @@ class RoadmapsFragment : Fragment() {
         fragmentRoadmapsBinding = FragmentRoadmapsBinding.inflate(inflater, container, false)
         val factory = ViewModelFactory.getInstance(requireActivity())
         viewModel = ViewModelProvider(this, factory)[RoadmapsViewModel::class.java]
-        val adapterTask = RoadmapsAdapter(resources,viewLifecycleOwner, viewModel) { task, isDone ->
+        adapterTask = RoadmapsAdapter(resources,viewLifecycleOwner, viewModel) { task, isDone ->
             doneTask(task, isDone)
         }
         val courseId: Int = arguments?.getInt("courseId") ?: 0
@@ -40,24 +43,30 @@ class RoadmapsFragment : Fragment() {
 
         viewModel.getAllTask().observe(viewLifecycleOwner, { data ->
             currentSize = data.size
-            counter += 3
-            if (counter == 5) {
-                viewModel.getDataFromApi(currentSize, courseId)
-            }
+//            counter += 3
+//            if (counter == 5) {
+//                viewModel.getDataFromApi(currentSize, courseId)
+//            }
+
         })
 
         viewModel.tasks.observe(viewLifecycleOwner, { listTask ->
             if (listTask.isNotEmpty()) {
                 binding.progressBar.visibility = View.GONE
-                adapterTask.setListTask(listTask)
-            } else {
-                counter += 2
-                if (counter == 5) {
-                    viewModel.getDataFromApi(currentSize, courseId)
-                }
+//                adapterTask.setListTask(listTask)
+                getData(currentSize, courseId)
+                println(listTask)
             }
+//            } else {
+//                counter += 2
+//                if (counter == 5) {
+//                    viewModel.getDataFromApi(currentSize, courseId)
+//                }
+//            }
+            println(listTask)
             setLayout()
         })
+
 
         with(binding.rvRoadmaps) {
             layoutManager = LinearLayoutManager(context)
@@ -66,6 +75,25 @@ class RoadmapsFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun getData(tableLength: Int, courseId: Int) {
+        viewModel.getDataFromApi(tableLength, courseId).observe(viewLifecycleOwner, { listMovies ->
+            if (listMovies != null) {
+                when (listMovies.status) {
+                    Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
+                    Status.SUCCESS -> {
+                        binding.progressBar.visibility = View.GONE
+                        listMovies.data?.let { adapterTask.setListTask(it) }
+//                        movieAdapter.submitList(listMovies.data)
+                    }
+                    Status.ERROR -> {
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        })
     }
 
     private fun setLayout() {

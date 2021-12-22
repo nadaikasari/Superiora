@@ -9,10 +9,12 @@ import androidx.lifecycle.LiveData
 import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.data.entity.User
+import com.csd051.superiora.data.remote.ApiResponse
 import com.csd051.superiora.ui.home.home.HomeActivity
 import com.csd051.superiora.ui.login.LoginActivity
 import com.csd051.superiora.utils.AppExecutors
 import com.csd051.superiora.utils.TasksFilterType
+import com.csd051.superiora.vo.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -110,6 +112,42 @@ class SuperioraRepository(
 
     fun getFilteredTask(courseId: Int, title: String) : LiveData<List<Task>>{
         return localDataSource.getFilteredTask(courseId, title)
+    }
+
+    fun getDataTask(currentTable: Int, courseId: Int): LiveData<Resource<List<Task>>> {
+        return object :
+            NetworkBoundResource<List<Task>, List<Task>>(
+                appExecutors
+            ) {
+            public override fun loadFromDB(): LiveData<List<Task>> {
+                return localDataSource.getRootTask(courseId)
+            }
+
+            override fun shouldFetch(data: List<Task>?): Boolean =
+                data == null || data.isEmpty()
+
+            override fun createCall(): LiveData<ApiResponse<List<Task>>> =
+                remoteDataSource.getListData(currentTable, courseId)
+
+            override fun saveCallResult(data: List<Task>) {
+                val taskList = ArrayList<Task>()
+                for (response in data) {
+                    val task = Task()
+                    task.let {
+                        it.id += currentTable + 1
+                        it.title = response.title
+                        if (it.id_parent != -1) {
+                            it.id_parent += currentTable + 1
+                        }
+                        it.triggerLink = response.triggerLink
+                        it.details = response.details
+                        it.isRecomended = response.isRecomended
+                    }
+                    taskList.add(task)
+                }
+                localDataSource.insertTask(taskList)
+            }
+        }.asLiveData()
     }
 
 
@@ -245,16 +283,16 @@ class SuperioraRepository(
     }
 
     // ----------------------API Response------------------------
-    fun getDataAPI(currentValue: Int, courseId: Int) {
-        remoteDataSource.getListData(
-            currentValue,
-            courseId,
-            object : RemoteDataSource.LoadDataListCallback {
-                override fun onAllDataReceived(dataListResponse: List<Task>) {
-                    insertAllTask(dataListResponse)
-                }
-            })
-    }
+//    fun getDataAPI(currentValue: Int, courseId: Int) {
+//        remoteDataSource.getListData(
+//            currentValue,
+//            courseId,
+//            object : RemoteDataSource.LoadDataListCallback {
+//                override fun onAllDataReceived(dataListResponse: List<Task>) {
+//                    insertAllTask(dataListResponse)
+//                }
+//            })
+//    }
 
     companion object {
         @Volatile
