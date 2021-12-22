@@ -1,8 +1,10 @@
 package com.csd051.superiora.ui.detail
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.csd051.superiora.data.entity.Task
@@ -10,7 +12,9 @@ import com.csd051.superiora.databinding.TaskItemBinding
 import com.csd051.superiora.helper.TaskDiffCallback
 import java.util.*
 
-class DetailTaskAdapter: RecyclerView.Adapter<DetailTaskAdapter.TaskViewHolder>() {
+class DetailTaskAdapter(
+    private val executeIntent: (Task) -> Unit
+): RecyclerView.Adapter<DetailTaskAdapter.TaskViewHolder>() {
 
     private val listTask = ArrayList<Task>()
 
@@ -42,6 +46,10 @@ class DetailTaskAdapter: RecyclerView.Adapter<DetailTaskAdapter.TaskViewHolder>(
             with(binding) {
                 tvItemTitle.text = task.title
                 cbItem.visibility = View.GONE
+                dropdown.visibility = View.GONE
+                tvItemTitle.setOnClickListener {
+                    executeIntent(task)
+                }
             }
         }
     }

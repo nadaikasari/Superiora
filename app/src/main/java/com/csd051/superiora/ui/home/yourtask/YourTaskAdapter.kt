@@ -17,6 +17,7 @@ import com.csd051.superiora.helper.TaskDiffCallback
 import com.csd051.superiora.ui.detail.DetailTaskActivity
 import com.csd051.superiora.ui.edit.EditTaskActivity
 import com.csd051.superiora.ui.home.TaskTitleView
+import com.csd051.superiora.ui.home.roadmaps.RoadmapsAdapter
 import com.csd051.superiora.utils.DateConverter
 import java.text.SimpleDateFormat
 import java.util.*
@@ -24,8 +25,7 @@ import java.util.*
 class YourTaskAdapter(
     private val ctx: LifecycleOwner,
     private val yourTaskViewModel : YourTaskViewModel,
-    private val doneTask: (Task, Boolean) -> Unit) : PagedListAdapter<Task ,YourTaskAdapter.TaskViewHolder>(
-    DIFF_CALLBACK) {
+    private val doneTask: (Task, Boolean) -> Unit) : RecyclerView.Adapter<YourTaskAdapter.TaskViewHolder>() {
 
     private val listTask = ArrayList<Task>()
 
@@ -92,7 +92,7 @@ class YourTaskAdapter(
                 tvItemTitle.text = task.title
                 tvItemDesc.text = task.dueDate
                 itemContainer.setOnClickListener {
-                    val intent = Intent(it.context, EditTaskActivity::class.java)
+                    val intent = Intent(it.context, DetailTaskActivity::class.java)
                     intent.putExtra(DetailTaskActivity.EXTRA_DATA, task)
                     it.context.startActivity(intent)
                 }
@@ -116,6 +116,7 @@ class YourTaskAdapter(
                 }
 
                 if (rvChild.visibility == View.VISIBLE) {
+                    dropdown.visibility = View.VISIBLE
                     dropdown.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_dropdown_up, 0,0,0)
                 } else {
                     dropdown.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_drop_down, 0,0,0)
@@ -132,7 +133,6 @@ class YourTaskAdapter(
                 }
 
                 cbItem.setOnClickListener{
-                    //Benerin dlu
                     if(task.isDone) {
                         doneTask(task, false)
                     } else {

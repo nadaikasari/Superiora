@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.ActivityDetailTaskBinding
+import com.csd051.superiora.ui.edit.EditTaskActivity
 import com.csd051.superiora.viewmodel.ViewModelFactory
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.PlayerConstants
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
@@ -55,24 +56,36 @@ class DetailTaskActivity : AppCompatActivity() {
             setFavoriteState(state)
             if (task.triggerLink.toString().isEmpty()) {
                 binding.detailVideoPlayer.visibility = View.GONE
+                binding.tvTriggerLink?.visibility = View.GONE
+                binding.tvTitleTriggerLink?.visibility = View.GONE
             } else {
-                youTubePlayerView = binding.detailVideoPlayer
-                lifecycle.addObserver(youTubePlayerView)
-                val videoId = task.triggerLink.toString().replace("https://youtu.be/", "")
+                if (task.triggerLink.toString().contains("https://youtu.be/")) {
+                    youTubePlayerView = binding.detailVideoPlayer
+                    lifecycle.addObserver(youTubePlayerView)
+                    val videoId = task.triggerLink.toString().replace("https://youtu.be/", "")
 
-                youTubePlayerView.addYouTubePlayerListener(object :
-                    AbstractYouTubePlayerListener() {
-                    override fun onReady(youTubePlayer: YouTubePlayer) {
-                        youTubePlayer.loadVideo(videoId, 0f)
-                    }
-                    override fun onError(
-                        youTubePlayer: YouTubePlayer,
-                        error: PlayerConstants.PlayerError
-                    ) {
-                        youTubePlayer.loadVideo(videoId, 0f)
-                        super.onError(youTubePlayer, error)
-                    }
-                })
+                    youTubePlayerView.addYouTubePlayerListener(object :
+                        AbstractYouTubePlayerListener() {
+                        override fun onReady(youTubePlayer: YouTubePlayer) {
+                            youTubePlayer.loadVideo(videoId, 0f)
+                        }
+                        override fun onError(
+                            youTubePlayer: YouTubePlayer,
+                            error: PlayerConstants.PlayerError
+                        ) {
+                            youTubePlayer.loadVideo(videoId, 0f)
+                            super.onError(youTubePlayer, error)
+                        }
+                    })
+
+                    binding.tvTriggerLink?.visibility = View.GONE
+                    binding.tvTitleTriggerLink?.visibility = View.GONE
+                } else {
+                    binding.tvTriggerLink?.text = task.triggerLink
+                    binding.tvTriggerLink?.visibility = View.VISIBLE
+                    binding.detailVideoPlayer.visibility = View.GONE
+                }
+
             }
 
             viewModel.getChildTask(task.id).observe(this, { tasks ->
@@ -84,6 +97,17 @@ class DetailTaskActivity : AppCompatActivity() {
                 }
             })
 
+            binding.btnEdittask?.visibility = View.VISIBLE
+            binding.btnEdittask?.setOnClickListener {
+                val intent = Intent(this, EditTaskActivity::class.java)
+                intent.putExtra(EditTaskActivity.EXTRA_DATA, task)
+                startActivity(intent)
+            }
+
+            if (task.details.isNullOrEmpty()) {
+                binding.tvDetailTitle?.visibility = View.GONE
+                binding.tvDetailsDetail?.visibility = View.GONE
+            }
             binding.swipeRefresh.isRefreshing = false
         }
 
@@ -95,7 +119,11 @@ class DetailTaskActivity : AppCompatActivity() {
     }
 
     private fun showRecyclerView(tasks: List<Task>) {
-        adapter = DetailTaskAdapter()
+        adapter = DetailTaskAdapter(){ task ->
+            val intent = Intent(this, DetailTaskActivity::class.java)
+            intent.putExtra(EXTRA_DATA, task)
+            startActivity(intent)
+        }
         adapter.setListTask(tasks)
         binding.rvDetailChild.adapter = adapter
     }

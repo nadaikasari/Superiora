@@ -22,7 +22,6 @@ class RoadmapsFragment : Fragment() {
     private val binding get() = fragmentRoadmapsBinding!!
     private lateinit var viewModel: RoadmapsViewModel
     private var currentSize: Int = 0
-    private var counter: Int = 0
     private var messageDataEmpty: String = ""
     private lateinit var adapterTask : RoadmapsAdapter
 
@@ -43,36 +42,21 @@ class RoadmapsFragment : Fragment() {
 
         viewModel.getAllTask().observe(viewLifecycleOwner, { data ->
             currentSize = data.size
-//            counter += 3
-//            if (counter == 5) {
-//                viewModel.getDataFromApi(currentSize, courseId)
-//            }
+            getData(currentSize, courseId)
 
         })
 
         viewModel.tasks.observe(viewLifecycleOwner, { listTask ->
             if (listTask.isNotEmpty()) {
+                binding.rvRoadmaps.visibility = View.VISIBLE
                 binding.progressBar.visibility = View.GONE
-//                adapterTask.setListTask(listTask)
-                getData(currentSize, courseId)
-                println(listTask)
+                adapterTask.setListTask(listTask)
+                setRecycler()
+            } else {
+                binding.rvRoadmaps.visibility = View.GONE
             }
-//            } else {
-//                counter += 2
-//                if (counter == 5) {
-//                    viewModel.getDataFromApi(currentSize, courseId)
-//                }
-//            }
-            println(listTask)
             setLayout()
         })
-
-
-        with(binding.rvRoadmaps) {
-            layoutManager = LinearLayoutManager(context)
-            setHasFixedSize(true)
-            adapter = adapterTask
-        }
 
         return binding.root
     }
@@ -84,8 +68,6 @@ class RoadmapsFragment : Fragment() {
                     Status.LOADING -> binding.progressBar.visibility = View.VISIBLE
                     Status.SUCCESS -> {
                         binding.progressBar.visibility = View.GONE
-                        listMovies.data?.let { adapterTask.setListTask(it) }
-//                        movieAdapter.submitList(listMovies.data)
                     }
                     Status.ERROR -> {
                         binding.progressBar.visibility = View.GONE
@@ -94,6 +76,13 @@ class RoadmapsFragment : Fragment() {
                 }
             }
         })
+    }
+    private fun setRecycler() {
+        with(binding.rvRoadmaps) {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = adapterTask
+        }
     }
 
     private fun setLayout() {

@@ -58,12 +58,6 @@ class SuperioraRepository(
         }
     }
 
-    fun insertAllTask(task: List<Task>) {
-        appExecutors.diskIO().execute {
-            localDataSource.insertTask(task)
-        }
-    }
-
     fun deleteTask(task: Task) {
         appExecutors.diskIO().execute {
             localDataSource.delete(task)
@@ -123,8 +117,15 @@ class SuperioraRepository(
                 return localDataSource.getRootTask(courseId)
             }
 
-            override fun shouldFetch(data: List<Task>?): Boolean =
-                data == null || data.isEmpty()
+            override fun shouldFetch(data: List<Task>?): Boolean {
+                val newData = ArrayList<Task>()
+                for (item in data!!){
+                    if (item.id_course == courseId) {
+                        newData.add(item)
+                    }
+                }
+                return newData.isEmpty()
+            }
 
             override fun createCall(): LiveData<ApiResponse<List<Task>>> =
                 remoteDataSource.getListData(currentTable, courseId)
@@ -134,14 +135,15 @@ class SuperioraRepository(
                 for (response in data) {
                     val task = Task()
                     task.let {
-                        it.id += currentTable + 1
+                        it.id = response.id + currentTable + 1
                         it.title = response.title
-                        if (it.id_parent != -1) {
-                            it.id_parent += currentTable + 1
+                        if (response.id_parent != -1) {
+                            it.id_parent = response.id_parent + currentTable + 1
                         }
                         it.triggerLink = response.triggerLink
                         it.details = response.details
                         it.isRecomended = response.isRecomended
+                        it.id_course = courseId
                     }
                     taskList.add(task)
                 }
@@ -282,18 +284,6 @@ class SuperioraRepository(
             }
     }
 
-    // ----------------------API Response------------------------
-//    fun getDataAPI(currentValue: Int, courseId: Int) {
-//        remoteDataSource.getListData(
-//            currentValue,
-//            courseId,
-//            object : RemoteDataSource.LoadDataListCallback {
-//                override fun onAllDataReceived(dataListResponse: List<Task>) {
-//                    insertAllTask(dataListResponse)
-//                }
-//            })
-//    }
-
     companion object {
         @Volatile
         private var instance: SuperioraRepository? = null
@@ -307,8 +297,5 @@ class SuperioraRepository(
                     instance = this
                 }
         }
-
-        const val PAGE_SIZE = 30
-        const val PLACEHOLDERS = true
     }
 }

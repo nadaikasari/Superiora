@@ -40,7 +40,7 @@
                 app:videoId="" />
 
             <TextView
-                android:id="@+id/tv_detail_title"
+                android:id="@+id/tv_details_detail"
                 style="@style/text_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -77,33 +77,6 @@
                 android:layout_marginTop="8dp"
                 tools:itemCount="1"
                 tools:listitem="@layout/task_item" />
-
-            <TextView
-                android:id="@+id/tv_title_trigger_link"
-                style="@style/text_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/trigger_link_hint"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_trigger_link"
-                style="@style/text_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/deep_blue"
-                android:text="@string/trigger_link_hint" />
-
-            <Button
-                android:id="@+id/btn_edittask"
-                android:layout_marginTop="32dp"
-                style="@style/btn_color"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_task" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".ui.add.AddTaskActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:padding="16dp"
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -33,6 +31,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:gravity="center_vertical"
+            android:onClick="showDatePicker"
             android:orientation="horizontal">
 
             <ImageButton
@@ -77,13 +76,14 @@
                 android:lines="5" />
 
         </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:layout_marginTop="32dp"
+            android:id="@+id/btn_save"
+            style="@style/btn_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_save"
-        style="@style/btn_color"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/save" />
 
-</LinearLayout>
+</ScrollView>

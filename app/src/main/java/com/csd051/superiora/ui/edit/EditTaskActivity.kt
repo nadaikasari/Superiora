@@ -66,6 +66,16 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
             binding.addEdTriggerlink.setText(task.triggerLink)
             binding.addEdDescription.setText(task.details)
         }
+
+        if (task?.id_course != 0) {
+            binding.apply {
+                addChild.visibility = View.GONE
+                addEdTitle.isEnabled = false
+                addEdTriggerlink.isEnabled = false
+                addEdDescription.isEnabled = false
+            }
+
+        }
     }
 
     private fun updateTask() {

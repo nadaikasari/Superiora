@@ -105,7 +105,6 @@ class RoadmapsAdapter(
                 tvItemTitle.text = task.title
                 if (task.isRecomended) {
                     tvStar.visibility = View.VISIBLE
-//                    rlTask.setBackgroundColor(ResourcesCompat.getColor(context ,R.color.yellow_light, null))
                 } else {
                     tvStar.visibility = View.GONE
                 }

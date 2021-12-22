@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.switchMap
 import com.csd051.superiora.data.SuperioraRepository
 import com.csd051.superiora.data.entity.Task
+import com.csd051.superiora.vo.Resource
 
 class RoadmapsViewModel (private val repository: SuperioraRepository) : ViewModel() {
 
@@ -38,7 +39,7 @@ class RoadmapsViewModel (private val repository: SuperioraRepository) : ViewMode
 
     fun getAllTask() : LiveData<List<Task>> = repository.getAllTask()
 
-    fun getDataFromApi(currentSize: Int ,courseId: Int) = repository.getDataTask(currentSize, courseId)
+    fun getDataFromApi(currentSize: Int ,courseId: Int): LiveData<Resource<List<Task>>> = repository.getDataTask(currentSize, courseId)
 
     fun getChildTask(parentId: Int) : LiveData<List<Task>> = repository.getChildTask(parentId)
 

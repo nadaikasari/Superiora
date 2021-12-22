@@ -90,7 +90,7 @@ class TodayScheduleAdapter (
                 tvItemTitle.text = task.title
                 tvItemDesc.text = task.dueDate
                 itemContainer.setOnClickListener {
-                    val intent = Intent(it.context, EditTaskActivity::class.java)
+                    val intent = Intent(it.context, DetailTaskActivity::class.java)
                     intent.putExtra(DetailTaskActivity.EXTRA_DATA, task)
                     it.context.startActivity(intent)
                 }
