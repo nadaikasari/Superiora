@@ -128,7 +128,7 @@ class SuperioraRepository(
             }
 
             override fun createCall(): LiveData<ApiResponse<List<Task>>> =
-                remoteDataSource.getListData(currentTable, courseId)
+                remoteDataSource.getListData(courseId)
 
             override fun saveCallResult(data: List<Task>) {
                 val taskList = ArrayList<Task>()

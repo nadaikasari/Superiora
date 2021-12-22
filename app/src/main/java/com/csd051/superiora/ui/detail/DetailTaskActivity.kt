@@ -56,8 +56,8 @@ class DetailTaskActivity : AppCompatActivity() {
             setFavoriteState(state)
             if (task.triggerLink.toString().isEmpty()) {
                 binding.detailVideoPlayer.visibility = View.GONE
-                binding.tvTriggerLink?.visibility = View.GONE
-                binding.tvTitleTriggerLink?.visibility = View.GONE
+                binding.tvTriggerLink.visibility = View.GONE
+                binding.tvTitleTriggerLink.visibility = View.GONE
             } else {
                 if (task.triggerLink.toString().contains("https://youtu.be/")) {
                     youTubePlayerView = binding.detailVideoPlayer
@@ -78,11 +78,11 @@ class DetailTaskActivity : AppCompatActivity() {
                         }
                     })
 
-                    binding.tvTriggerLink?.visibility = View.GONE
-                    binding.tvTitleTriggerLink?.visibility = View.GONE
+                    binding.tvTriggerLink.visibility = View.GONE
+                    binding.tvTitleTriggerLink.visibility = View.GONE
                 } else {
-                    binding.tvTriggerLink?.text = task.triggerLink
-                    binding.tvTriggerLink?.visibility = View.VISIBLE
+                    binding.tvTriggerLink.text = task.triggerLink
+                    binding.tvTriggerLink.visibility = View.VISIBLE
                     binding.detailVideoPlayer.visibility = View.GONE
                 }
 
@@ -97,8 +97,8 @@ class DetailTaskActivity : AppCompatActivity() {
                 }
             })
 
-            binding.btnEdittask?.visibility = View.VISIBLE
-            binding.btnEdittask?.setOnClickListener {
+            binding.btnEdittask.visibility = View.VISIBLE
+            binding.btnEdittask.setOnClickListener {
                 val intent = Intent(this, EditTaskActivity::class.java)
                 intent.putExtra(EditTaskActivity.EXTRA_DATA, task)
                 startActivity(intent)
@@ -119,7 +119,7 @@ class DetailTaskActivity : AppCompatActivity() {
     }
 
     private fun showRecyclerView(tasks: List<Task>) {
-        adapter = DetailTaskAdapter(){ task ->
+        adapter = DetailTaskAdapter { task ->
             val intent = Intent(this, DetailTaskActivity::class.java)
             intent.putExtra(EXTRA_DATA, task)
             startActivity(intent)

@@ -2,6 +2,7 @@ package com.csd051.superiora.ui.edit
 
 import android.content.Intent
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -49,10 +50,13 @@ class EditTaskAdapter(
                     intent.putExtra(EditTaskActivity.EXTRA_DATA, task)
                     it.context.startActivity(intent)
                 }
-                deleteTask.setOnClickListener {
-                    deleteTask(task)
+                if(task.id_course != 0) {
+                    deleteTask.visibility = View.GONE
+                } else {
+                    deleteTask.setOnClickListener {
+                        deleteTask(task)
+                    }
                 }
-
             }
         }
 
