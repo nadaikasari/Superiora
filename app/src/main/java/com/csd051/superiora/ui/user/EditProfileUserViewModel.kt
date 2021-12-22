@@ -17,4 +17,6 @@ class EditProfileUserViewModel(private val repository: SuperioraRepository) : Vi
     fun updateUserWithNoImage(context: Context, user: User) =
         repository.updateDataUserWithNoUpdateImage(context, user)
 
+    fun logout(email: String) = repository.deleteUser(email)
+
 }

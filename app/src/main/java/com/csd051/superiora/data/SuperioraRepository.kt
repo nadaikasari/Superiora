@@ -10,6 +10,7 @@ import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.data.entity.User
 import com.csd051.superiora.data.remote.ApiResponse
+import com.csd051.superiora.ui.detail.DetailTaskActivity
 import com.csd051.superiora.ui.home.home.HomeActivity
 import com.csd051.superiora.ui.login.LoginActivity
 import com.csd051.superiora.utils.AppExecutors
@@ -191,6 +192,7 @@ class SuperioraRepository(
             Toast.makeText(context, context.getString(R.string.login_success), Toast.LENGTH_SHORT)
                 .show()
             val intent = Intent(context, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(context, intent, null)
         }.addOnFailureListener {
             Toast.makeText(context, context.getString(R.string.login_failed), Toast.LENGTH_SHORT)

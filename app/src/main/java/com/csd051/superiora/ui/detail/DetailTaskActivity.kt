@@ -1,6 +1,7 @@
 package com.csd051.superiora.ui.detail
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -54,7 +55,7 @@ class DetailTaskActivity : AppCompatActivity() {
             binding.detailText.text = task.details
             val state = task.isFavorite
             setFavoriteState(state)
-            if (task.triggerLink.toString().isEmpty()) {
+            if (task.triggerLink.toString().isEmpty() || task.triggerLink == null) {
                 binding.detailVideoPlayer.visibility = View.GONE
                 binding.tvTriggerLink.visibility = View.GONE
                 binding.tvTitleTriggerLink.visibility = View.GONE
@@ -108,9 +109,20 @@ class DetailTaskActivity : AppCompatActivity() {
                 binding.tvDetailTitle?.visibility = View.GONE
                 binding.tvDetailsDetail?.visibility = View.GONE
             }
+
+            binding.tvTriggerLink.setOnClickListener {
+                var link = task.triggerLink
+                if (link!!.isNotEmpty()) {
+                    if (!link.contains("https://")) {
+                        link = "https://" + link
+                    }
+                    val uri = Uri.parse(link)
+                    val intent = Intent(Intent.ACTION_VIEW, uri)
+                    startActivity(intent)
+                }
+            }
             binding.swipeRefresh.isRefreshing = false
         }
-
     }
 
     override fun onResume() {

@@ -7,11 +7,14 @@ import android.provider.MediaStore
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.User
 import com.csd051.superiora.databinding.ActivityEditUserBinding
+import com.csd051.superiora.ui.detail.DetailTaskActivity
+import com.csd051.superiora.ui.home.home.HomeActivity
 import com.csd051.superiora.ui.login.LoginActivity
 import com.csd051.superiora.viewmodel.ViewModelFactory
 import java.io.IOException
@@ -27,7 +30,7 @@ class EditProfileUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityEditUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setTitle(R.string.edit_task)
+        setTitle(R.string.edit_profile)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val factory = ViewModelFactory.getInstance(this)
@@ -60,7 +63,10 @@ class EditProfileUserActivity : AppCompatActivity() {
         }
 
         binding.logout.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
+            viewModelProfile.logout(binding.userEdEmail.text.toString())
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
         }
     }
 

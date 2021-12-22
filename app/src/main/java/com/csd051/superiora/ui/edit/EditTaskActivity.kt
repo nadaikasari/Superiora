@@ -1,6 +1,7 @@
 package com.csd051.superiora.ui.edit
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -13,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.ActivityEditTaskBinding
+import com.csd051.superiora.ui.detail.DetailTaskActivity
+import com.csd051.superiora.utils.AppExecutors
 import com.csd051.superiora.utils.DatePickerFragment
 import com.csd051.superiora.viewmodel.ViewModelFactory
 import java.text.SimpleDateFormat
@@ -70,6 +73,7 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
         if (task?.id_course != 0) {
             binding.apply {
                 addChild.visibility = View.GONE
+                edtNewChildName.visibility = View.GONE
                 addEdTitle.isEnabled = false
                 addEdTriggerlink.isEnabled = false
                 addEdDescription.isEnabled = false
@@ -92,7 +96,10 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
             }
             task?.let { task -> viewModel.updateTask(task) }
             Toast.makeText(this, R.string.task_updated, Toast.LENGTH_SHORT).show()
-            finish()
+            val intent = Intent(this, DetailTaskActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.putExtra(DetailTaskActivity.EXTRA_DATA, task)
+            startActivity(intent)
         } else {
             binding.addEdTitle.error = getString(R.string.tv_field_notnull)
             binding.addEdTitle.requestFocus()
@@ -151,9 +158,13 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
     }
 
     private fun showRecyclerView(tasks: List<Task>) {
-        val adapter = EditTaskAdapter { task ->
+        val purge : (Task) -> Unit = { task ->
             purgeObject(task)
         }
+        val doneTask: (Task, Boolean) -> Unit = { task, isDone ->
+            doneTask(task, isDone)
+        }
+        val adapter = EditTaskAdapter(purge, doneTask)
 
         adapter.setListTask(tasks)
         binding.rvChildtask.adapter = adapter
@@ -189,6 +200,35 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
         ) { dialog, _ -> dialog.cancel() }
         val alert = builder.create()
         alert.show()
+    }
+
+    private fun doneTask(task: Task, isDone: Boolean) {
+        AppExecutors().diskIO().execute {
+            with(viewModel.getStaticChild(task.id)) {
+                if (this.isNotEmpty()) {
+                    for (each in this) {
+                        doneByParent(each, isDone)
+                    }
+                }
+            }
+        }
+
+        task.isDone = isDone
+        viewModel.updateTask(task)
+    }
+
+    private fun doneByParent(task: Task, isDone: Boolean) {
+        AppExecutors().diskIO().execute {
+            with(viewModel.getStaticChild(task.id)) {
+                if (this.isNotEmpty()) {
+                    for (each in this) {
+                        doneByParent(each, isDone)
+                    }
+                }
+            }
+        }
+        task.isDoneByParent = isDone
+        viewModel.updateTask(task)
     }
 
     companion object {

@@ -94,6 +94,7 @@
                 style="@style/text_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="16sp"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/deep_blue"
                 android:text="@string/trigger_link_hint" />

@@ -97,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:textColor="@color/deep_blue"
+                android:textSize="16sp"
                 android:text="@string/trigger_link_hint" />
 
             <Button

@@ -12,7 +12,8 @@ import com.csd051.superiora.helper.TaskDiffCallback
 import java.util.ArrayList
 
 class EditTaskAdapter(
-    private val deleteTask: (Task) -> Unit
+    private val deleteTask: (Task) -> Unit,
+    private val doneTask: (Task, Boolean) -> Unit
 ) : RecyclerView.Adapter<EditTaskAdapter.TaskViewHolder>() {
 
     private val listTask = ArrayList<Task>()
@@ -50,11 +51,22 @@ class EditTaskAdapter(
                     intent.putExtra(EditTaskActivity.EXTRA_DATA, task)
                     it.context.startActivity(intent)
                 }
+
                 if(task.id_course != 0) {
                     deleteTask.visibility = View.GONE
                 } else {
                     deleteTask.setOnClickListener {
                         deleteTask(task)
+                    }
+                }
+
+                cbItem.isChecked = task.isDone
+
+                cbItem.setOnClickListener{
+                    if(task.isDone) {
+                        doneTask(task, false)
+                    } else {
+                        doneTask(task, true)
                     }
                 }
             }
