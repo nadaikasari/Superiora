@@ -22,9 +22,6 @@ data class Task (
     @ColumnInfo(name = "id_parent")
     var id_parent: Int = -1,
 
-    @ColumnInfo(name = "id_firebase")
-    var id_firebase: String? = null,
-
     @field:SerializedName("title")
     @ColumnInfo(name = "title")
     var title: String? = null,
@@ -47,8 +44,8 @@ data class Task (
     var isFavorite: Boolean = false,
 
     @field:SerializedName("isRecommend")
-    @ColumnInfo(name = "isRecomended")
-    var isRecomended: Boolean = false,
+    @ColumnInfo(name = "isRecommended")
+    var isRecommended: Boolean = false,
 
     @ColumnInfo(name = "isDoneByParent")
     var isDoneByParent: Boolean = false

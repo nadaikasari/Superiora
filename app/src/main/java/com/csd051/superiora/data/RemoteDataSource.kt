@@ -14,19 +14,16 @@ import retrofit2.Response
 class RemoteDataSource {
 
     fun getListData(courseId: Int): LiveData<ApiResponse<List<Task>>> {
-//        EspressoIdlingResource.increment()
         val resultTask = MutableLiveData<ApiResponse<List<Task>>>()
         val client = ApiConfig.getApiService().getResponseList(QueryUtilApi.pathName(courseId))
         client.enqueue(object : Callback<List<Task>> {
 
             override fun onResponse(call: Call<List<Task>>, response: Response<List<Task>>) {
-
                 if (response.isSuccessful) {
                     resultTask.value = ApiResponse.success(response.body() as List<Task>)
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
-//                EspressoIdlingResource.decrement()
             }
 
             override fun onFailure(call: Call<List<Task>>, t: Throwable) {

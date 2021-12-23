@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.csd051.superiora.data.SuperioraRepository
-import com.csd051.superiora.data.entity.User
 
 class LoginViewModel(private val repository: SuperioraRepository) : ViewModel(){
 
@@ -17,6 +16,5 @@ class LoginViewModel(private val repository: SuperioraRepository) : ViewModel(){
         repository.login(context, email, password)
     }
 
-    fun logout(email: String) = repository.deleteUser(email)
-    fun getUser(): LiveData<User> = repository.getUser()
+    fun forgotPassword(context: Context, email: String) = repository.forgotPassword(context, email)
 }

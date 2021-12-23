@@ -2,16 +2,10 @@ package com.csd051.superiora.ui.home.roadmaps
 
 import android.content.Intent
 import android.content.res.Resources
-import android.graphics.Color
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.TextUtils
-import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +20,6 @@ import com.csd051.superiora.ui.home.TaskTitleView.Companion.DONE
 import com.csd051.superiora.ui.home.TaskTitleView.Companion.NORMAL
 import com.csd051.superiora.ui.home.TaskTitleView.Companion.OVERDUE
 import com.csd051.superiora.utils.DateConverter
-import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -103,12 +96,11 @@ class RoadmapsAdapter(
         fun bind(task: Task) {
             with(binding) {
                 tvItemTitle.text = task.title
-                if (task.isRecomended) {
+                if (task.isRecommended) {
                     tvStar.visibility = View.VISIBLE
                 } else {
                     tvStar.visibility = View.GONE
                 }
-//                tvItemDesc.text = task.dueDate
                 itemContainer.setOnClickListener {
                     val intent = Intent(it.context, DetailTaskActivity::class.java)
                     intent.putExtra(DetailTaskActivity.EXTRA_DATA, task)

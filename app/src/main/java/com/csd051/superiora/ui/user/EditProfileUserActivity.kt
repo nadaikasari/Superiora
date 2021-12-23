@@ -1,21 +1,20 @@
 package com.csd051.superiora.ui.user
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.User
 import com.csd051.superiora.databinding.ActivityEditUserBinding
-import com.csd051.superiora.ui.detail.DetailTaskActivity
 import com.csd051.superiora.ui.home.home.HomeActivity
-import com.csd051.superiora.ui.login.LoginActivity
 import com.csd051.superiora.viewmodel.ViewModelFactory
 import java.io.IOException
 
@@ -50,7 +49,7 @@ class EditProfileUserActivity : AppCompatActivity() {
                         binding.userImgPhoto
                     )
                 binding.userEdName.setText(data.nama)
-                binding.userEdEmail.setText(data.email)
+                binding.userEdEmail.text = data.email
             }
         })
 
@@ -63,10 +62,7 @@ class EditProfileUserActivity : AppCompatActivity() {
         }
 
         binding.logout.setOnClickListener {
-            viewModelProfile.logout(binding.userEdEmail.text.toString())
-            val intent = Intent(this, HomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
+            showDialog()
         }
     }
 
@@ -74,7 +70,6 @@ class EditProfileUserActivity : AppCompatActivity() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
-        //todo Deprecated
         startActivityForResult(
             Intent.createChooser(
                 intent,
@@ -132,6 +127,27 @@ class EditProfileUserActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showDialog() {
+        val builder = AlertDialog.Builder(this@EditProfileUserActivity)
+        builder.setMessage(getString(R.string.logout_validation))
+        builder.setCancelable(true)
+        builder.setPositiveButton(
+            R.string.yes
+        ) { _, _ ->
+            viewModelProfile.logout(binding.userEdEmail.text.toString())
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+            Toast.makeText(this, getString(R.string.success_logout), Toast.LENGTH_SHORT).show()
+            finish()
+        }
+        builder.setNegativeButton(
+            R.string.no
+        ) { dialog, _ -> dialog.cancel() }
+        val alert = builder.create()
+        alert.show()
     }
 
     companion object {

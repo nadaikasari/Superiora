@@ -25,7 +25,6 @@ class RoadmapsFragment : Fragment() {
     private var messageDataEmpty: String = ""
     private lateinit var adapterTask : RoadmapsAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -71,7 +70,7 @@ class RoadmapsFragment : Fragment() {
                     }
                     Status.ERROR -> {
                         binding.progressBar.visibility = View.GONE
-                        Toast.makeText(context, "Terjadi kesalahan", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, getString(R.string.error_value), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -87,15 +86,17 @@ class RoadmapsFragment : Fragment() {
 
     private fun setLayout() {
         viewModel.tasks.observe(viewLifecycleOwner, { listTask ->
+            binding.emptyTask.imageView3.visibility = View.GONE
+            binding.emptyTask.tvContentEmptyDesc.visibility = View.GONE
             if (messageDataEmpty == "") {
                 binding.emptyTask.tvContentEmptyDesc.text = getString(R.string.notask)
             } else {
                 binding.emptyTask.tvContentEmptyDesc.text = messageDataEmpty
+                binding.emptyTask.imageView3.visibility =
+                    if (listTask.isEmpty()) View.VISIBLE else View.GONE
+                binding.emptyTask.tvContentEmptyDesc.visibility =
+                    if (listTask.isEmpty()) View.VISIBLE else View.GONE
             }
-            binding.emptyTask.imageView3.visibility =
-                if (listTask.isEmpty()) View.VISIBLE else View.GONE
-            binding.emptyTask.tvContentEmptyDesc.visibility =
-                if (listTask.isEmpty()) View.VISIBLE else View.GONE
         })
     }
 

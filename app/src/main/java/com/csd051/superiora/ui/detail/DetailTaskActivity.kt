@@ -114,7 +114,7 @@ class DetailTaskActivity : AppCompatActivity() {
                 var link = task.triggerLink
                 if (link!!.isNotEmpty()) {
                     if (!link.contains("https://")) {
-                        link = "https://" + link
+                        link = "https://$link"
                     }
                     val uri = Uri.parse(link)
                     val intent = Intent(Intent.ACTION_VIEW, uri)
@@ -162,27 +162,43 @@ class DetailTaskActivity : AppCompatActivity() {
                 }
                 viewModel.updateTask(task)
                 if (task?.isFavorite == true) {
-                    Toast.makeText(this, "You have favorited this task!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.add_favtask), Toast.LENGTH_SHORT).show()
                     item.icon = ContextCompat.getDrawable(this, R.drawable.ic_star)
                 } else {
-                    Toast.makeText(this, "You have unfavorited this task!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.un_favtask), Toast.LENGTH_SHORT).show()
                     item.icon = ContextCompat.getDrawable(this, R.drawable.ic_star_border)
                 }
 
                 return true
             }
             R.id.action_share -> {
-                val sendIntent = Intent()
-                sendIntent.action = Intent.ACTION_SEND
-                sendIntent.putExtra(
-                    Intent.EXTRA_TEXT,
-                    "Learn " + binding.detailTvTitle.text + " in Superiora App " +
-                            task?.let { task -> task.triggerLink.toString() }
-                )
-                sendIntent.type = "text/plain"
+                if(task?.id_course != 0) {
+                    val sendIntent = Intent()
+                    sendIntent.action = Intent.ACTION_SEND
+                    sendIntent.putExtra(
+                        Intent.EXTRA_TEXT,
+                        "Learn " + binding.detailTvTitle.text + " in Superiora App " +
+                                task?.let { task -> task.triggerLink.toString() }
+                    )
+                    sendIntent.type = "text/plain"
 
-                val shareIntent = Intent.createChooser(sendIntent, null)
-                startActivity(shareIntent)
+                    val shareIntent = Intent.createChooser(sendIntent, null)
+                    startActivity(shareIntent)
+                } else {
+                    val sendIntent = Intent()
+                    sendIntent.action = Intent.ACTION_SEND
+                    sendIntent.putExtra(
+                        Intent.EXTRA_TEXT,
+                        "Task : " + binding.detailTvTitle.text + "\nDetails : " + binding.detailText.text + "\nLink : " +
+                                task?.let { task -> task.triggerLink.toString() }
+                                + "\n\n Superiora App"
+                    )
+                    sendIntent.type = "text/plain"
+
+                    val shareIntent = Intent.createChooser(sendIntent, null)
+                    startActivity(shareIntent)
+                }
+
                 return true
             }
         }

@@ -32,12 +32,9 @@ class LoginActivity : AppCompatActivity() {
             validate()
         }
 
-        viewModel.getUser().observe(this, { data->
-            if (data != null) {
-                viewModel.logout(data.email)
-            }
-        })
-
+        binding.btnForgotPassword.setOnClickListener {
+            forgotPassword()
+        }
     }
 
     private fun validate() {
@@ -67,6 +64,16 @@ class LoginActivity : AppCompatActivity() {
         viewModel.isLoadingLogin.observe(this, {
             showLoading(it)
         })
+    }
+
+    private fun forgotPassword() {
+        val email = binding.edtEmailLogin.text.toString()
+        if (email.isEmpty()) {
+            binding.edtEmailLogin.error = getString(R.string.tv_email_null)
+            binding.edtEmailLogin.requestFocus()
+        } else {
+            viewModel.forgotPassword(this, email)
+        }
     }
 
     private fun showLoading(isLoading: Boolean) {

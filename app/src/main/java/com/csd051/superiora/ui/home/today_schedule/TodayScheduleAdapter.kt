@@ -14,7 +14,6 @@ import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.TaskItemWithdateBinding
 import com.csd051.superiora.helper.TaskDiffCallback
 import com.csd051.superiora.ui.detail.DetailTaskActivity
-import com.csd051.superiora.ui.edit.EditTaskActivity
 import com.csd051.superiora.ui.home.TaskTitleView
 import com.csd051.superiora.utils.DateConverter
 import java.text.SimpleDateFormat

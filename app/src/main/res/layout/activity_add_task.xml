@@ -32,14 +32,16 @@
             android:layout_marginBottom="8dp"
             android:gravity="center_vertical"
             android:onClick="showDatePicker"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UsingOnClickInXml">
 
             <ImageButton
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/due_date"
                 android:onClick="showDatePicker"
-                android:src="@drawable/ic_calendar_month" />
+                android:src="@drawable/ic_calendar_month"
+                tools:ignore="UsingOnClickInXml" />
 
             <TextView
                 android:id="@+id/add_tv_due_date"

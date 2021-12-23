@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import androidx.lifecycle.LifecycleOwner
-import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,9 +14,7 @@ import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.TaskItemWithdateBinding
 import com.csd051.superiora.helper.TaskDiffCallback
 import com.csd051.superiora.ui.detail.DetailTaskActivity
-import com.csd051.superiora.ui.edit.EditTaskActivity
 import com.csd051.superiora.ui.home.TaskTitleView
-import com.csd051.superiora.ui.home.roadmaps.RoadmapsAdapter
 import com.csd051.superiora.utils.DateConverter
 import java.text.SimpleDateFormat
 import java.util.*
@@ -139,19 +136,6 @@ class YourTaskAdapter(
                         doneTask(task, true)
                     }
                 }
-            }
-        }
-
-    }
-
-    companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Task>() {
-            override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
-                return oldItem == newItem
             }
         }
     }

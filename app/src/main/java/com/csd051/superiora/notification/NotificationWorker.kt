@@ -11,7 +11,6 @@ import androidx.core.app.TaskStackBuilder
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.csd051.superiora.R
-import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.di.Injection
 import com.csd051.superiora.ui.home.home.HomeActivity
 import com.csd051.superiora.utils.NOTIFICATION_CHANNEL_ID

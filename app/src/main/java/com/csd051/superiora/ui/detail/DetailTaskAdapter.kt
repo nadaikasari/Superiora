@@ -1,14 +1,12 @@
 package com.csd051.superiora.ui.detail
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.csd051.superiora.data.entity.Task
-import com.csd051.superiora.databinding.TaskItemBinding
+import com.csd051.superiora.databinding.TaskItemSimpleBinding
 import com.csd051.superiora.helper.TaskDiffCallback
 import java.util.*
 
@@ -28,7 +26,7 @@ class DetailTaskAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val listTask =
-            TaskItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            TaskItemSimpleBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return TaskViewHolder(listTask)
     }
 
@@ -40,13 +38,13 @@ class DetailTaskAdapter(
         return listTask.size
     }
 
-    inner class TaskViewHolder (private val binding: TaskItemBinding) :
+    inner class TaskViewHolder (private val binding: TaskItemSimpleBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(task: Task) {
             with(binding) {
                 tvItemTitle.text = task.title
                 cbItem.visibility = View.GONE
-                dropdown.visibility = View.GONE
+                deleteTask.visibility = View.GONE
                 tvItemTitle.setOnClickListener {
                     executeIntent(task)
                 }

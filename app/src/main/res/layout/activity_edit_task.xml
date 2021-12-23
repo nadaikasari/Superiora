@@ -76,7 +76,8 @@
             android:layout_marginBottom="8dp"
             android:gravity="center_vertical"
             android:onClick="showDatePicker"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UsingOnClickInXml">
 
             <ImageButton
                 android:layout_width="50dp"
@@ -129,7 +130,5 @@
             style="@style/btn_color"
             android:text="@string/save_changes" />
     </LinearLayout>
-
-
 
 </ScrollView>

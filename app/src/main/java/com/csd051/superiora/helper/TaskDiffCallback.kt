@@ -21,7 +21,6 @@ class TaskDiffCallback (private val mOldTaskList: List<Task>, private val mNewTa
         val newEmployee = mNewTaskList[newItemPosition]
         return oldEmployee.title == newEmployee.title &&
                 oldEmployee.id_parent == newEmployee.id_parent &&
-                oldEmployee.id_firebase == newEmployee.id_firebase &&
                 oldEmployee.dueDate == newEmployee.dueDate &&
                 oldEmployee.triggerLink == newEmployee.triggerLink &&
                 oldEmployee.details == newEmployee.details &&

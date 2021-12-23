@@ -1,39 +1,29 @@
 <resources>
     <string name="app_name">Superiora</string>
     <string name="logo">Superiora Logo</string>
-    <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="new_user">New user?</string>
-    <string name="or">or</string>
     <string name="name">Name</string>
     <string name="email">Email</string>
     <string name="already_have_an_account">Already Have an account?</string>
     <string name="login">Login</string>
     <string name="repeat_password">Repeat Password</string>
     <string name="create_account">Create Account</string>
-    <string name="google">Google</string>
     <string name="tv_name_null">Nama tidak boleh kosong!</string>
     <string name="tv_email_null">Email salah!</string>
-    <string name="tv_username_null">Username tidak boleh kosong!</string>
     <string name="tv_pass_null">Password tidak boleh kosong!</string>
     <string name="passvalidate">Password harus menyertakan 1 Huruf kapital, Symbol, Angka dan minimal 8 karakter </string>
     <string name="tv_repeatpass_null">Tulis ulang password!</string>
-    <string name="email_matches">Isi email dengan Benar</string>
     <string name="pass_notmatch">Password tidak sama!</string>
     <string name="title_activity_home">HomeActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">User Superiora</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
     <string name="tv_field_notnull">Field tidak boleh kosong!</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="bookmarked">Bookmarked</string>
     <string name="settings">Settings</string>
@@ -53,7 +43,6 @@
 
     <!-- filter menu -->
     <string name="all_task">All Task</string>
-    <string name="near_deadline">Near Deadline</string>
     <string name="is_active">Active Task</string>
     <string name="complete">Complete Task</string>
     <string name="favorite_task">Favorite Task</string>
@@ -75,13 +64,8 @@
     <string name="dark_mode_off">Light mode</string>
 
     <!-- Logout Preferences -->
-    <string name="pref_logout_title" translatable="false">Log Out</string>
-    <string name="pref_key_logout">key_logout</string>
-    <string name="pref_logout_true" translatable="false">Log Out</string>
-    <string name="pref_logout_false" translatable="false">Log In</string>
 
 
-    <string name="profile">Profile</string>
     <string name="reminder">Reminder</string>
     <string name="today_schedule">Today Schedule</string>
     <string name="your_task">Your Task</string>
@@ -96,7 +80,6 @@
     <string name="update">Update</string>
     <string name="save_changes">Save Changes</string>
     <string name="name_hint">Name</string>
-    <string name="email_hint">Email</string>
     <string name="profile_image">Profile Image</string>
     <string name="change_photo">Change Photo</string>
     <string name="display">Display</string>
@@ -106,13 +89,10 @@
     <string name="task_updated">Task updated</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="register_failed">Register failed! Please Try Again</string>
-    <string name="regiter_success">You have been successfully registered</string>
     <string name="login_success">Success Login</string>
     <string name="login_failed">Login failed! Please try again</string>
     <string name="edit_profile_success">Success updating data</string>
     <string name="edit_profile_failed">Failed updating data</string>
-    <string name="alarm_on">Notifikasi Pengingat dinyalakan</string>
-    <string name="alarm_off">Notifikasi Pengingat dimatikan</string>
 
 
     <string name="search">Search</string>
@@ -130,16 +110,21 @@
     <string name="share">Share</string>
     <string name="notask">There is no task left !\nYou can relax for a while!</string>
     <string name="register_success">You have been successfully registered.</string>
-    <string name="notification_message_format">(%1$s - %2$s) %3$s</string>
 
     <!-- Search Query -->
     <string name="search_hint">Search Task Title</string>
-    <string name="value">No task left</string>
     <string name="noactive_data">There is no active task!</string>
     <string name="nocomplete_task">There is no complete task!</string>
     <string name="no_favorite_task">There is no favorite task!</string>
     <string name="noresult_search">There is no result</string>
     <string name="star">*</string>
-
+    <string name="add_favtask">You have favorited this task!</string>
+    <string name="un_favtask">You have unfavorited this task!</string>
+    <string name="error_value">Terjadi kesalahan</string>
+    <string name="success_resetpass">check email to reset your password</string>
+    <string name="failed_reset_pass">failed to reset password</string>
+    <string name="success_logout">Success logging out</string>
+    <string name="logout_validation">Are you sure you want to logout</string>
+    <string name="logout">logout</string>
 
 </resources>

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.TaskItemSimpleBinding
 import com.csd051.superiora.helper.TaskDiffCallback
-import java.util.ArrayList
+import java.util.*
 
 class EditTaskAdapter(
     private val deleteTask: (Task) -> Unit,
@@ -46,6 +46,7 @@ class EditTaskAdapter(
         fun bind(task: Task) {
             with(binding) {
                 tvItemTitle.text = task.title
+                tvItemTitle.setCompoundDrawables(null, null, null,null)
                 tvItemTitle.setOnClickListener {
                     val intent = Intent(it.context, EditTaskActivity::class.java)
                     intent.putExtra(EditTaskActivity.EXTRA_DATA, task)

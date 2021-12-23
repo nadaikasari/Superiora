@@ -15,6 +15,7 @@ import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.databinding.ActivityEditTaskBinding
 import com.csd051.superiora.ui.detail.DetailTaskActivity
+import com.csd051.superiora.ui.home.home.HomeActivity
 import com.csd051.superiora.utils.AppExecutors
 import com.csd051.superiora.utils.DatePickerFragment
 import com.csd051.superiora.viewmodel.ViewModelFactory
@@ -110,7 +111,6 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
         if(binding.edtNewChildName.text.isNotEmpty()) {
             val childTask = Task()
             childTask.let {
-                childTask.id_firebase = ""
                 childTask.id_parent = task?.id ?: -1
                 childTask.title = binding.edtNewChildName.text.toString()
             }
@@ -139,7 +139,9 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.menu_edit_task, menu)
+        if (task?.id_course == 0) {
+            menuInflater.inflate(R.menu.menu_edit_task, menu)
+        }
         return true
     }
 
@@ -172,7 +174,6 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
 
     private fun purgeObject(task: Task) {
         viewModel.getChildTask(task.id).observe(this, { child ->
-            println(task.id)
             if(child.isNotEmpty()){
                 for(each in child) {
                     purgeObject(each)
@@ -193,7 +194,9 @@ class EditTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListe
                 purgeObject(task)
             }
             Toast.makeText(this, R.string.text_delete, Toast.LENGTH_SHORT).show()
-            finish()
+            val gotoScreenVar = Intent(this, HomeActivity::class.java)
+            gotoScreenVar.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT)
+            startActivity(gotoScreenVar)
         }
         builder.setNegativeButton(
             R.string.no

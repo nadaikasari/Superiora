@@ -47,7 +47,6 @@ class AddTaskActivity : AppCompatActivity(), DatePickerFragment.DialogDateListen
     private fun insertTask() {
         val task = Task()
         task.let {
-            task.id_firebase = ""
             task.id_parent = -1
             task.title = binding.addEdTitle.text.toString()
             if(binding.addTvDueDate.text.equals("Due Date")) {

@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 tools:itemCount="1"
-                tools:listitem="@layout/task_item" />
+                tools:listitem="@layout/task_item_simple" />
 
             <TextView
                 android:id="@+id/tv_title_trigger_link"

@@ -10,9 +10,9 @@ import com.csd051.superiora.R
 import com.csd051.superiora.data.entity.Task
 import com.csd051.superiora.data.entity.User
 import com.csd051.superiora.data.remote.ApiResponse
-import com.csd051.superiora.ui.detail.DetailTaskActivity
 import com.csd051.superiora.ui.home.home.HomeActivity
 import com.csd051.superiora.ui.login.LoginActivity
+import com.csd051.superiora.ui.register.RegisterActivity
 import com.csd051.superiora.utils.AppExecutors
 import com.csd051.superiora.utils.TasksFilterType
 import com.csd051.superiora.vo.Resource
@@ -105,7 +105,7 @@ class SuperioraRepository(
     }
 
 
-    fun getFilteredTask(courseId: Int, title: String) : LiveData<List<Task>>{
+    fun getFilteredTask(courseId: Int, title: String): LiveData<List<Task>> {
         return localDataSource.getFilteredTask(courseId, title)
     }
 
@@ -120,7 +120,7 @@ class SuperioraRepository(
 
             override fun shouldFetch(data: List<Task>?): Boolean {
                 val newData = ArrayList<Task>()
-                for (item in data!!){
+                for (item in data!!) {
                     if (item.id_course == courseId) {
                         newData.add(item)
                     }
@@ -143,7 +143,7 @@ class SuperioraRepository(
                         }
                         it.triggerLink = response.triggerLink
                         it.details = response.details
-                        it.isRecomended = response.isRecomended
+                        it.isRecommended = response.isRecommended
                         it.id_course = courseId
                     }
                     taskList.add(task)
@@ -182,6 +182,9 @@ class SuperioraRepository(
                 context.getString(R.string.register_failed),
                 Toast.LENGTH_SHORT
             ).show()
+            val intent = Intent(context, RegisterActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(context, intent, null)
         }
     }
 
@@ -197,6 +200,9 @@ class SuperioraRepository(
         }.addOnFailureListener {
             Toast.makeText(context, context.getString(R.string.login_failed), Toast.LENGTH_SHORT)
                 .show()
+            val intent = Intent(context, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(context, intent, null)
         }
     }
 
@@ -239,6 +245,9 @@ class SuperioraRepository(
                             context.getString(R.string.edit_profile_success),
                             Toast.LENGTH_SHORT
                         ).show()
+                        val intent = Intent(context, HomeActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(context, intent, null)
                     }.addOnFailureListener {
                         Toast.makeText(
                             context,
@@ -277,6 +286,9 @@ class SuperioraRepository(
                     context.getString(R.string.edit_profile_success),
                     Toast.LENGTH_SHORT
                 ).show()
+                val intent = Intent(context, HomeActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(context, intent, null)
             }.addOnFailureListener {
                 Toast.makeText(
                     context,
@@ -284,6 +296,23 @@ class SuperioraRepository(
                     Toast.LENGTH_SHORT
                 ).show()
             }
+    }
+
+    fun forgotPassword(context: Context, email: String) {
+        mAuth = FirebaseAuth.getInstance()
+        mAuth.sendPasswordResetEmail(email).addOnSuccessListener {
+            Toast.makeText(
+                context,
+                context.getString(R.string.success_resetpass),
+                Toast.LENGTH_SHORT
+            ).show()
+        }.addOnFailureListener {
+            Toast.makeText(
+                context,
+                context.getString(R.string.failed_reset_pass),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     companion object {
@@ -298,6 +327,6 @@ class SuperioraRepository(
                 SuperioraRepository(localData, appExecutors, remoteData).apply {
                     instance = this
                 }
-        }
+            }
     }
 }
